@@ -48,7 +48,7 @@ public class DataLogger : MonoBehaviour
         }
     }
 
-    public void KillLogging(InputAction.CallbackContext ctx)
+    public void KillLogging()
     {
         if (loggingKilled) return;
         loggingKilled = true;
