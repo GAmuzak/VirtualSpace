@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class QuestFramework : MonoBehaviour
 {
-    protected bool startedQuest = false;
-    protected bool goalState = false;
-    protected Notification Notification;
+    public UnityAction<QuestState> changeState;
+    
+    [SerializeField] protected QuestState state;
+    [SerializeField] protected GameObject Notification;
+
+    
 }
-
-
