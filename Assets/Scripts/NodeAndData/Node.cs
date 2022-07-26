@@ -19,6 +19,11 @@ public class Node : MonoBehaviour
         Debug.Log("Player exited node " + name);
         HasPlayer = false;
     }
+
+    public void LogMovement()
+    {
+        
+    }
 }
 
 
