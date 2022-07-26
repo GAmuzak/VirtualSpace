@@ -5,7 +5,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DataLogger : MonoBehaviour
+public class PositionalDataLogger : MonoBehaviour
 {
     [SerializeField] private string pathForLogFile;
     [SerializeField] private Transform playerTransform;

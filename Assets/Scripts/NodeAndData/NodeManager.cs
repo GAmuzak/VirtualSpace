@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class NodeManager : MonoBehaviour
 {
+    
+    //singleton pattern
+    public static NodeManager instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     private List<Node> nodes = new List<Node>();
 
     private void Start()
@@ -23,7 +38,7 @@ public class NodeManager : MonoBehaviour
     {
         foreach (Node node in nodes)
         {
-            if(node.HasPlayer==true)
+            if(node.HasPlayer)
             {
                 Node targetNode = node;
                 return targetNode;

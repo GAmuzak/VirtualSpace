@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &17988395
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -376,6 +376,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoomEnvironment
       objectReference: {fileID: 0}
+    - target: {fileID: 6600396371627242169, guid: a912065df8e0b4b4385507810e31c60d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a912065df8e0b4b4385507810e31c60d, type: 3}
 --- !u!1 &350341668
@@ -393,7 +397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &350341669
 Transform:
   m_ObjectHideFlags: 0
@@ -410,7 +414,7 @@ Transform:
   - {fileID: 1676265177}
   - {fileID: 1208182518}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &382154432
 PrefabInstance:
@@ -422,6 +426,10 @@ PrefabInstance:
     - target: {fileID: 7681372687013864540, guid: d93b7e04b48cd7b4fa849695dba2ce9c, type: 3}
       propertyPath: m_Name
       value: InteractionRigOVR-FullSynthetic
+      objectReference: {fileID: 0}
+    - target: {fileID: 7681372687013864540, guid: d93b7e04b48cd7b4fa849695dba2ce9c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7681372687013864541, guid: d93b7e04b48cd7b4fa849695dba2ce9c, type: 3}
       propertyPath: m_RootOrder
@@ -485,7 +493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &402114615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,6 +590,10 @@ PrefabInstance:
     - target: {fileID: 3871592121899430321, guid: 34546ab6388f9b14f9dc5e4f87e9d7af, type: 3}
       propertyPath: m_Name
       value: Interactables
+      objectReference: {fileID: 0}
+    - target: {fileID: 3871592121899430321, guid: 34546ab6388f9b14f9dc5e4f87e9d7af, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3871592121899430322, guid: 34546ab6388f9b14f9dc5e4f87e9d7af, type: 3}
       propertyPath: m_RootOrder
@@ -859,7 +871,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1695156026
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -937,5 +949,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
