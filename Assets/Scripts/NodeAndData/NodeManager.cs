@@ -1,49 +1,37 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NodeManager : MonoBehaviour
 {
-    
-    //singleton pattern
-    public static NodeManager instance;
-    private void Awake()
+    public static NodeManager Instance;
+
+    private Node currentPlayerNode;
+    private DataLogger dataLogger;
+
+    private void Start()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
             Destroy(gameObject);
         }
+        dataLogger = FindObjectOfType<DataLogger>();
+    }
+
+    public void Entered(Node node)
+    {
+        currentPlayerNode = node;
+        dataLogger.LogNodeData(node.name,1);
     }
     
-    private List<Node> nodes = new List<Node>();
-
-    private void Start()
+    public void Exited(Node node)
     {
-        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Node"))
+        if (currentPlayerNode == node)
         {
-            try{
-                nodes.Add(g.GetComponent<Node>());
-            }
-            catch(Exception e){
-                Debug.Log(e);
-            }
+            currentPlayerNode = null;
         }
-    }
-
-    public Node GetNodeWithPlayer()
-    {
-        foreach (Node node in nodes)
-        {
-            if(node.HasPlayer)
-            {
-                Node targetNode = node;
-                return targetNode;
-            }
-        }
-        return null;
+        dataLogger.LogNodeData(node.name,0);
     }
 }
