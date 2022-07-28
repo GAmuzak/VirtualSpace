@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class DataLogger : MonoBehaviour
 {
-    [SerializeField] private string pathForLogFile;
+    [SerializeField] private string pathForPositionalLogs;
+    [SerializeField] private string pathForNodeLogs;
     [SerializeField] private Transform playerTransform;
     [Range(0.1f,100)][Tooltip("Sampling rate per second")]
     [SerializeField] private float resolution;
@@ -16,18 +17,25 @@ public class DataLogger : MonoBehaviour
     private bool loggingKilled;
     private float waitTime;
     private TextWriter tw;
-    private string fileName;
+    private string positionalFileName;
+    private string nodeFileName;
     private Vector3 playerLoc;
     private Vector3 playerRot;
-    private List<Array> data;
+    private List<Array> positionalData;
+    private List<Array> nodeData;
     private Camera mainCam;
     private void Start()
     {
         waitTime = 1.0f / resolution;
-        data = new List<Array>();
-        fileName = Application.dataPath + pathForLogFile;
-        tw = new StreamWriter(fileName, false);
+        positionalData = new List<Array>();
+        nodeData = new List<Array>();
+        positionalFileName = Application.dataPath + pathForPositionalLogs;
+        nodeFileName = Application.dataPath + pathForNodeLogs;
+        tw = new StreamWriter(positionalFileName, false);
         tw.WriteLine("Time, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
+        tw.Close();
+        tw = new StreamWriter(nodeFileName, false);
+        tw.WriteLine("Time, Node, InOrOut, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
         tw.Close();
 
         routine=StartCoroutine(CallLogger(waitTime));
@@ -37,6 +45,10 @@ public class DataLogger : MonoBehaviour
     {
         playerLoc = playerTransform.position;
         playerRot = playerTransform.eulerAngles;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            KillLogging();
+        }
     }
 
     private IEnumerator CallLogger(float timeToWait)
@@ -44,30 +56,51 @@ public class DataLogger : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(timeToWait);
-            LogData();
+            LogLocationalData();
         }
     }
 
-    public void KillLogging()
+    public void LogNodeData(string nodeName, int inOrOut)
+    {
+        if(loggingKilled) return;
+        string[] nodeTriggerFrame = new string[9];
+        nodeTriggerFrame[0] = Time.timeSinceLevelLoad.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[1] = nodeName;
+        nodeTriggerFrame[2] = inOrOut.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[3] = playerLoc.x.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[4] = playerLoc.y.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[5] = playerLoc.z.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[6] = playerRot.x.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[7] = playerRot.y.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[8] = playerRot.z.ToString(CultureInfo.CurrentCulture);
+        nodeData.Add(nodeTriggerFrame);
+    }
+    
+    //TODO: Add way to stop logging, current is hitting space
+    private void KillLogging()
     {
         if (loggingKilled) return;
         loggingKilled = true;
         StopCoroutine(routine);
-        tw = new StreamWriter(fileName, true);
-        foreach (Array array in data)
+        tw = new StreamWriter(positionalFileName, true);
+        foreach (Array array in positionalData)
         {
             float[] frame = (float[]) array;
             tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]+","+frame[6]);
         }
-
-        Debug.Log("-------------ended logging session-------------\nWARNING: No further information will be recorded for this session!");
         tw.Close();
+        tw = new StreamWriter(nodeFileName, true);
+        foreach (Array array in nodeData)
+        {
+            string[] frame = (string[]) array;
+            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]+","+frame[6]+","+frame[7]+","+frame[8]);
+        }
+        tw.Close();
+        Debug.Log("-------------ended logging session-------------\nWARNING: No further information will be recorded for this session!");
+
     }
     
-    /// <summary>
-    /// solved it!
-    /// </summary>
-    private void LogData()
+    private void LogLocationalData()
     {
         float[] singleFrame = new float[7];
         singleFrame[0] = Time.timeSinceLevelLoad;
@@ -77,6 +110,6 @@ public class DataLogger : MonoBehaviour
         singleFrame[4] = playerRot.x;
         singleFrame[5] = playerRot.y;
         singleFrame[6] = playerRot.z;
-        data.Add(singleFrame);
+        positionalData.Add(singleFrame);
     }
 }

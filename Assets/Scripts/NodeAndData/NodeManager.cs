@@ -1,34 +1,37 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NodeManager : MonoBehaviour
 {
-    private List<Node> nodes = new List<Node>();
+    public static NodeManager Instance;
+
+    private Node currentPlayerNode;
+    private DataLogger dataLogger;
 
     private void Start()
     {
-        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Node"))
+        if (Instance == null)
         {
-            try{
-                nodes.Add(g.GetComponent<Node>());
-            }
-            catch(Exception e){
-                Debug.Log(e);
-            }
+            Instance = this;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+        dataLogger = FindObjectOfType<DataLogger>();
     }
 
-    public Node GetNodeWithPlayer()
+    public void Entered(Node node)
     {
-        foreach (Node node in nodes)
+        currentPlayerNode = node;
+        dataLogger.LogNodeData(node.name,1);
+    }
+    
+    public void Exited(Node node)
+    {
+        if (currentPlayerNode == node)
         {
-            if(node.HasPlayer==true)
-            {
-                Node targetNode = node;
-                return targetNode;
-            }
+            currentPlayerNode = null;
         }
-        return null;
+        dataLogger.LogNodeData(node.name,0);
     }
 }
