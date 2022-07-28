@@ -5,7 +5,7 @@ using System.Globalization;
 using System.IO;
 using UnityEngine;
 
-public class PositionalDataLogger : MonoBehaviour
+public class DataLogger : MonoBehaviour
 {
     [SerializeField] private string pathForPositionalLogs;
     [SerializeField] private string pathForNodeLogs;
