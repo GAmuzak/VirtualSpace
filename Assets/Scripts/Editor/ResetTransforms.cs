@@ -5,7 +5,7 @@ namespace UnityLibrary
 {
     public static class ResetTransforms
     {
-        [MenuItem("GameObject/Reset Transform %r")]
+        [MenuItem("GameObject/Reset Transform #r")]
         public static void ResetTransform()
         {
             GameObject go = Selection.activeGameObject;
