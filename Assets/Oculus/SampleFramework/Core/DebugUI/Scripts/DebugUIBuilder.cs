@@ -175,7 +175,8 @@ public class DebugUIBuilder : MonoBehaviour
   public void Hide()
   {
     gameObject.SetActive(false);
-
+    if(reEnable==null) return;
+    
     for (int i = 0; i < reEnable.Length; ++i)
     {
       if (toDisable[i] && reEnable[i])
