@@ -42,19 +42,18 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 	private void CounterMovement()
 	{
 		Vector2 movementInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
-		bool noInput = Mathf.Approximately(Vector3.SqrMagnitude(movementInput), 0);
-		bool oppositeInput = Vector3.Dot(rb.velocity, movementInput) <= 0;
+		bool noInput = Mathf.Approximately(Vector2.SqrMagnitude(movementInput), 0);
+		bool oppositeInput = Vector3.Dot(rb.velocity.normalized, moveDir) <= 0;
 		if (noInput)
 		{
 			Vector3 counterForce = rb.velocity * (-0.99f);
 			rb.AddForce(counterForce);
 		}
-		// else if (oppositeInput)
-		// {
-		// 	Vector3 counterForce = moveDir * (Time.fixedDeltaTime * counterForceFactor * 0.99f);
-		// 	rb.AddForce(counterForce);
-		// 	Debug.Log(counterForce.magnitude);
-		// }
+		else if (oppositeInput)
+		{
+			Vector3 counterForce = moveDir * (Speed * Time.fixedDeltaTime * counterForceFactor);
+			rb.AddForce(counterForce);
+		}
 	}
 	
     private void RotatePlayerToHMD()
@@ -83,9 +82,9 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 		Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
 		moveDir += ort * (primaryAxis.x * Vector3.right);
 		moveDir += ort * (primaryAxis.y * Vector3.forward);
+		moveDir = moveDir.normalized;
 		//_rigidbody.MovePosition(_rigidbody.transform.position + moveDir * Speed * Time.fixedDeltaTime);
 		rb.AddForce(moveDir * (Speed * Time.fixedDeltaTime));
-		Debug.Log((moveDir * (Speed * Time.fixedDeltaTime)).magnitude);
 		if(rb.velocity.sqrMagnitude > maxSpeed*maxSpeed)
 		{
 			rb.velocity = rb.velocity.normalized * maxSpeed;
