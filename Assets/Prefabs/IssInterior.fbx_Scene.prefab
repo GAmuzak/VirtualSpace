@@ -609,6 +609,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4794915908731358349}
     m_Modifications:
+    - target: {fileID: 83741744322776414, guid: 4da8dd9c8a9640d44bddda74eaf7be73, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 348887870501458553, guid: 4da8dd9c8a9640d44bddda74eaf7be73, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 660961605860044104, guid: 4da8dd9c8a9640d44bddda74eaf7be73, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 873190549374044158, guid: 4da8dd9c8a9640d44bddda74eaf7be73, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1542361496059876532, guid: 4da8dd9c8a9640d44bddda74eaf7be73, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104831813370743945, guid: 4da8dd9c8a9640d44bddda74eaf7be73, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140658015344423237, guid: 4da8dd9c8a9640d44bddda74eaf7be73, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513425295954580356, guid: 4da8dd9c8a9640d44bddda74eaf7be73, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468649303470612439, guid: 4da8dd9c8a9640d44bddda74eaf7be73, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522859010037500457, guid: 4da8dd9c8a9640d44bddda74eaf7be73, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7329928496782599605, guid: 4da8dd9c8a9640d44bddda74eaf7be73, type: 3}
       propertyPath: m_Name
       value: Cupola
