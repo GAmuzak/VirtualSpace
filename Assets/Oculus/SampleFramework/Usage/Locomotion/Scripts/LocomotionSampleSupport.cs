@@ -32,9 +32,9 @@ public class LocomotionSampleSupport : MonoBehaviour
     public void Start()
     {
         lc = FindObjectOfType<LocomotionController>();
-        DebugUIBuilder.instance.AddButton("Node Teleport w/ A", SetupNodeTeleport);
+        // DebugUIBuilder.instance.AddButton("Node Teleport w/ A", SetupNodeTeleport);
         DebugUIBuilder.instance.AddButton("Dual-stick teleport", SetupTwoStickTeleport);
-        DebugUIBuilder.instance.AddButton("L Strafe R Teleport", SetupLeftStrafeRightTeleport);
+        // DebugUIBuilder.instance.AddButton("L Strafe R Teleport", SetupLeftStrafeRightTeleport);
         //DebugUIBuilder.instance.AddButton("R Turn L Teleport", SetupRightTurnLeftTeleport);
         DebugUIBuilder.instance.AddButton("Walk Only", SetupWalkOnly);
 
@@ -44,7 +44,7 @@ public class LocomotionSampleSupport : MonoBehaviour
         {
             Debug.LogError("Need EventSystem");
         }
-		SetupTwoStickTeleport();
+        SetupWalkOnly();
 
         // SAMPLE-ONLY HACK:
         // Due to restrictions on how Unity project settings work, we just hackily set up default
@@ -190,6 +190,8 @@ public class LocomotionSampleSupport : MonoBehaviour
 
         var orient = TeleportController.GetComponent<TeleportOrientationHandlerThumbstick>();
         orient.Thumbstick = OVRInput.Controller.LTouch;
+        
+        DebugUIBuilder.instance.Hide();
     }
 
 
@@ -215,12 +217,16 @@ public class LocomotionSampleSupport : MonoBehaviour
         input.AimingController = OVRInput.Controller.RTouch;
         //var input = TeleportController.GetComponent<TeleportAimHandlerLaser>();
         //input.AimingController = OVRInput.Controller.RTouch;
+        
+        DebugUIBuilder.instance.Hide();
     }
 
     // Symmetrical controls. Forward or back on stick initiates teleport, then stick allows orient.
     // Snap turns allowed.
     void SetupTwoStickTeleport()
     {
+        DebugUIBuilder.instance.Hide();
+        
         SetupTeleportDefaults();
         TeleportController.EnableRotation(true, false, false, true);
         TeleportController.EnableMovement(false, false, false, false);
@@ -234,6 +240,8 @@ public class LocomotionSampleSupport : MonoBehaviour
         ActivateHandlers<TeleportInputHandlerTouch, TeleportAimHandlerParabolic, TeleportTargetHandlerPhysical, TeleportOrientationHandlerThumbstick, TeleportTransitionBlink>();
         var orient = TeleportController.GetComponent<TeleportOrientationHandlerThumbstick>();
         orient.Thumbstick = OVRInput.Controller.Touch;
+        
+        
     }
 
 	/*
@@ -258,12 +266,16 @@ public class LocomotionSampleSupport : MonoBehaviour
     // Shut down teleport. Basically reverts to OVRPlayerController.
     void SetupWalkOnly()
     {
+        
+        DebugUIBuilder.instance.Hide();
+
         SetupTeleportDefaults();
         TeleportController.enabled = false;
         lc.PlayerController.EnableLinearMovement = true;
         //lc.PlayerController.SnapRotation = true;
         lc.PlayerController.RotationEitherThumbstick = false;
         //lc.PlayerController.FixedSpeedSteps = 1;
+        
     }
 
     // 
@@ -281,5 +293,7 @@ public class LocomotionSampleSupport : MonoBehaviour
         ActivateHandlers<TeleportInputHandlerTouch, TeleportAimHandlerParabolic, TeleportTargetHandlerPhysical, TeleportOrientationHandlerThumbstick, TeleportTransitionBlink>();
         var orient = TeleportController.GetComponent<TeleportOrientationHandlerThumbstick>();
         orient.Thumbstick = OVRInput.Controller.RTouch;
+        
+        DebugUIBuilder.instance.Hide();
     }
 }

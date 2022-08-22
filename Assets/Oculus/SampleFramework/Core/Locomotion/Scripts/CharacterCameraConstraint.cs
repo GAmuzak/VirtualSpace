@@ -56,6 +56,8 @@ public class CharacterCameraConstraint : MonoBehaviour
 
 	private CapsuleCollider _character;
 	private SimpleCapsuleWithStickMovement _simplePlayerController;
+	private Camera camera1;
+	private Camera camera2;
 
 	CharacterCameraConstraint()
 	{
@@ -63,6 +65,8 @@ public class CharacterCameraConstraint : MonoBehaviour
 
 	private void Awake ()
 	{
+		camera2 = CameraRig.centerEyeAnchor.GetComponent<Camera>();
+		camera1 = CameraRig.centerEyeAnchor.GetComponent<Camera>();
 		_character = GetComponent<CapsuleCollider>();
 		_simplePlayerController = GetComponent<SimpleCapsuleWithStickMovement>();
 	}
@@ -157,20 +161,18 @@ public class CharacterCameraConstraint : MonoBehaviour
 	/// </summary>
 	private bool CheckCameraOverlapped()
 	{
-		Camera camera = CameraRig.centerEyeAnchor.GetComponent<Camera>();
-
 		// Use a ray from the capsule starting at the camera's height, but clamped
 		// to make sure it comes from the capsule.  We clamp slightly inside of
 		// the capsule to account for the sphere cast radius and a small offset
 		// in case things would otherwise be touching.
 		Vector3 origin = _character.transform.position;
-		float yOffset = Mathf.Max(0.0f, (_character.height * 0.5f) - camera.nearClipPlane - 0.01f);
+		float yOffset = Mathf.Max(0.0f, (_character.height * 0.5f) - camera1.nearClipPlane - 0.01f);
 		origin.y = Mathf.Clamp(CameraRig.centerEyeAnchor.position.y, _character.transform.position.y - yOffset, _character.transform.position.y + yOffset);
 		Vector3 delta = CameraRig.centerEyeAnchor.position - origin;
 		float distance = delta.magnitude;
 		Vector3 direction = delta / distance;
 		RaycastHit hitInfo;
-		return Physics.SphereCast(origin, camera.nearClipPlane, direction, out hitInfo, distance, CollideLayers, QueryTriggerInteraction.Ignore);
+		return Physics.SphereCast(origin, camera1.nearClipPlane, direction, out hitInfo, distance, CollideLayers, QueryTriggerInteraction.Ignore);
 	}
 
 	/// <summary>
@@ -179,10 +181,8 @@ public class CharacterCameraConstraint : MonoBehaviour
 	/// </summary>
 	private bool CheckCameraNearClipping(out float result)
 	{
-		Camera camera = CameraRig.centerEyeAnchor.GetComponent<Camera>();
-
 		Vector3[] frustumCorners = new Vector3[4];
-		camera.CalculateFrustumCorners(new Rect(0, 0, 1, 1), camera.nearClipPlane, Camera.MonoOrStereoscopicEye.Mono, frustumCorners);
+		camera2.CalculateFrustumCorners(new Rect(0, 0, 1, 1), camera2.nearClipPlane, Camera.MonoOrStereoscopicEye.Mono, frustumCorners);
 
 		// Cast a ray through each corner of the frustum and the center, and take the
 		// maximum overlap (if any) returned as the basis to decide how much to fade.

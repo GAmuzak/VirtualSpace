@@ -175,7 +175,8 @@ public class DebugUIBuilder : MonoBehaviour
   public void Hide()
   {
     gameObject.SetActive(false);
-
+    if(reEnable==null) return;
+    
     for (int i = 0; i < reEnable.Length; ++i)
     {
       if (toDisable[i] && reEnable[i])
@@ -192,7 +193,8 @@ public class DebugUIBuilder : MonoBehaviour
   }
 
   // Currently a slow brute-force method that lays out every element.
-  // As this is intended as a debug UI, it might be fine, but there are many simple optimizations we can make.
+  // As this is intended as a debug UI, it might be fine
+  // but there are many simple optimizations we can make.
   private void StackedRelayout()
   {
 
