@@ -193,7 +193,8 @@ public class DebugUIBuilder : MonoBehaviour
   }
 
   // Currently a slow brute-force method that lays out every element.
-  // As this is intended as a debug UI, it might be fine, but there are many simple optimizations we can make.
+  // As this is intended as a debug UI, it might be fine
+  // but there are many simple optimizations we can make.
   private void StackedRelayout()
   {
 
