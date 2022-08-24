@@ -1,5 +1,5 @@
 using UnityEngine;
-public class DummyQuest:QuestFramework
+public class DummyQuest:Quest
 {
     
 }
