@@ -10,16 +10,15 @@ public class PointToTarget : MonoBehaviour
     [SerializeField] private float turnSpeed;
     [SerializeField] private Transform anchor;
     
-
     private Quaternion rotGoal;
     private Vector3 dirn;
     private Vector3 targetPosition;
-
+    
     private void Start()
     {
         targetPosition=Utilities.ReturnAveragePosition(target);
     }
-
+    
     private void Update()
     {
         Vector3 playerPosition = player.position;

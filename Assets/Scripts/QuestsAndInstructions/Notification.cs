@@ -36,6 +36,8 @@ public class Notification : MonoBehaviour
 
     public void SetLocation()
     {
+        if (!gameObject.activeSelf) return;
+        PlaySound();
         transform.position = rig.transform.TransformPoint(menuOffset);
         Vector3 newEulerRot = rig.transform.rotation.eulerAngles;
         transform.eulerAngles = newEulerRot;

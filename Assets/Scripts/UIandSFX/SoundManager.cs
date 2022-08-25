@@ -21,9 +21,9 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
+        if (musicSource.clip == null) return;
         musicSource.loop = true;
-        if(musicSource.clip!=null)
-            musicSource.Play();
+        musicSource.Play();
     }
 
     public void PlaySound(AudioClip clip)
