@@ -12,6 +12,7 @@ language governing permissions and limitations under the license.
 using UnityEngine;
 using System.Collections;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 using UnityEngine.EventSystems;
@@ -19,8 +20,11 @@ using UnityEngine.Events;
 
 public class LocomotionSampleSupport : MonoBehaviour
 {
+    [SerializeField] private Notification mainNotification;
+    
     private LocomotionController lc;
     private bool inMenu = false;
+
     private LocomotionTeleport TeleportController
     {
         get
@@ -31,6 +35,7 @@ public class LocomotionSampleSupport : MonoBehaviour
 
     public void Start()
     {
+        // mainNotification = FindObjectOfType<Notification>();
         lc = FindObjectOfType<LocomotionController>();
         // DebugUIBuilder.instance.AddButton("Node Teleport w/ A", SetupNodeTeleport);
         DebugUIBuilder.instance.AddButton("Dual-stick teleport", SetupTwoStickTeleport);
@@ -60,6 +65,11 @@ public class LocomotionSampleSupport : MonoBehaviour
             if (inMenu) DebugUIBuilder.instance.Hide();
             else DebugUIBuilder.instance.Show();
             inMenu = !inMenu;
+        }
+        if(OVRInput.GetDown(OVRInput.Button.One))
+        {
+            mainNotification.GameObject().SetActive(!mainNotification.GameObject().activeSelf);
+            mainNotification.SetLocation();
         }
     }
 

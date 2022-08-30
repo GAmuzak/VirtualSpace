@@ -144,8 +144,6 @@ public class DebugUIBuilder : MonoBehaviour
     gameObject.SetActive(true);
     transform.position = rig.transform.TransformPoint(menuOffset);
     Vector3 newEulerRot = rig.transform.rotation.eulerAngles;
-    newEulerRot.x = 0.0f;
-    newEulerRot.z = 0.0f;
     transform.eulerAngles = newEulerRot;
 
     if (reEnable == null || reEnable.Length < toDisable.Count) reEnable = new bool[toDisable.Count];
