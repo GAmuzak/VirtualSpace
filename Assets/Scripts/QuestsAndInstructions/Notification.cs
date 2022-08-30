@@ -24,18 +24,6 @@ public class Notification : MonoBehaviour
         targetText = transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>(); //I'm lazy, don't mess with the prefab order
     }
 
-    private void PlaySound()
-    {
-        if (sound != null)
-        {
-            SoundManager.Instance.PlaySound(sound);
-        }
-        else
-        {
-            throw new Exception("Sound is null");
-        }
-    }
-
     public void SetLocation()
     {
         if (!gameObject.activeSelf) return;
@@ -50,5 +38,17 @@ public class Notification : MonoBehaviour
         SetLocation();
         PlaySound();
         targetText.SetText(newText);
+    }
+
+    private void PlaySound()
+    {
+        if (sound != null)
+        {
+            SoundManager.Instance.PlaySound(sound);
+        }
+        else
+        {
+            throw new Exception("Sound is null");
+        }
     }
 }
