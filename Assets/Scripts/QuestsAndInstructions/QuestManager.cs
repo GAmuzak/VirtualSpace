@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class QuestManager : MonoBehaviour
 {
@@ -10,23 +10,58 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private string mainSceneName;
     [SerializeField] private string freeplaySceneName;
     [SerializeField] private List<Landmark> tutorialLocations;
+    [SerializeField] private PointToTarget pointToTarget;
+    [SerializeField] private List<Transform> landmarkTransforms;
+    [SerializeField] private GameObject player;
+    [SerializeField] private float nodeProximity;
+    [SerializeField] private Notification mainNotification;
+    [SerializeField] private Quest currentQuest;
+    [SerializeField] private float buffer = 5f;
 
-    private List<Landmark> mainQuestLandmarkInts=new List<Landmark>();
+    private List<Landmark> mainQuestLandmarkSequence=new();
+    private Dictionary<Landmark, Vector3> landMarkToTarget=new();
+    private bool endGameplayLoop;
     private string sceneName;
     private bool firstTaskTriggered;
-    private Quest currentQuest;
     private int locIndex;
+
     private void Start()
     {
-        //TODO: Generate validSequence list;
-        List<int> validSequence = new List<int>(){1,2,3,4,5,6};
+        for(int i=0; i<landmarkTransforms.Count; i++)
+        {
+            Debug.Log(tutorialLocations[i]+"---"+Utilities.ReturnAveragePosition(landmarkTransforms[i]));
+            landMarkToTarget.Add(tutorialLocations[i],Utilities.ReturnAveragePosition(landmarkTransforms[i]));
+        }
+        List<int> validSequence = new(){0, 1, 2, 0, 3, 1, 0, 2, 1, 3, 0, 4, 1, 5, 2, 3, 4, 0, 5, 1, 4, 3, 5, 4, 2, 5, 3, 2, 4, 5};
         foreach (int num in validSequence)
         {
-            mainQuestLandmarkInts.Add((Landmark)num);
+            mainQuestLandmarkSequence.Add((Landmark)num);
         }
         firstTaskTriggered = false;
         locIndex = 0;
-        StartCoroutine(SceneGrabDelay()); //just to be on the safe side
+        StartCoroutine(SceneGrabDelay());
+    }
+
+    private void Update()
+    {
+        if (endGameplayLoop) return;
+        switch (currentQuest.state)
+        {
+            case QuestState.NULL:
+                break;
+            case QuestState.NotStarted:
+                break;
+            case QuestState.Active:
+                if (AtTarget(currentQuest.landmark))
+                {
+                    EndCurrentQuest();
+                }
+                break;
+            case QuestState.Finished:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     private IEnumerator SceneGrabDelay()
@@ -39,11 +74,14 @@ public class QuestManager : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         sceneName = scene.name;
-        InitialiseNextQuest();
+        StartCoroutine(BufferTimer());
+        
     }
 
     private void InitialiseNextQuest()
     {
+        currentQuest.state = QuestState.NotStarted;
+        
         #region Set Type
         if(!firstTaskTriggered)
         {
@@ -63,15 +101,13 @@ public class QuestManager : MonoBehaviour
         }
         #endregion
         
-        currentQuest.state = QuestState.NotStarted;
-
         #region Set Landmark
 
         switch (currentQuest.type)
         {
             case QuestType.Tutorial:
             {
-                currentQuest.landmark=GetNextLandmark(tutorialLocations);
+                TutorialLocationUpdate();
                 break;
             }
             case QuestType.FreeRoam:
@@ -81,7 +117,7 @@ public class QuestManager : MonoBehaviour
             }
             case QuestType.PointToTarget:
             {
-                currentQuest.landmark=GetNextLandmark(mainQuestLandmarkInts);
+                currentQuest.landmark=GetNextLandmark(mainQuestLandmarkSequence);
                 break;
             }
             case QuestType.NavigateToTarget:
@@ -90,11 +126,27 @@ public class QuestManager : MonoBehaviour
                 //so no need to change the target landmark
                 break;
             }
+            case QuestType.NULL:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
 
         #endregion
-        
-        //TODO: Set notifications
+
+        HandleActiveQuest();
+
+    }
+
+    private void TutorialLocationUpdate()
+    {
+        currentQuest.landmark = GetNextLandmark(tutorialLocations);
+        if (currentQuest.landmark == Landmark.NULL) {
+            EndTutorial();
+            return;
+        }
+        mainNotification.UpdateText("Please go to the " + currentQuest.landmark + " by following the arrow below");
+        pointToTarget.ToggleVisibility(true, landMarkToTarget[currentQuest.landmark]);
     }
 
     private Landmark GetNextLandmark(List<Landmark> targetList)
@@ -105,13 +157,48 @@ public class QuestManager : MonoBehaviour
         return nextLandmark;
     }
 
-    private void LogMetrics()
+    private bool AtTarget(Landmark landmark)
     {
-        
+        return Vector3.Distance(landMarkToTarget[landmark], player.transform.position) < nodeProximity;
+    }
+
+    private void HandleActiveQuest()
+    {
+        currentQuest.state = QuestState.Active;
+        switch (currentQuest.type)
+        {
+            case QuestType.NULL:
+                break;
+            case QuestType.Tutorial:
+                break;
+            case QuestType.PointToTarget:
+                break;
+            case QuestType.NavigateToTarget:
+                break;
+            case QuestType.FreeRoam:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     private void EndCurrentQuest()
     {
+        currentQuest.state = QuestState.Finished;
+        pointToTarget.ToggleVisibility(false, landMarkToTarget[currentQuest.landmark]);
+        StartCoroutine(BufferTimer());
+    }
 
+    private IEnumerator BufferTimer()
+    {
+        
+        yield return new WaitForSeconds(buffer);
+        InitialiseNextQuest();
+    }
+
+    private void EndTutorial()
+    {
+        mainNotification.UpdateText("Thank you for completing the tutorial!");
+        endGameplayLoop = true;
     }
 }

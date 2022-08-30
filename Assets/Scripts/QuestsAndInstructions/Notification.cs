@@ -1,28 +1,30 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Notification : MonoBehaviour
 {
     [SerializeField] private AudioClip sound;
     [SerializeField] private bool playSoundOnStart;
-    [SerializeField] private bool disableControlsTillConfirmed;
+    // [SerializeField] private bool disableControlsTillConfirmed;
 
-    private OVRCameraRig rig;
+    private Transform rigTransform;
     private Vector3 menuOffset;
+    private TextMeshProUGUI targetText;
 
     private void Start()
     {
         menuOffset = transform.position; //Just about as busted as the oculus implementation
-        rig = FindObjectOfType<OVRCameraRig>();
+        rigTransform = FindObjectOfType<OVRCameraRig>().gameObject.GetComponent<Transform>();
         if (sound != null && playSoundOnStart)
         {
             SoundManager.Instance.PlaySound(sound);
         }
         gameObject.SetActive(false);
+        targetText = transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>(); //I'm lazy, don't mess with the prefab order
     }
-    
-    public void PlaySound()
+
+    private void PlaySound()
     {
         if (sound != null)
         {
@@ -37,9 +39,16 @@ public class Notification : MonoBehaviour
     public void SetLocation()
     {
         if (!gameObject.activeSelf) return;
-        PlaySound();
-        transform.position = rig.transform.TransformPoint(menuOffset);
-        Vector3 newEulerRot = rig.transform.rotation.eulerAngles;
+        transform.position = rigTransform.TransformPoint(menuOffset);
+        Vector3 newEulerRot = rigTransform.rotation.eulerAngles;
         transform.eulerAngles = newEulerRot;
+    }
+
+    public void UpdateText(string newText)
+    {
+        gameObject.SetActive(true);
+        SetLocation();
+        PlaySound();
+        targetText.SetText(newText);
     }
 }

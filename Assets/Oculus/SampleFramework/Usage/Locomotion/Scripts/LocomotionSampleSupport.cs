@@ -20,9 +20,11 @@ using UnityEngine.Events;
 
 public class LocomotionSampleSupport : MonoBehaviour
 {
+    [SerializeField] private Notification mainNotification;
+    
     private LocomotionController lc;
     private bool inMenu = false;
-    private Notification mainNotification;
+
     private LocomotionTeleport TeleportController
     {
         get
@@ -33,7 +35,7 @@ public class LocomotionSampleSupport : MonoBehaviour
 
     public void Start()
     {
-        mainNotification = FindObjectOfType<Notification>();
+        // mainNotification = FindObjectOfType<Notification>();
         lc = FindObjectOfType<LocomotionController>();
         // DebugUIBuilder.instance.AddButton("Node Teleport w/ A", SetupNodeTeleport);
         DebugUIBuilder.instance.AddButton("Dual-stick teleport", SetupTwoStickTeleport);
