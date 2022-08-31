@@ -16,7 +16,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private float nodeProximity;
     [SerializeField] private float buffer = 5f;
 
-    private List<Landmark> mainQuestLandmarkSequence=new();
+    private readonly List<Landmark> mainQuestLandmarkSequence=new();
     private bool endGameplayLoop;
     private string sceneName;
     private bool firstTaskTriggered;
@@ -37,24 +37,21 @@ public class QuestManager : MonoBehaviour
 
     private void Update()
     {
-        if (endGameplayLoop) return;
-        
-        switch (currentQuest.state)
+        if (endGameplayLoop || currentQuest.state!=QuestState.Active) return;
+        switch (currentQuest.type)
         {
-            case QuestState.NULL:
-                break;
-            case QuestState.NotStarted:
-                break;
-            case QuestState.Active:
+            case QuestType.Tutorial or QuestType.NavigateToTarget:
+            {
                 if (AtTarget(currentQuest.landmark))
                 {
                     EndCurrentQuest();
                 }
+
                 break;
-            case QuestState.Finished:
+            }
+            case QuestType.PointToTarget:
+                
                 break;
-            default:
-                throw new ArgumentOutOfRangeException();
         }
     }
 
@@ -115,7 +112,8 @@ public class QuestManager : MonoBehaviour
 
     private bool AtTarget(Landmark landmark)
     {
-        return Vector3.Distance(nodeManager.ReturnPosition(landmark), player.transform.position) < nodeProximity;
+        float currentDifference = Vector3.Distance(nodeManager.ReturnPosition(landmark), player.transform.position);
+        return currentDifference < nodeProximity;
     }
 
     private void HandleActiveQuest()
