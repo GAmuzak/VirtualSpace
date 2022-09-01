@@ -53,35 +53,34 @@ public class DataLogger : MonoBehaviour
 
     private IEnumerator CallLogger(float timeToWait)
     {
-        while (true)
+        while (!loggingKilled)
         {
             yield return new WaitForSeconds(timeToWait);
             LogLocationalData();
         }
     }
 
-    public void LogNodeData(string nodeName, int inOrOut)
+    public void LogNodeData(string nodeName, int inOrOut, string task)
     {
         if(loggingKilled) return;
         string[] nodeTriggerFrame = new string[9];
         nodeTriggerFrame[0] = Time.timeSinceLevelLoad.ToString(CultureInfo.CurrentCulture);
         nodeTriggerFrame[1] = nodeName;
-        nodeTriggerFrame[2] = inOrOut.ToString(CultureInfo.CurrentCulture);
-        nodeTriggerFrame[3] = playerLoc.x.ToString(CultureInfo.CurrentCulture);
-        nodeTriggerFrame[4] = playerLoc.y.ToString(CultureInfo.CurrentCulture);
-        nodeTriggerFrame[5] = playerLoc.z.ToString(CultureInfo.CurrentCulture);
-        nodeTriggerFrame[6] = playerRot.x.ToString(CultureInfo.CurrentCulture);
-        nodeTriggerFrame[7] = playerRot.y.ToString(CultureInfo.CurrentCulture);
-        nodeTriggerFrame[8] = playerRot.z.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[2] = task;
+        nodeTriggerFrame[3] = inOrOut.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[4] = playerLoc.x.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[5] = playerLoc.y.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[6] = playerLoc.z.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[7] = playerRot.x.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[8] = playerRot.y.ToString(CultureInfo.CurrentCulture);
+        nodeTriggerFrame[9] = playerRot.z.ToString(CultureInfo.CurrentCulture);
         nodeData.Add(nodeTriggerFrame);
     }
     
-    //TODO: Add way to stop logging, current is hitting space
     private void KillLogging()
     {
         if (loggingKilled) return;
         loggingKilled = true;
-        StopCoroutine(routine);
         tw = new StreamWriter(positionalFileName, true);
         foreach (Array array in positionalData)
         {
@@ -96,7 +95,8 @@ public class DataLogger : MonoBehaviour
             tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]+","+frame[6]+","+frame[7]+","+frame[8]);
         }
         tw.Close();
-        Debug.Log("-------------ended logging session-------------\nWARNING: No further information will be recorded for this session!");
+        Debug.Log("-------------ended logging session-------------\n" +
+                  "WARNING: No further information will be recorded for this session!");
 
     }
     
