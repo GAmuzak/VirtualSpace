@@ -11,12 +11,14 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 	public float Speed;
 	public OVRCameraRig CameraRig;
 
-	private Vector3 moveDir;
-	private Rigidbody rb;
 	[SerializeField] private float maxSpeed;
 	[SerializeField] float counterForceFactor = 10f;
 	[SerializeField] private float rotationSpeed=5;
-	[SerializeField] private Transform eyeAnchor;
+	[SerializeField] private int isHorizontalInverted = 1;
+	[SerializeField] private int isVerticalInverted = 1;
+
+	private Vector3 moveDir;
+	private Rigidbody rb;
 
 	public event Action CameraUpdated;
 	public event Action PreCharacterMove;
@@ -29,6 +31,16 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		if (OVRInput.GetDown(OVRInput.Button.Three))
+		{
+			isHorizontalInverted = -1*isHorizontalInverted;
+		}
+
+		if (OVRInput.GetDown(OVRInput.Button.Four))
+		{
+			isVerticalInverted = -1*isVerticalInverted;
+		}
+		
         if (CameraUpdated != null) CameraUpdated();
         if (PreCharacterMove != null) PreCharacterMove();
 
@@ -43,15 +55,18 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 	{
 		Vector2 movementInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
 		bool noInput = Mathf.Approximately(Vector2.SqrMagnitude(movementInput), 0);
-		bool oppositeInput = Vector3.Dot(rb.velocity.normalized, moveDir) <= 0;
+		bool oppositeInput = Vector3.Dot(rb.velocity.normalized, moveDir) <= 0.8f;
 		if (noInput)
 		{
-			Vector3 counterForce = rb.velocity * (-0.99f);
+			Vector3 counterForce = rb.velocity * -0.99f;
 			rb.AddForce(counterForce);
 		}
 		else if (oppositeInput)
 		{
 			Vector3 counterForce = moveDir * (Speed * Time.fixedDeltaTime * counterForceFactor);
+			Vector3 relativeMovement = transform.InverseTransformDirection(rb.velocity);
+			Vector3 dampMomentum = new Vector3(relativeMovement.x, relativeMovement.y, 0)* (-3f*Speed * Time.fixedDeltaTime);
+			rb.AddForce(dampMomentum);
 			rb.AddForce(counterForce);
 		}
 	}
@@ -93,31 +108,36 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 
 	private void SnapTurn()
 	{
+		// bool leftMovement1 = OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft);
+		// bool leftMovement2 = OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft);
+		// bool rightMovement1 = OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight);
+		// bool rightMovement2 = OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight);
 		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft) || 
 		    (RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft)))
 		{
 			transform.Rotate(Vector3.up, 
-				-RotationAngle*Time.deltaTime*rotationSpeed);
+				-RotationAngle*Time.deltaTime*rotationSpeed*isHorizontalInverted);
 		}
 		else if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight) ||
 		         (RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight)))
 		{
 			transform.Rotate(Vector3.up,
-				RotationAngle * Time.deltaTime * rotationSpeed);
+				RotationAngle * Time.deltaTime * rotationSpeed*isHorizontalInverted);
 		}
 		
+
 		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickUp) ||
-		         (RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickUp)))
+		    (RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickUp)))
 		{
 			transform.Rotate(-Vector3.right,
-				RotationAngle * Time.deltaTime * rotationSpeed);
+				RotationAngle * Time.deltaTime * rotationSpeed*isVerticalInverted);
 		}
 		
 		else if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickDown) ||
 		         (RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickDown)))
 		{
 			transform.Rotate(-Vector3.right,
-				-RotationAngle * Time.deltaTime * rotationSpeed);
+				-RotationAngle * Time.deltaTime * rotationSpeed*isVerticalInverted);
 		}
 	}
 }

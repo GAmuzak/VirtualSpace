@@ -20,7 +20,7 @@ using UnityEngine.Events;
 
 public class LocomotionSampleSupport : MonoBehaviour
 {
-    [SerializeField] private Notification mainNotification;
+    // [SerializeField] private Notification mainNotification;
     
     private LocomotionController lc;
     private bool inMenu = false;
@@ -66,11 +66,11 @@ public class LocomotionSampleSupport : MonoBehaviour
             else DebugUIBuilder.instance.Show();
             inMenu = !inMenu;
         }
-        if(OVRInput.GetDown(OVRInput.Button.One))
-        {
-            mainNotification.GameObject().SetActive(!mainNotification.GameObject().activeSelf);
-            mainNotification.SetLocation();
-        }
+        // if(OVRInput.GetDown(OVRInput.Button.One))
+        // {
+        //     mainNotification.GameObject().SetActive(!mainNotification.GameObject().activeSelf);
+        //     mainNotification.SetLocation();
+        // }
     }
 
     [Conditional("DEBUG_LOCOMOTION_PANEL")]

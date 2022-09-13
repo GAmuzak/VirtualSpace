@@ -28,7 +28,7 @@ public class NodeManager : MonoBehaviour
         
         for(int i=0; i<landmarkEnums.Count; i++)
         {
-            landMarkToTransform.Add(landmarkEnums[i],Utilities.ReturnAveragePosition(landmarkLocations[i]));
+            landMarkToTransform.Add(landmarkEnums[i],TransformUtils.ReturnAveragePosition(landmarkLocations[i]));
         }
     }
 

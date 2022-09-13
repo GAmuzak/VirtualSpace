@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Utilities
+public static class TransformUtils
 {
     public static Vector3 ReturnAveragePosition(Transform parent)
     {
