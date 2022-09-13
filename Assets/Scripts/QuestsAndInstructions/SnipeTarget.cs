@@ -11,7 +11,7 @@ public class SnipeTarget : MonoBehaviour
     private Vector3 targetCenter;
     private void Awake()
     {
-        targetCenter = Utilities.ReturnAveragePosition(target);
+        targetCenter = TransformUtils.ReturnAveragePosition(target);
     }
 
     private void Update()
