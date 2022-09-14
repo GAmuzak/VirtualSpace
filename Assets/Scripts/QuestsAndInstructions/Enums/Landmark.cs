@@ -1,7 +1,7 @@
 ﻿public enum Landmark
 {
     NULL=-1,
-    JPM=0,
+    JLP=0,
     Columbus=1,
     USLab=2,
     Airlock=3,

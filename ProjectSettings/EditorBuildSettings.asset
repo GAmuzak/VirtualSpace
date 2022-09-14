@@ -8,10 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Scenes/ArrowToTarget.unity
     guid: aa3d89230a26da54da95092d9e1e085e
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Scenes/Tutorial.unity
     guid: 2af974f1465b2ce4f8138a6e5563ebdf
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/ControlsDemo.unity
     guid: 382c479c3cc5d7e479a829a91d9a18db
   m_configObjects:

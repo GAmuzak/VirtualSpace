@@ -75,7 +75,6 @@ public class ControlsRunManager : MonoBehaviour
 
     private void TimeManager(string objName)
     {
-        Debug.Log("Hello?");
         if(objName=="Start") timer.Begin();
         else
         {
