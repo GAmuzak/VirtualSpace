@@ -62,31 +62,14 @@ public class QuestManager : MonoBehaviour
     private void InitialiseNextQuest()
     {
         currentQuest.state = QuestState.NotStarted;
+
+        FirstSetup();
+        #region Initialise Quest
+
         timer.Reset();
         timer.Begin();
         playerAtTarget = false;
         
-        #region Set Type
-        if(!firstTaskTriggered)
-        {
-            if (sceneName == sceneNames[0])
-            {
-                currentQuest.type = QuestType.Tutorial;
-            }
-            else if (sceneName == sceneNames[1])
-            {
-                currentQuest.type = QuestType.FreeRoam;
-            }
-            else if (sceneName == sceneNames[2])
-            {
-                currentQuest.type = QuestType.PointToTarget;
-            }
-            firstTaskTriggered = true;
-        }
-        #endregion
-        
-        #region Initialise Quest
-
         switch (currentQuest.type)
         {
             case QuestType.Tutorial:
@@ -96,7 +79,8 @@ public class QuestManager : MonoBehaviour
                     EndScene("Tutorial");
                     return;
                 }
-                mainNotification.UpdateText("Please go to the " + currentQuest.landmark + " by following the arrow below");
+                string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
+                mainNotification.UpdateText("Please go to the <b><color=#"+col+">" + currentQuest.landmark + "</color></b> by following the arrow below");
                 pointToTarget.ToggleVisibility(true, nodeManager.ReturnPosition(currentQuest.landmark));
                 break;
             }
@@ -116,9 +100,44 @@ public class QuestManager : MonoBehaviour
         HandleActiveQuest();
     }
 
+    private void FirstSetup()
+    {
+        if (!firstTaskTriggered)
+        {
+            if (sceneName == sceneNames[0])
+            {
+                currentQuest.type = QuestType.Tutorial;
+            }
+            else if (sceneName == sceneNames[1])
+            {
+                currentQuest.type = QuestType.FreeRoam;
+            }
+            else if (sceneName == sceneNames[2])
+            {
+                currentQuest.type = QuestType.PointToTarget;
+            }
+
+            firstTaskTriggered = true;
+        }
+    }
+
     private IEnumerator Introduction()
     {
-        throw new NotImplementedException();
+        SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
+        SimpleCapsuleWithStickMovement.Instance.EnableRotation = false;
+        yield return new WaitForSeconds(5f);
+        mainNotification.UpdateText("Welcome to the <b>Virtual</b> ISS!");
+        yield return new WaitForSeconds(5f);
+        mainNotification.UpdateText("You are now going to be getting a tour of some of the interesting modules aboard!");
+        yield return new WaitForSeconds(5f);
+        string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(Landmark.Airlock));
+        mainNotification.UpdateText("Currently you are in the <b><color=#"+col+">airlock</color><b>. Dismiss this message to have a look at your surroundings");
+        yield return new WaitForSeconds(5f);
+        mainNotification.UpdateText(NodeManager.Instance.ReturnModuleInfo(Landmark.Airlock));
+        currentInfoIndex++;
+        SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = true;
+        SimpleCapsuleWithStickMovement.Instance.EnableRotation = true;
+        StartCoroutine(BufferToNextQuest());
     }
 
     private void AtTarget(string landmark)
@@ -145,8 +164,9 @@ public class QuestManager : MonoBehaviour
         currentQuest.state = QuestState.Finished;
         pointToTarget.ToggleVisibility(false, nodeManager.ReturnPosition(currentQuest.landmark));
         string finalTime = $"{timer.GetRawElapsedTime():0.##}";
-        mainNotification.UpdateText("Congratulations, you made it to the "+ currentQuest.landmark+"!" +
-                                    "\nTime Taken:"+finalTime);
+        string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
+        mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!" +
+                                    "\nTime Taken: "+finalTime);
         StartCoroutine(ModuleInfo());
     }
 
@@ -155,7 +175,7 @@ public class QuestManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         if(currentInfoIndex<moduleInformation.Count)
         {
-            mainNotification.UpdateText(moduleInformation[currentInfoIndex]);
+            mainNotification.UpdateText(NodeManager.Instance.ReturnModuleInfo(currentQuest.landmark));
             currentInfoIndex++;
             yield return new WaitForSeconds(3f);
         }
@@ -173,11 +193,12 @@ public class QuestManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         Scene scene = SceneManager.GetActiveScene();
         sceneName = scene.name;
-        StartCoroutine(BufferToNextQuest());
+        StartCoroutine(Introduction());
     }
 
     private IEnumerator BufferToNextQuest()
     {
+        
         yield return new WaitForSeconds(buffer);
         InitialiseNextQuest();
     }

@@ -10,8 +10,12 @@ public class NodeManager : MonoBehaviour
 
     [SerializeField] private List<Landmark> landmarkEnums;
     [SerializeField] private List<Transform> landmarkLocations;
+    [SerializeField] private List<Color> landmarkColors;
+    [SerializeField] private List<string> moduleInformation;
 
     private Dictionary<Landmark, Vector3> landMarkToTransform=new();
+    private Dictionary<Landmark, Color> colorForLandmark = new();
+    private Dictionary<Landmark, string> infoForLandmark = new();
     private Node currentPlayerNode;
     private DataLogger dataLogger;
     private string currentTask;
@@ -32,6 +36,13 @@ public class NodeManager : MonoBehaviour
         for(int i=0; i<landmarkEnums.Count; i++)
         {
             landMarkToTransform.Add(landmarkEnums[i],TransformUtils.ReturnAveragePosition(landmarkLocations[i]));
+            colorForLandmark.Add(landmarkEnums[i],landmarkColors[i]);
+        }
+
+        for (int i = 0; i < landmarkEnums.Count; i++)
+        {
+            string col = ColorUtility.ToHtmlStringRGB(ReturnColor(landmarkEnums[i]));
+            infoForLandmark.Add(landmarkEnums[i],"The <b><color=#"+col+">"+landmarkEnums[i]+"</color></b> "+moduleInformation[i]);
         }
     }
 
@@ -39,7 +50,7 @@ public class NodeManager : MonoBehaviour
     {
         currentPlayerNode = node;
         EnteredNode?.Invoke(currentPlayerNode.name);
-        dataLogger.LogNodeData(node.name,1, currentTask);
+        // dataLogger.LogNodeData(node.name,1, currentTask);
     }
     
     public void Exited(Node node)
@@ -48,12 +59,22 @@ public class NodeManager : MonoBehaviour
         {
             currentPlayerNode = null;
         }
-        dataLogger.LogNodeData(node.name,0, currentTask);
+        // dataLogger.LogNodeData(node.name,0, currentTask);
     }
 
     public void StartDataLogging()
     {
         
+    }
+
+    public String ReturnModuleInfo(Landmark landmark)
+    {
+        return infoForLandmark[landmark];
+    }
+    
+    public Color ReturnColor(Landmark landmark)
+    {
+        return colorForLandmark[landmark];
     }
 
     public Vector3 ReturnPosition(Landmark landmark)

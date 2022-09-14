@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class SimpleCapsuleWithStickMovement : MonoBehaviour
 {
+	public static SimpleCapsuleWithStickMovement Instance;
+	
 	public bool EnableLinearMovement = true;
 	public bool EnableRotation = true;
 	public bool HmdRotatesPlayer = true;
@@ -25,6 +27,15 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 
 	private void Awake()
 	{
+		
+		if (Instance == null)
+		{
+			Instance = this;
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
 		rb = GetComponent<Rigidbody>();
 		if (CameraRig == null) CameraRig = GetComponentInChildren<OVRCameraRig>();
 	}
