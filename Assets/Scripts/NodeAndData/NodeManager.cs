@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NodeManager : MonoBehaviour
 {
     public static NodeManager Instance;
+    public static event Action<string> EnteredNode;
+
 
     [SerializeField] private List<Landmark> landmarkEnums;
     [SerializeField] private List<Transform> landmarkLocations;
@@ -35,6 +38,7 @@ public class NodeManager : MonoBehaviour
     public void Entered(Node node)
     {
         currentPlayerNode = node;
+        EnteredNode?.Invoke(currentPlayerNode.name);
         dataLogger.LogNodeData(node.name,1, currentTask);
     }
     

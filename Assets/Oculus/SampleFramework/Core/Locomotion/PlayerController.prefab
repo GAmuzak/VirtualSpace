@@ -426,12 +426,13 @@ MonoBehaviour:
   HmdRotatesPlayer: 1
   RotationEitherThumbstick: 0
   RotationAngle: 1
-  Speed: 100
+  Speed: 40
   CameraRig: {fileID: 0}
-  maxSpeed: 70
-  counterForceFactor: 5
+  maxSpeed: 6
+  counterForceFactor: 10
   rotationSpeed: 60
-  eyeAnchor: {fileID: 0}
+  isHorizontalInverted: 1
+  isVerticalInverted: 1
 --- !u!136 &4926590347846174716
 CapsuleCollider:
   m_ObjectHideFlags: 0

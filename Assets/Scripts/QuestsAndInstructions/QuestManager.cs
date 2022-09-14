@@ -13,16 +13,21 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private Quest currentQuest;
     [SerializeField] private NodeManager nodeManager;
     [SerializeField] private List<string> sceneNames; //should ideally be decoupled, but also this looks cleaner
+    [SerializeField] private List<string> moduleInformation;
     [SerializeField] private float nodeProximity;
     [SerializeField] private float buffer = 5f;
+    [SerializeField] private Stopwatch timer;
 
     private readonly List<Landmark> mainQuestLandmarkSequence=new();
+    private int currentInfoIndex;
     private bool endGameplayLoop;
     private string sceneName;
     private bool firstTaskTriggered;
+    private bool playerAtTarget;
 
     private void Start()
     {
+        NodeManager.EnteredNode += AtTarget;
         List<int> validSequence = new()
         {
             0, 1, 2, 0, 3, 1, 0, 2, 1, 3, 0, 4, 1, 5, 2, 3, 4, 0, 5, 1, 4, 3, 5, 4, 2, 5, 3, 2, 4, 5
@@ -42,11 +47,10 @@ public class QuestManager : MonoBehaviour
         {
             case QuestType.Tutorial or QuestType.NavigateToTarget:
             {
-                if (AtTarget(currentQuest.landmark))
+                if (playerAtTarget)
                 {
                     EndCurrentQuest();
                 }
-
                 break;
             }
             case QuestType.PointToTarget:
@@ -58,6 +62,9 @@ public class QuestManager : MonoBehaviour
     private void InitialiseNextQuest()
     {
         currentQuest.state = QuestState.NotStarted;
+        timer.Reset();
+        timer.Begin();
+        playerAtTarget = false;
         
         #region Set Type
         if(!firstTaskTriggered)
@@ -107,13 +114,16 @@ public class QuestManager : MonoBehaviour
         #endregion
 
         HandleActiveQuest();
-
     }
 
-    private bool AtTarget(Landmark landmark)
+    private IEnumerator Introduction()
     {
-        float currentDifference = Vector3.Distance(nodeManager.ReturnPosition(landmark), player.transform.position);
-        return currentDifference < nodeProximity;
+        throw new NotImplementedException();
+    }
+
+    private void AtTarget(string landmark)
+    {
+        playerAtTarget = string.Equals(landmark, currentQuest.landmark.ToString());
     }
 
     private void HandleActiveQuest()
@@ -131,8 +141,24 @@ public class QuestManager : MonoBehaviour
 
     private void EndCurrentQuest()
     {
+        timer.Pause();
         currentQuest.state = QuestState.Finished;
         pointToTarget.ToggleVisibility(false, nodeManager.ReturnPosition(currentQuest.landmark));
+        string finalTime = $"{timer.GetRawElapsedTime():0.##}";
+        mainNotification.UpdateText("Congratulations, you made it to the "+ currentQuest.landmark+"!" +
+                                    "\nTime Taken:"+finalTime);
+        StartCoroutine(ModuleInfo());
+    }
+
+    private IEnumerator ModuleInfo()
+    {
+        yield return new WaitForSeconds(5f);
+        if(currentInfoIndex<moduleInformation.Count)
+        {
+            mainNotification.UpdateText(moduleInformation[currentInfoIndex]);
+            currentInfoIndex++;
+            yield return new WaitForSeconds(3f);
+        }
         StartCoroutine(BufferToNextQuest());
     }
 

@@ -64,9 +64,9 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 		else if (oppositeInput)
 		{
 			Vector3 counterForce = moveDir * (Speed * Time.fixedDeltaTime * counterForceFactor);
-			Vector3 relativeMovement = transform.InverseTransformDirection(rb.velocity);
-			Vector3 dampMomentum = new Vector3(relativeMovement.x, relativeMovement.y, 0)* (-3f*Speed * Time.fixedDeltaTime);
-			rb.AddForce(dampMomentum);
+			// Vector3 relativeMovement = transform.InverseTransformDirection(rb.velocity);
+			// Vector3 dampMomentum = new Vector3(relativeMovement.x, relativeMovement.y, 0)* (-3f*Speed * Time.fixedDeltaTime);
+			// rb.AddForce(dampMomentum);
 			rb.AddForce(counterForce);
 		}
 	}
