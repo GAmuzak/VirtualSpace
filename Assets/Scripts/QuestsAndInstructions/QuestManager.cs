@@ -131,7 +131,7 @@ public class QuestManager : MonoBehaviour
         mainNotification.UpdateText("You are now going to be getting a tour of some of the interesting modules aboard!");
         yield return new WaitForSeconds(5f);
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(Landmark.Airlock));
-        mainNotification.UpdateText("Currently you are in the <b><color=#"+col+">airlock</color><b>. Dismiss this message to have a look at your surroundings");
+        mainNotification.UpdateText("Currently you are in the <b><color=#"+col+">airlock</color></b>. Dismiss this message to have a look at your surroundings");
         yield return new WaitForSeconds(5f);
         mainNotification.UpdateText(NodeManager.Instance.ReturnModuleInfo(Landmark.Airlock));
         currentInfoIndex++;
