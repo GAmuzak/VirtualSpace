@@ -525,13 +525,11 @@ MonoBehaviour:
   - Tutorial
   - MainTask
   - Freeplay
-  moduleInformation:
-  - The Airlock is XYZ
-  - The Cupola is XYZ
-  - The Storage is XYZ
-  - The US Lab is XYZ
-  - The Columbus is XYZ
-  - The JPM is XYZ
+  introductions:
+  - '"Welcome to the <b>Virtual</b> ISS!"'
+  - '"You are now going to be getting a tour of some of the interesting modules aboard!"'
+  - '"Currently you are in the <b><color=#4A0CE0>airlock</color></b>. Dismiss this
+    message to have a look at your surroundings"'
   nodeProximity: 10
   buffer: 5
   timer: {fileID: 1158111615}
@@ -621,12 +619,12 @@ MonoBehaviour:
   - {fileID: 1938215154}
   - {fileID: 4972061814095657970}
   landmarkColors:
-  - {r: 0.2971698, g: 1, b: 0.3166236, a: 0}
-  - {r: 0.84209454, g: 0.9150943, b: 0.11654504, a: 0}
-  - {r: 0.6798223, g: 0.044544343, b: 0.7264151, a: 0}
-  - {r: 1, g: 0.41960788, b: 0.5950109, a: 0}
+  - {r: 0.2901961, g: 0.047058824, b: 0.8784314, a: 0}
+  - {r: 0.2901961, g: 0.047058824, b: 0.8784314, a: 0}
+  - {r: 0.2901961, g: 0.047058824, b: 0.8784314, a: 0}
+  - {r: 0.2901961, g: 0.047058824, b: 0.8784314, a: 0}
   - {r: 0.2912769, g: 0.045523323, b: 0.8773585, a: 0}
-  - {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 0}
+  - {r: 0.2901961, g: 0.047058824, b: 0.8784314, a: 0}
   moduleInformation:
   - is XYZ
   - is XYZ
