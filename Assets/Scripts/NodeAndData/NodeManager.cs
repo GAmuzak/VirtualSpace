@@ -13,12 +13,14 @@ public class NodeManager : MonoBehaviour
     [SerializeField] private List<Color> landmarkColors;
     [SerializeField] private List<string> moduleInformation;
 
-    private Dictionary<Landmark, Vector3> landMarkToTransform=new();
-    private Dictionary<Landmark, Color> colorForLandmark = new();
-    private Dictionary<Landmark, string> infoForLandmark = new();
+    private Dictionary<Landmark, Vector3> landMarkToTransform= new Dictionary<Landmark, Vector3>();
+    private Dictionary<Landmark, Color> colorForLandmark = new Dictionary<Landmark, Color>();
+    private Dictionary<Landmark, string> infoForLandmark = new Dictionary<Landmark, string>();
     private Node currentPlayerNode;
     private DataLogger dataLogger;
     private string currentTask;
+
+    public int ModuleInfoCount => moduleInformation.Count;
 
     private void Start()
     {
@@ -71,7 +73,7 @@ public class NodeManager : MonoBehaviour
     {
         return infoForLandmark[landmark];
     }
-    
+
     public Color ReturnColor(Landmark landmark)
     {
         return colorForLandmark[landmark];

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class QuestManager : MonoBehaviour
 {
+    #region SFields
+
     [SerializeField] private List<Landmark> tutorialLocations;
     [SerializeField] private PointToTarget pointToTarget;
     [SerializeField] private GameObject player;
@@ -13,10 +15,14 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private Quest currentQuest;
     [SerializeField] private NodeManager nodeManager;
     [SerializeField] private List<string> sceneNames; //should ideally be decoupled, but also this looks cleaner
-    [SerializeField] private List<string> moduleInformation;
+    [SerializeField] private List<string> introductions;
     [SerializeField] private float nodeProximity;
     [SerializeField] private float buffer = 5f;
     [SerializeField] private Stopwatch timer;
+
+    #endregion
+
+    #region FieldVars
 
     private readonly List<Landmark> mainQuestLandmarkSequence=new();
     private int currentInfoIndex;
@@ -24,6 +30,10 @@ public class QuestManager : MonoBehaviour
     private string sceneName;
     private bool firstTaskTriggered;
     private bool playerAtTarget;
+    private int introIndex;
+    private bool hasTriggered;
+
+    #endregion
 
     private void Start()
     {
@@ -38,6 +48,16 @@ public class QuestManager : MonoBehaviour
         }
         firstTaskTriggered = false;
         StartCoroutine(SceneGrabDelay());
+    }
+
+    private void OnEnable()
+    {
+        Notification.NotificationDismissed += IntroductionsLoop;
+    }
+
+    private void OnDisable()
+    {
+        Notification.NotificationDismissed -= IntroductionsLoop;
     }
 
     private void Update()
@@ -64,6 +84,7 @@ public class QuestManager : MonoBehaviour
         currentQuest.state = QuestState.NotStarted;
 
         FirstSetup();
+        
         #region Initialise Quest
 
         timer.Reset();
@@ -102,42 +123,34 @@ public class QuestManager : MonoBehaviour
 
     private void FirstSetup()
     {
-        if (!firstTaskTriggered)
+        if (firstTaskTriggered) return;
+        
+        if (sceneName == sceneNames[0])
         {
-            if (sceneName == sceneNames[0])
-            {
-                currentQuest.type = QuestType.Tutorial;
-            }
-            else if (sceneName == sceneNames[1])
-            {
-                currentQuest.type = QuestType.FreeRoam;
-            }
-            else if (sceneName == sceneNames[2])
-            {
-                currentQuest.type = QuestType.PointToTarget;
-            }
-
-            firstTaskTriggered = true;
+            currentQuest.type = QuestType.Tutorial;
         }
+        else if (sceneName == sceneNames[1])
+        {
+            currentQuest.type = QuestType.FreeRoam;
+        }
+        else if (sceneName == sceneNames[2])
+        {
+            currentQuest.type = QuestType.PointToTarget;
+        }
+        firstTaskTriggered = true;
     }
 
-    private IEnumerator Introduction()
+    private void IntroductionsLoop()
     {
-        SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
-        SimpleCapsuleWithStickMovement.Instance.EnableRotation = false;
-        yield return new WaitForSeconds(5f);
-        mainNotification.UpdateText("Welcome to the <b>Virtual</b> ISS!");
-        yield return new WaitForSeconds(5f);
-        mainNotification.UpdateText("You are now going to be getting a tour of some of the interesting modules aboard!");
-        yield return new WaitForSeconds(5f);
-        string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(Landmark.Airlock));
-        mainNotification.UpdateText("Currently you are in the <b><color=#"+col+">airlock</color></b>. Dismiss this message to have a look at your surroundings");
-        yield return new WaitForSeconds(5f);
-        mainNotification.UpdateText(NodeManager.Instance.ReturnModuleInfo(Landmark.Airlock));
+        if (hasTriggered) return;
+        hasTriggered = true;
+        StartCoroutine(IntroPause());
+    }
+
+    private void NextModuleInfo(Landmark landmark)
+    {
+        mainNotification.UpdateText(NodeManager.Instance.ReturnModuleInfo(landmark));
         currentInfoIndex++;
-        SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = true;
-        SimpleCapsuleWithStickMovement.Instance.EnableRotation = true;
-        StartCoroutine(BufferToNextQuest());
     }
 
     private void AtTarget(string landmark)
@@ -170,22 +183,43 @@ public class QuestManager : MonoBehaviour
         StartCoroutine(ModuleInfo());
     }
 
-    private IEnumerator ModuleInfo()
-    {
-        yield return new WaitForSeconds(5f);
-        if(currentInfoIndex<moduleInformation.Count)
-        {
-            mainNotification.UpdateText(NodeManager.Instance.ReturnModuleInfo(currentQuest.landmark));
-            currentInfoIndex++;
-            yield return new WaitForSeconds(3f);
-        }
-        StartCoroutine(BufferToNextQuest());
-    }
-
     private void EndScene(string questType)
     {
         mainNotification.UpdateText("Thank you for completing the " + questType + "!");
         endGameplayLoop = true;
+    }
+
+    private IEnumerator IntroPause()
+    {
+        yield return new WaitForSeconds(3f);
+        hasTriggered = false;
+        if(introIndex<introductions.Count)
+        {
+            mainNotification.UpdateText(introductions[introIndex]);
+        }
+        else if (introIndex == introductions.Count)
+        {
+            NextModuleInfo(Landmark.Airlock);
+        }
+        introIndex++;
+        if(introIndex>introductions.Count)
+        {
+            Notification.NotificationDismissed -= IntroductionsLoop;
+            SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = true;
+            SimpleCapsuleWithStickMovement.Instance.EnableRotation = true;
+            StartCoroutine(BufferToNextQuest());
+        }
+    }
+
+    private IEnumerator ModuleInfo()
+    {
+        if(currentInfoIndex<NodeManager.Instance.ModuleInfoCount)
+        {
+            yield return new WaitForSeconds(3f);
+            NextModuleInfo(currentQuest.landmark);
+            yield return new WaitForSeconds(5f);
+        }
+        StartCoroutine(BufferToNextQuest());
     }
 
     private IEnumerator SceneGrabDelay()
@@ -193,7 +227,9 @@ public class QuestManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         Scene scene = SceneManager.GetActiveScene();
         sceneName = scene.name;
-        StartCoroutine(Introduction());
+        SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
+        SimpleCapsuleWithStickMovement.Instance.EnableRotation = false;
+        IntroductionsLoop();
     }
 
     private IEnumerator BufferToNextQuest()
