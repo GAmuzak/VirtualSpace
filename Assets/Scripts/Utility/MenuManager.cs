@@ -6,7 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    private void OnEnable()
+    {
+        QuestManager.EndGame += ReturnToMenu;
+    }
+
+    private void OnDisable()
+    {
+        QuestManager.EndGame -= ReturnToMenu;
+    }
+
     private void Update()
+    {
+        ReturnToMenu();
+    }
+
+    private static void ReturnToMenu()
     {
         if (OVRInput.GetDown(OVRInput.Button.Start))
         {

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class QuestManager : MonoBehaviour
 {
+    public static event Action EndGame; 
+
     #region SFields
 
     [SerializeField] private List<Landmark> tutorialLocations;
@@ -14,6 +16,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private Notification mainNotification;
     [SerializeField] private Quest currentQuest;
     [SerializeField] private NodeManager nodeManager;
+    [SerializeField] private SnipeTarget snipeTarget;
     [SerializeField] private List<string> sceneNames; //should ideally be decoupled, but also this looks cleaner
     [SerializeField] private List<string> introductions;
     [SerializeField] private float nodeProximity;
@@ -24,7 +27,7 @@ public class QuestManager : MonoBehaviour
 
     #region FieldVars
 
-    private readonly List<Landmark> mainQuestLandmarkSequence=new();
+    private readonly List<Landmark> mainQuestLandmarkSequence= new List<Landmark>();
     private int currentInfoIndex;
     private bool endGameplayLoop;
     private string sceneName;
@@ -38,7 +41,7 @@ public class QuestManager : MonoBehaviour
     private void Start()
     {
         NodeManager.EnteredNode += AtTarget;
-        List<int> validSequence = new()
+        List<int> validSequence = new List<int>
         {
             0, 1, 2, 0, 3, 1, 0, 2, 1, 3, 0, 4, 1, 5, 2, 3, 4, 0, 5, 1, 4, 3, 5, 4, 2, 5, 3, 2, 4, 5
         }; //Note: getting people to replay the main quest might lead them to figure out patterns, but it's unlikely
@@ -97,7 +100,7 @@ public class QuestManager : MonoBehaviour
             {
                 currentQuest.landmark=currentQuest.GetNextLandmark(tutorialLocations);
                 if (currentQuest.landmark == Landmark.NULL) {
-                    EndScene("Tutorial");
+                    EndScene("ISS Tour");
                     return;
                 }
                 string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
@@ -108,6 +111,9 @@ public class QuestManager : MonoBehaviour
             case QuestType.PointToTarget:
             {
                 currentQuest.landmark=currentQuest.GetNextLandmark(mainQuestLandmarkSequence);
+                string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
+                mainNotification.UpdateText("Please point at the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>");
+                snipeTarget.SetTarget(NodeManager.Instance.ReturnPosition(currentQuest.landmark));
                 if (currentQuest.landmark == Landmark.NULL) {
                     EndScene("Main Task");
                     return;
@@ -187,6 +193,8 @@ public class QuestManager : MonoBehaviour
     {
         mainNotification.UpdateText("Thank you for completing the " + questType + "!");
         endGameplayLoop = true;
+        EndGame?.Invoke();
+        
     }
 
     private IEnumerator IntroPause()

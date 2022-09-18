@@ -41,14 +41,24 @@ public class DataLogger : MonoBehaviour
         routine=StartCoroutine(CallLogger(waitTime));
     }
 
+    private void OnEnable()
+    {
+        QuestManager.EndGame += KillLogging;
+    }
+
+    private void OnDisable()
+    {
+        QuestManager.EndGame -= KillLogging;
+    }
+
     private void Update()
     {
         playerLoc = playerTransform.position;
         playerRot = playerTransform.eulerAngles;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            KillLogging();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     KillLogging();
+        // }
     }
 
     private IEnumerator CallLogger(float timeToWait)
@@ -56,7 +66,7 @@ public class DataLogger : MonoBehaviour
         while (!loggingKilled)
         {
             yield return new WaitForSeconds(timeToWait);
-            LogLocationalData();
+            LogPositionalData();
         }
     }
 
@@ -100,7 +110,7 @@ public class DataLogger : MonoBehaviour
 
     }
     
-    private void LogLocationalData()
+    private void LogPositionalData()
     {
         float[] singleFrame = new float[7];
         singleFrame[0] = Time.timeSinceLevelLoad;
