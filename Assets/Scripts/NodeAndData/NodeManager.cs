@@ -52,7 +52,7 @@ public class NodeManager : MonoBehaviour
     {
         currentPlayerNode = node;
         EnteredNode?.Invoke(currentPlayerNode.name);
-        // dataLogger.LogNodeData(node.name,1, currentTask);
+        dataLogger.LogNodeData(node.name,1, currentTask);
     }
     
     public void Exited(Node node)
@@ -61,7 +61,7 @@ public class NodeManager : MonoBehaviour
         {
             currentPlayerNode = null;
         }
-        // dataLogger.LogNodeData(node.name,0, currentTask);
+        dataLogger.LogNodeData(node.name,0, currentTask);
     }
 
     public void StartDataLogging()

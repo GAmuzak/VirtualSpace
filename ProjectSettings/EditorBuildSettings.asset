@@ -16,7 +16,7 @@ EditorBuildSettings:
     guid: 2af974f1465b2ce4f8138a6e5563ebdf
   - enabled: 1
     path: Assets/_Scenes/MainTask.unity
-    guid: 4fd09bfb74bd88a46bfefcdc686f0efa
+    guid: 2702cb32b083d0f4b8cdc1dd2e7d58b2
   - enabled: 1
     path: Assets/_Scenes/FreeRoam.unity
     guid: b5f27e59169ae214481a6611318cd8c3

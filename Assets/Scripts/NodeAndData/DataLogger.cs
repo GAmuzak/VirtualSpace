@@ -35,20 +35,30 @@ public class DataLogger : MonoBehaviour
         tw.WriteLine("Time, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
         tw.Close();
         tw = new StreamWriter(nodeFileName, false);
-        tw.WriteLine("Time, Node, InOrOut, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
+        tw.WriteLine("Time, Node, Task, InOrOut, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
         tw.Close();
 
         routine=StartCoroutine(CallLogger(waitTime));
+    }
+
+    private void OnEnable()
+    {
+        QuestManager.EndGame += KillLogging;
+    }
+
+    private void OnDisable()
+    {
+        QuestManager.EndGame -= KillLogging;
     }
 
     private void Update()
     {
         playerLoc = playerTransform.position;
         playerRot = playerTransform.eulerAngles;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            KillLogging();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     KillLogging();
+        // }
     }
 
     private IEnumerator CallLogger(float timeToWait)
@@ -56,14 +66,14 @@ public class DataLogger : MonoBehaviour
         while (!loggingKilled)
         {
             yield return new WaitForSeconds(timeToWait);
-            LogLocationalData();
+            LogPositionalData();
         }
     }
 
     public void LogNodeData(string nodeName, int inOrOut, string task)
     {
         if(loggingKilled) return;
-        string[] nodeTriggerFrame = new string[9];
+        string[] nodeTriggerFrame = new string[10];
         nodeTriggerFrame[0] = Time.timeSinceLevelLoad.ToString(CultureInfo.CurrentCulture);
         nodeTriggerFrame[1] = nodeName;
         nodeTriggerFrame[2] = task;
@@ -100,7 +110,7 @@ public class DataLogger : MonoBehaviour
 
     }
     
-    private void LogLocationalData()
+    private void LogPositionalData()
     {
         float[] singleFrame = new float[7];
         singleFrame[0] = Time.timeSinceLevelLoad;

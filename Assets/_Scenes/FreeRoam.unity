@@ -555,5 +555,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: IssInterior.fbx_Scene
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8247807409464319187, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+    - {fileID: 4557857513545958909, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+    - {fileID: 8959649375012787920, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+    - {fileID: 4281988253089002951, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+    - {fileID: 786756901251593994, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+    - {fileID: 3398683121794451703, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+    - {fileID: 1568759923596380337, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+    - {fileID: 8906127359148678115, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+    - {fileID: 3063860851049374289, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+    - {fileID: 8168704322086674787, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
