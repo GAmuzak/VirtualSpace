@@ -12,14 +12,13 @@ public class QuestManager : MonoBehaviour
 
     [SerializeField] private List<Landmark> tutorialLocations;
     [SerializeField] private PointToTarget pointToTarget;
-    [SerializeField] private GameObject player;
     [SerializeField] private Notification mainNotification;
     [SerializeField] private Quest currentQuest;
     [SerializeField] private NodeManager nodeManager;
     [SerializeField] private SnipeTarget snipeTarget;
     [SerializeField] private List<string> sceneNames; //should ideally be decoupled, but also this looks cleaner
     [SerializeField] private List<string> introductions;
-    [SerializeField] private float nodeProximity;
+    [SerializeField] private List<string> mainTaskInstructions;
     [SerializeField] private float buffer = 5f;
     [SerializeField] private Stopwatch timer;
 
@@ -35,7 +34,7 @@ public class QuestManager : MonoBehaviour
     private bool playerAtTarget;
     private int introIndex;
     private bool hasTriggered;
-
+    
     #endregion
 
     private void Start()
@@ -53,14 +52,11 @@ public class QuestManager : MonoBehaviour
         StartCoroutine(SceneGrabDelay());
     }
 
-    private void OnEnable()
-    {
-        Notification.NotificationDismissed += IntroductionsLoop;
-    }
-
     private void OnDisable()
     {
         Notification.NotificationDismissed -= IntroductionsLoop;
+        Notification.NotificationDismissed -= MainTaskLoop;
+        SnipeTarget.Sniped -= OnSniped;
     }
 
     private void Update()
@@ -68,7 +64,7 @@ public class QuestManager : MonoBehaviour
         if (endGameplayLoop || currentQuest.state!=QuestState.Active) return;
         switch (currentQuest.type)
         {
-            case QuestType.Tutorial or QuestType.NavigateToTarget:
+            case QuestType.Tutorial:
             {
                 if (playerAtTarget)
                 {
@@ -76,9 +72,14 @@ public class QuestManager : MonoBehaviour
                 }
                 break;
             }
-            case QuestType.PointToTarget:
-                
+            case QuestType.NavigateToTarget:
+            {
+                if (playerAtTarget)
+                {
+                    StartCoroutine(SwitchToNextPointTask());
+                }
                 break;
+            }
         }
     }
 
@@ -89,15 +90,15 @@ public class QuestManager : MonoBehaviour
         FirstSetup();
         
         #region Initialise Quest
-
-        timer.Reset();
-        timer.Begin();
+        
         playerAtTarget = false;
         
         switch (currentQuest.type)
         {
             case QuestType.Tutorial:
             {
+                timer.Reset();
+                timer.Begin();
                 currentQuest.landmark=currentQuest.GetNextLandmark(tutorialLocations);
                 if (currentQuest.landmark == Landmark.NULL) {
                     EndScene("ISS Tour");
@@ -110,6 +111,7 @@ public class QuestManager : MonoBehaviour
             }
             case QuestType.PointToTarget:
             {
+                SnipeTarget.Sniped += OnSniped;
                 currentQuest.landmark=currentQuest.GetNextLandmark(mainQuestLandmarkSequence);
                 string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
                 mainNotification.UpdateText("Please point at the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>");
@@ -124,7 +126,7 @@ public class QuestManager : MonoBehaviour
 
         #endregion
 
-        HandleActiveQuest();
+        currentQuest.state = QuestState.Active;
     }
 
     private void FirstSetup()
@@ -134,47 +136,27 @@ public class QuestManager : MonoBehaviour
         if (sceneName == sceneNames[0])
         {
             currentQuest.type = QuestType.Tutorial;
+            SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
+            SimpleCapsuleWithStickMovement.Instance.EnableRotation = false;
+            Notification.NotificationDismissed += IntroductionsLoop;
+            IntroductionsLoop();
         }
         else if (sceneName == sceneNames[1])
         {
-            currentQuest.type = QuestType.FreeRoam;
+            currentQuest.type = QuestType.PointToTarget;
+            SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
+            SimpleCapsuleWithStickMovement.Instance.EnableRotation = false;
+            Notification.NotificationDismissed += MainTaskLoop;
+            MainTaskLoop();
         }
         else if (sceneName == sceneNames[2])
         {
-            currentQuest.type = QuestType.PointToTarget;
+            currentQuest.type = QuestType.FreeRoam;
         }
-        firstTaskTriggered = true;
-    }
 
-    private void IntroductionsLoop()
-    {
-        if (hasTriggered) return;
-        hasTriggered = true;
-        StartCoroutine(IntroPause());
-    }
-
-    private void NextModuleInfo(Landmark landmark)
-    {
-        mainNotification.UpdateText(NodeManager.Instance.ReturnModuleInfo(landmark));
-        currentInfoIndex++;
-    }
-
-    private void AtTarget(string landmark)
-    {
-        playerAtTarget = string.Equals(landmark, currentQuest.landmark.ToString());
-    }
-
-    private void HandleActiveQuest()
-    {
-        currentQuest.state = QuestState.Active;
+        Debug.Log(currentQuest.type);
         
-        switch (currentQuest.type)
-        {
-            case QuestType.PointToTarget:
-                break;
-            case QuestType.NavigateToTarget:
-                break;
-        }
+        firstTaskTriggered = true;
     }
 
     private void EndCurrentQuest()
@@ -194,7 +176,56 @@ public class QuestManager : MonoBehaviour
         mainNotification.UpdateText("Thank you for completing the " + questType + "!");
         endGameplayLoop = true;
         EndGame?.Invoke();
-        
+    }
+
+    private IEnumerator SwitchToNextPointTask()
+    {
+        currentQuest.state = QuestState.Finished;
+        string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
+        mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!");
+        yield return new WaitForSeconds(3f);
+        currentQuest.type = QuestType.PointToTarget;
+        InitialiseNextQuest();
+    }
+
+    private IEnumerator SwitchToNavigation()
+    {
+        yield return new WaitForSeconds(3f);
+        currentQuest.type = QuestType.NavigateToTarget;
+        string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
+        mainNotification.UpdateText("Please go to the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>");
+    }
+
+    private void MainTaskLoop()
+    {
+        if (hasTriggered) return;
+        hasTriggered = true;
+        StartCoroutine(MainTaskInstructionPause());
+    }
+
+    private IEnumerator MainTaskInstructionPause()
+    {
+        yield return new WaitForSeconds(3f);
+        hasTriggered = false;
+        if(introIndex<mainTaskInstructions.Count)
+        {
+            mainNotification.UpdateText(mainTaskInstructions[introIndex]);
+        }
+        introIndex++;
+        if(introIndex>mainTaskInstructions.Count)
+        {
+            Notification.NotificationDismissed -= MainTaskLoop;
+            SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = true;
+            SimpleCapsuleWithStickMovement.Instance.EnableRotation = true;
+            StartCoroutine(BufferToNextQuest());
+        }
+    }
+
+    private void IntroductionsLoop()
+    {
+        if (hasTriggered) return;
+        hasTriggered = true;
+        StartCoroutine(IntroPause());
     }
 
     private IEnumerator IntroPause()
@@ -219,6 +250,24 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    private void NextModuleInfo(Landmark landmark)
+    {
+        mainNotification.UpdateText(NodeManager.Instance.ReturnModuleInfo(landmark));
+        currentInfoIndex++;
+    }
+
+    private void AtTarget(string landmark)
+    {
+        playerAtTarget = string.Equals(landmark, currentQuest.landmark.ToString());
+    }
+
+    private void OnSniped(float angleOfDifference, float performancePercentage)
+    {
+        SnipeTarget.Sniped -= OnSniped;
+        mainNotification.UpdateText(angleOfDifference+" and "+performancePercentage+"%");
+        StartCoroutine(SwitchToNavigation());
+    }
+
     private IEnumerator ModuleInfo()
     {
         if(currentInfoIndex<NodeManager.Instance.ModuleInfoCount)
@@ -235,14 +284,12 @@ public class QuestManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         Scene scene = SceneManager.GetActiveScene();
         sceneName = scene.name;
-        SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
-        SimpleCapsuleWithStickMovement.Instance.EnableRotation = false;
-        IntroductionsLoop();
+        Debug.Log(sceneName);
+        FirstSetup();
     }
 
     private IEnumerator BufferToNextQuest()
     {
-        
         yield return new WaitForSeconds(buffer);
         InitialiseNextQuest();
     }

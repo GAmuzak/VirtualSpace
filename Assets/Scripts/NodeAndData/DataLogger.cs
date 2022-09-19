@@ -35,7 +35,7 @@ public class DataLogger : MonoBehaviour
         tw.WriteLine("Time, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
         tw.Close();
         tw = new StreamWriter(nodeFileName, false);
-        tw.WriteLine("Time, Node, InOrOut, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
+        tw.WriteLine("Time, Node, Task, InOrOut, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
         tw.Close();
 
         routine=StartCoroutine(CallLogger(waitTime));
@@ -73,7 +73,7 @@ public class DataLogger : MonoBehaviour
     public void LogNodeData(string nodeName, int inOrOut, string task)
     {
         if(loggingKilled) return;
-        string[] nodeTriggerFrame = new string[9];
+        string[] nodeTriggerFrame = new string[10];
         nodeTriggerFrame[0] = Time.timeSinceLevelLoad.ToString(CultureInfo.CurrentCulture);
         nodeTriggerFrame[1] = nodeName;
         nodeTriggerFrame[2] = task;

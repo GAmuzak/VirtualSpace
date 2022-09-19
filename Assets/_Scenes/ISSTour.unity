@@ -565,6 +565,7 @@ MonoBehaviour:
   mainNotification: {fileID: 1051515313}
   currentQuest: {fileID: 1736701511}
   nodeManager: {fileID: 1486342085}
+  snipeTarget: {fileID: 0}
   sceneNames:
   - ISSTour
   - MainTask
@@ -593,7 +594,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1303127744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9601c77998c9048821faee56e1dcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathForPositionalLogs: /../Logs/PositionalData.csv
+  pathForPositionalLogs: /../Logs/ISSTourPositionalData.csv
   pathForNodeLogs: /../Logs/NodeData.csv
   playerTransform: {fileID: 1892471943}
   resolution: 20
