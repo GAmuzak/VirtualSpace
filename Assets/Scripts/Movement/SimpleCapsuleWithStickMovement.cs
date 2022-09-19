@@ -67,7 +67,7 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 		Vector2 movementInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
 		bool noInput = Mathf.Approximately(Vector2.SqrMagnitude(movementInput), 0);
 		bool oppositeInput = Vector3.Dot(rb.velocity.normalized, moveDir) <= 0.8f;
-		if (noInput)
+		if ((noInput || !EnableLinearMovement) && rb.velocity.sqrMagnitude>0f)
 		{
 			Vector3 counterForce = rb.velocity * -0.99f;
 			rb.AddForce(counterForce);

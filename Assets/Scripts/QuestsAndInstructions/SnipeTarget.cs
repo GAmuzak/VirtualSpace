@@ -42,9 +42,10 @@ public class SnipeTarget : MonoBehaviour
         Vector3 targetVector = targetCenter - playerEye.position;
         angleOfDifference = Vector3.Angle(playerLookDirection, targetVector);
         performancePercentage = (180f - angleOfDifference)/180f * 100f;
+        performancePercentage = (float)Math.Round(performancePercentage * 100f) / 100f;
+        angleOfDifference = (float)Math.Round(angleOfDifference * 100f) / 100f;
         // Debug.Log("--------------------------------------------------------------------------------------");
         // Debug.Log("The angle of difference is: " + angleOfDifference + " and the performance percentage is: " + performancePercentage + "%");
         // Debug.Log("--------------------------------------------------------------------------------------");
-
     }
 }

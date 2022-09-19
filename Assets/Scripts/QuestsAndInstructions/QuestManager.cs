@@ -181,6 +181,7 @@ public class QuestManager : MonoBehaviour
     private IEnumerator SwitchToNextPointTask()
     {
         currentQuest.state = QuestState.Finished;
+        SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
         mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!");
         yield return new WaitForSeconds(3f);
@@ -192,6 +193,7 @@ public class QuestManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         currentQuest.type = QuestType.NavigateToTarget;
+        SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = true;
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
         mainNotification.UpdateText("Please go to the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>");
     }
@@ -215,7 +217,6 @@ public class QuestManager : MonoBehaviour
         if(introIndex>mainTaskInstructions.Count)
         {
             Notification.NotificationDismissed -= MainTaskLoop;
-            SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = true;
             SimpleCapsuleWithStickMovement.Instance.EnableRotation = true;
             StartCoroutine(BufferToNextQuest());
         }
@@ -264,7 +265,7 @@ public class QuestManager : MonoBehaviour
     private void OnSniped(float angleOfDifference, float performancePercentage)
     {
         SnipeTarget.Sniped -= OnSniped;
-        mainNotification.UpdateText(angleOfDifference+" and "+performancePercentage+"%");
+        mainNotification.UpdateText("AOD:"+angleOfDifference+";\n Perf:"+performancePercentage+"%");
         StartCoroutine(SwitchToNavigation());
     }
 
