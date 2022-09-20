@@ -561,7 +561,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialLocations: 04000000050000000200000001000000000000000100000002000000050000000400000003000000
   pointToTarget: {fileID: 5321399615832056407}
-  player: {fileID: 1892471944}
   mainNotification: {fileID: 1051515313}
   currentQuest: {fileID: 1736701511}
   nodeManager: {fileID: 1486342085}
@@ -575,7 +574,7 @@ MonoBehaviour:
   - '"You are now going to be getting a tour of some of the interesting modules aboard!"'
   - '"Currently you are in the <b><color=#4A0CE0>airlock</color></b>. Dismiss this
     message to have a look at your surroundings"'
-  nodeProximity: 10
+  mainTaskInstructions: []
   buffer: 5
   timer: {fileID: 1158111615}
 --- !u!1 &1303127743
@@ -948,11 +947,6 @@ PrefabInstance:
 --- !u!4 &1892471943 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4926590347846174690, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
-  m_PrefabInstance: {fileID: 1892471942}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1892471944 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4926590347846174712, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
   m_PrefabInstance: {fileID: 1892471942}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1938215154 stripped
