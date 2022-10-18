@@ -570,10 +570,15 @@ MonoBehaviour:
   - MainTask
   - Freeplay
   introductions:
-  - '"Welcome to the <b>Virtual</b> ISS!"'
-  - '"You are now going to be getting a tour of some of the interesting modules aboard!"'
-  - '"Currently you are in the <b><color=#4A0CE0>airlock</color></b>. Dismiss this
-    message to have a look at your surroundings"'
+  - Welcome to the <b>Virtual</b> ISS!
+  - Welcome to the ISS! You have arrived on the station as a new NASA astronaut assigned
+    to a standard six-month mission.
+  - Until your departure back to Earth, your job is to live and work on the ISS.
+    You will be asked to complete various tasks as you navigate this environment.
+    Good luck!
+  - You are now going to be getting a tour of some of the interesting modules aboard!
+  - Currently you are in the <b><color=#4A0CE0>airlock</color></b>. Dismiss this
+    message to have a look at your surroundings
   mainTaskInstructions: []
   buffer: 5
   timer: {fileID: 1158111615}
