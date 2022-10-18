@@ -622,7 +622,7 @@ MonoBehaviour:
   mainTaskInstructions:
   - Welcome to the <b>main task</b>
   - You will be asked to point at a landmark, then navigate to the landmark
-  - When asked to point at a node, simply look at the direction you think appropriate,
+  - When asked to point at a landmark, simply look at the direction you think appropriate,
     then press the trigger on either index finger
   - After that, navigate to the same location
   buffer: 3
