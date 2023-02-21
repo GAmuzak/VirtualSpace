@@ -470,6 +470,7 @@ MonoBehaviour:
   player: {fileID: 0}
   scaleFactor: 0
   targetText: {fileID: 4645377836461216436}
+  counterText: {fileID: 1014966411691822952}
 --- !u!223 &2900792464466199364
 Canvas:
   m_ObjectHideFlags: 0

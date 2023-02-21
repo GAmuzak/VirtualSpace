@@ -2111,7 +2111,7 @@ MonoBehaviour:
   - Use the right controller joystick to look around
   - Moving it left and right moves your body left and right
   - Moving the joystick up and down rotates your body up or down
-  - Press either of the A or B buttons on the right controller for Y inversion
+  - Press the B button on the right controller for Y inversion
   - Pressing on the right controller triggers will rotate your body side to side
   - The left controller joystick moves your body around
   - You will move in the direction that you look when you hold forward

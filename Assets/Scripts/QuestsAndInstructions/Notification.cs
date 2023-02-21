@@ -11,7 +11,8 @@ public class Notification : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private float scaleFactor;
     [SerializeField] private TextMeshProUGUI targetText;
-
+    [SerializeField] private TextMeshProUGUI counterText;
+    
     private GameObject panel;
     private Transform rigTransform;
     private Vector3 menuOffset;
@@ -28,14 +29,10 @@ public class Notification : MonoBehaviour
             SoundManager.Instance.PlaySound(sound);
         }
         panel.SetActive(false);
-        // targetText = transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>(); 
-        //I'm lazy, don't mess with the prefab order
-        //Update: This is so bad
     }
 
     private void Update()
     {
-        
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
             bool isPanelActive = panel.activeSelf;
@@ -54,12 +51,13 @@ public class Notification : MonoBehaviour
     }
 
 
-    public void UpdateText(string newText)
+    public void UpdateText(string newText, int index, int totalCount)
     {
         panel.SetActive(true);
         // SetLocation();
         PlaySound();
         targetText.SetText(newText);
+        counterText.SetText("Message: " + index + "/" + totalCount);
     }
 
     private void SetLocation()

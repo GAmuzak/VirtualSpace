@@ -39,10 +39,9 @@ public class ControlsRunManager : MonoBehaviour
         SkipTutorial();
     }
 
-    public void SkipTutorial()
+    private void SkipTutorial()
     {
         notifIndex = -1;
-        // mainNotif.UpdateText("Look at this speedrunner sheesh");
         EndTutorial();
     }
 
@@ -57,7 +56,7 @@ public class ControlsRunManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         alreadyTriggered = false;
-        mainNotif.UpdateText(notifications[notifIndex]);
+        mainNotif.UpdateText(notifications[notifIndex], notifIndex+1, notifications.Count);
         if (notifIndex + 1 < notifications.Count)
             notifIndex++;
         else
@@ -86,6 +85,6 @@ public class ControlsRunManager : MonoBehaviour
     private void DisplayStats()
     {
         string finalTime = $"{timer.GetRawElapsedTime():0.##}";
-        mainNotif.UpdateText("Time: "+finalTime);
+        mainNotif.UpdateText("Time: "+finalTime, 1, 1);
     }
 }

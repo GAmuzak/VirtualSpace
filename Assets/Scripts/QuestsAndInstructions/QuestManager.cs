@@ -105,7 +105,7 @@ public class QuestManager : MonoBehaviour
                     return;
                 }
                 string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
-                mainNotification.UpdateText("Please go to the <b><color=#"+col+">" + currentQuest.landmark + "</color></b> by following the arrow below");
+                mainNotification.UpdateText("Please go to the <b><color=#"+col+">" + currentQuest.landmark + "</color></b> by following the arrow below", 1, 1);
                 pointToTarget.ToggleVisibility(true, nodeManager.ReturnPosition(currentQuest.landmark));
                 break;
             }
@@ -114,7 +114,7 @@ public class QuestManager : MonoBehaviour
                 SnipeTarget.Sniped += OnSniped;
                 currentQuest.landmark=currentQuest.GetNextLandmark(mainQuestLandmarkSequence);
                 string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
-                mainNotification.UpdateText("Please point at the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>");
+                mainNotification.UpdateText("Please point at the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>", 2, 2);
                 snipeTarget.SetTarget(NodeManager.Instance.ReturnPosition(currentQuest.landmark));
                 if (currentQuest.landmark == Landmark.NULL) {
                     EndScene("Main Task");
@@ -167,13 +167,13 @@ public class QuestManager : MonoBehaviour
         string finalTime = $"{timer.GetRawElapsedTime():0.##}";
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
         mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!" +
-                                    "\nTime Taken: "+finalTime);
+                                    "\nTime Taken: "+finalTime ,1 , 2);
         StartCoroutine(ModuleInfo());
     }
 
     private void EndScene(string questType)
     {
-        mainNotification.UpdateText("Thank you for completing the " + questType + "!");
+        mainNotification.UpdateText("Thank you for completing the " + questType + "!", 1,1);
         endGameplayLoop = true;
         EndGame?.Invoke();
     }
@@ -183,7 +183,7 @@ public class QuestManager : MonoBehaviour
         currentQuest.state = QuestState.Finished;
         SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
-        mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!");
+        mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!", 1,2);
         yield return new WaitForSeconds(3f);
         currentQuest.type = QuestType.PointToTarget;
         InitialiseNextQuest();
@@ -195,7 +195,7 @@ public class QuestManager : MonoBehaviour
         currentQuest.type = QuestType.NavigateToTarget;
         SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = true;
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
-        mainNotification.UpdateText("Please go to the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>");
+        mainNotification.UpdateText("Please go to the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>", 2, 2);
     }
 
     private void MainTaskLoop()
@@ -211,7 +211,7 @@ public class QuestManager : MonoBehaviour
         hasTriggered = false;
         if(introIndex<mainTaskInstructions.Count)
         {
-            mainNotification.UpdateText(mainTaskInstructions[introIndex]);
+            mainNotification.UpdateText(mainTaskInstructions[introIndex], introIndex+1, mainTaskInstructions.Count);
         }
         introIndex++;
         if(introIndex>mainTaskInstructions.Count)
@@ -235,11 +235,11 @@ public class QuestManager : MonoBehaviour
         hasTriggered = false;
         if(introIndex<introductions.Count)
         {
-            mainNotification.UpdateText(introductions[introIndex]);
+            mainNotification.UpdateText(introductions[introIndex], introIndex+1, introductions.Count+1);
         }
         else if (introIndex == introductions.Count)
         {
-            NextModuleInfo(Landmark.Airlock);
+            NextModuleInfo(Landmark.Airlock, introIndex+1, introductions.Count+1);
         }
         introIndex++;
         if(introIndex>introductions.Count)
@@ -251,9 +251,9 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    private void NextModuleInfo(Landmark landmark)
+    private void NextModuleInfo(Landmark landmark, int index, int totalCount)
     {
-        mainNotification.UpdateText(NodeManager.Instance.ReturnModuleInfo(landmark));
+        mainNotification.UpdateText(NodeManager.Instance.ReturnModuleInfo(landmark), index, totalCount);
         currentInfoIndex++;
     }
 
@@ -265,7 +265,7 @@ public class QuestManager : MonoBehaviour
     private void OnSniped(float angleOfDifference, float performancePercentage)
     {
         SnipeTarget.Sniped -= OnSniped;
-        mainNotification.UpdateText("AOD:"+angleOfDifference+";\n Perf:"+performancePercentage+"%");
+        mainNotification.UpdateText("AOD:"+angleOfDifference+";\n Perf:"+performancePercentage+"%" ,1, 2);
         StartCoroutine(SwitchToNavigation());
     }
 
@@ -274,7 +274,7 @@ public class QuestManager : MonoBehaviour
         if(currentInfoIndex<NodeManager.Instance.ModuleInfoCount)
         {
             yield return new WaitForSeconds(3f);
-            NextModuleInfo(currentQuest.landmark);
+            NextModuleInfo(currentQuest.landmark, 2, 2);
             yield return new WaitForSeconds(5f);
         }
         StartCoroutine(BufferToNextQuest());
