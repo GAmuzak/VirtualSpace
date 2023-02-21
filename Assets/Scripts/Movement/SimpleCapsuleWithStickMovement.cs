@@ -13,6 +13,7 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 	public float Speed;
 	public OVRCameraRig CameraRig;
 
+	[SerializeField] private bool canRoll=true;
 	[SerializeField] private float maxSpeed;
 	[SerializeField] float counterForceFactor = 10f;
 	[SerializeField] private float rotationSpeed=5;
@@ -151,13 +152,13 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 				-RotationAngle * Time.deltaTime * rotationSpeed*isVerticalInverted);
 		}
 		
-		if(OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
+		if(OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger) && canRoll)
 		{
 			transform.Rotate(Vector3.forward,
 				RotationAngle * Time.deltaTime * rotationSpeed*isVerticalInverted);
 		}
 		
-		else if(OVRInput.Get(OVRInput.Button.SecondaryHandTrigger))
+		else if(OVRInput.Get(OVRInput.Button.SecondaryHandTrigger) && canRoll)
 		{
 			transform.Rotate(Vector3.forward,
 				-RotationAngle * Time.deltaTime * rotationSpeed*isVerticalInverted);
