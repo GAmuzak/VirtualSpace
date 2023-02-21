@@ -42,7 +42,7 @@ public class ControlsRunManager : MonoBehaviour
     public void SkipTutorial()
     {
         notifIndex = -1;
-        mainNotif.UpdateText("Look at this speedrunner sheesh");
+        // mainNotif.UpdateText("Look at this speedrunner sheesh");
         EndTutorial();
     }
 

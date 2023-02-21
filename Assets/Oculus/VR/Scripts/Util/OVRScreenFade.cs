@@ -38,10 +38,10 @@ public class OVRScreenFade : MonoBehaviour
 	/// </summary>
 	public float currentAlpha { get { return Mathf.Max(explicitFadeAlpha, animatedFadeAlpha, uiFadeAlpha); } }
 
-	private float explicitFadeAlpha = 0.0f;
-	private float animatedFadeAlpha = 0.0f;
-	private float uiFadeAlpha = 0.0f;
-
+	private float explicitFadeAlpha = 0;
+	private float animatedFadeAlpha = 0;
+	private float uiFadeAlpha = 0;
+	
 	private MeshRenderer fadeRenderer;
 	private MeshFilter fadeMesh;
 	private Material fadeMaterial = null;
@@ -61,6 +61,7 @@ public class OVRScreenFade : MonoBehaviour
 		// create the fade material
 		fadeMaterial = new Material(Shader.Find("Oculus/Unlit Transparent Color"));
 		fadeMesh = gameObject.AddComponent<MeshFilter>();
+		
 		fadeRenderer = gameObject.AddComponent<MeshRenderer>();
 
 		var mesh = new Mesh();
@@ -113,6 +114,9 @@ public class OVRScreenFade : MonoBehaviour
 		animatedFadeAlpha = 0.0f;
 		uiFadeAlpha = 0.0f;
 
+		
+		fadeMesh.gameObject.transform.localScale = Vector3.zero;
+		
 		if (fadeOnStart)
 		{
 			FadeIn();
@@ -126,7 +130,7 @@ public class OVRScreenFade : MonoBehaviour
 	/// </summary>
 	public void FadeIn()
 	{
-		StartCoroutine(Fade(1.0f, 0.0f));
+		StartCoroutine(Fade(0f, 0f));
 	}
 
 	/// <summary>
@@ -134,7 +138,7 @@ public class OVRScreenFade : MonoBehaviour
 	/// </summary>
 	public void FadeOut()
 	{
-		StartCoroutine(Fade(0,1));
+		StartCoroutine(Fade(0,0));
 	}
 
 	/// <summary>
@@ -149,9 +153,9 @@ public class OVRScreenFade : MonoBehaviour
 	{
 		if (!fadeOnStart)
 		{
-			explicitFadeAlpha = 0.0f;
-			animatedFadeAlpha = 0.0f;
-			uiFadeAlpha = 0.0f;
+			explicitFadeAlpha = 1f;
+			animatedFadeAlpha = 1f;
+			uiFadeAlpha = 1f;
 		}
 	}
 

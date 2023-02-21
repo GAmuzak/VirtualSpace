@@ -10,11 +10,11 @@ public class Notification : MonoBehaviour
     [SerializeField] private bool playSoundOnStart;
     [SerializeField] private GameObject player;
     [SerializeField] private float scaleFactor;
+    [SerializeField] private TextMeshProUGUI targetText;
 
     private GameObject panel;
     private Transform rigTransform;
     private Vector3 menuOffset;
-    private TextMeshProUGUI targetText;
     private float baseZValue;
 
     private void Start()
@@ -28,7 +28,7 @@ public class Notification : MonoBehaviour
             SoundManager.Instance.PlaySound(sound);
         }
         panel.SetActive(false);
-        targetText = transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>(); 
+        // targetText = transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>(); 
         //I'm lazy, don't mess with the prefab order
         //Update: This is so bad
     }

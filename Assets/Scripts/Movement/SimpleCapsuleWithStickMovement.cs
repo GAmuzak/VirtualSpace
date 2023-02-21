@@ -42,12 +42,12 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (OVRInput.GetDown(OVRInput.Button.Three))
+		if (OVRInput.GetDown(OVRInput.Button.Four))
 		{
 			isHorizontalInverted = -1*isHorizontalInverted;
 		}
 
-		if (OVRInput.GetDown(OVRInput.Button.Four))
+		if (OVRInput.GetDown(OVRInput.Button.Two))
 		{
 			isVerticalInverted = -1*isVerticalInverted;
 		}
@@ -148,6 +148,18 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 		         (RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickDown)))
 		{
 			transform.Rotate(-Vector3.right,
+				-RotationAngle * Time.deltaTime * rotationSpeed*isVerticalInverted);
+		}
+		
+		if(OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
+		{
+			transform.Rotate(Vector3.forward,
+				RotationAngle * Time.deltaTime * rotationSpeed*isVerticalInverted);
+		}
+		
+		else if(OVRInput.Get(OVRInput.Button.SecondaryHandTrigger))
+		{
+			transform.Rotate(Vector3.forward,
 				-RotationAngle * Time.deltaTime * rotationSpeed*isVerticalInverted);
 		}
 	}
