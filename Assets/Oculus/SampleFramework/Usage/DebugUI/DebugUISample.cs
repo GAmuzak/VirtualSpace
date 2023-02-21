@@ -7,7 +7,7 @@ using UnityEngine.UI;
 // Show off all the Debug UI components.
 public class DebugUISample : MonoBehaviour
 {
-    bool inMenu;
+    // bool inMenu;
     private Text sliderText;
 
 	void Start ()
@@ -30,7 +30,7 @@ public class DebugUISample : MonoBehaviour
         DebugUIBuilder.instance.AddRadio("Side Radio 2", "group2", delegate(Toggle t) { RadioPressed("Side Radio 2", "group2", t); }, DebugUIBuilder.DEBUG_PANE_RIGHT);
 
         DebugUIBuilder.instance.Show();
-        inMenu = true;
+        // inMenu = true;
 	}
 
     public void TogglePressed(Toggle t)
@@ -50,12 +50,12 @@ public class DebugUISample : MonoBehaviour
 
     void Update()
     {
-        if(OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Start))
-        {
-            if (inMenu) DebugUIBuilder.instance.Hide();
-            else DebugUIBuilder.instance.Show();
-            inMenu = !inMenu;
-        }
+        // if(OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Start))
+        // {
+        //     if (inMenu) DebugUIBuilder.instance.Hide();
+        //     else DebugUIBuilder.instance.Show();
+        //     inMenu = !inMenu;
+        // }
     }
 
     void LogButtonPressed()

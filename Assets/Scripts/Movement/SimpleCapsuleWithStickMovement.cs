@@ -43,15 +43,7 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (OVRInput.GetDown(OVRInput.Button.Four))
-		{
-			isHorizontalInverted = -1*isHorizontalInverted;
-		}
-
-		if (OVRInput.GetDown(OVRInput.Button.Two))
-		{
-			isVerticalInverted = -1*isVerticalInverted;
-		}
+		
 		
         if (CameraUpdated != null) CameraUpdated();
         if (PreCharacterMove != null) PreCharacterMove();
@@ -61,6 +53,19 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 		if (EnableRotation) SnapTurn();
 		
 		CounterMovement();
+	}
+
+	private void Update()
+	{
+		if (OVRInput.GetDown(OVRInput.Button.Four))
+		{
+			isHorizontalInverted = -1*isHorizontalInverted;
+		}
+
+		if (OVRInput.GetDown(OVRInput.Button.Two))
+		{
+			isVerticalInverted = -1*isVerticalInverted;
+		}
 	}
 
 	private void CounterMovement()

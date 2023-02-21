@@ -9,7 +9,7 @@ public class SampleUI : MonoBehaviour
     RectTransform collectionButton;
     RectTransform inputText;
     RectTransform valueText;
-    bool inMenu;
+    // bool inMenu;
 
     void Start()
     {
@@ -28,18 +28,18 @@ public class SampleUI : MonoBehaviour
 #else
         DebugUIBuilder.instance.AddLabel("Enable Firebase in your project before running this sample", DebugUIBuilder.DEBUG_PANE_RIGHT);
 #endif
-        DebugUIBuilder.instance.Show();
-        inMenu = true;
+        DebugUIBuilder.instance.Show(); 
+        // inMenu = true;
     }
 
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Start))
-        {
-            if (inMenu) DebugUIBuilder.instance.Hide();
-            else DebugUIBuilder.instance.Show();
-            inMenu = !inMenu;
-        }
+        // if (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Start))
+        // {
+        //     if (inMenu) DebugUIBuilder.instance.Hide();
+        //     else DebugUIBuilder.instance.Show();
+        //     inMenu = !inMenu;
+        // }
     }
 
     string GetText()

@@ -41,7 +41,7 @@ namespace OculusSampleFramework
     public class OVROverlaySample : MonoBehaviour
     {
 
-        bool inMenu;
+        // bool inMenu;
 
         /// <summary>
         /// The string identifiers for DebugUI radio buttons
@@ -131,12 +131,12 @@ namespace OculusSampleFramework
         void Update()
         {
             // Switch ui display types 
-            if (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Start))
-            {
-                if (inMenu) DebugUIBuilder.instance.Hide();
-                else DebugUIBuilder.instance.Show();
-                inMenu = !inMenu;
-            }
+            // if (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Start))
+            // {
+            //     if (inMenu) DebugUIBuilder.instance.Hide();
+            //     else DebugUIBuilder.instance.Show();
+            //     inMenu = !inMenu;
+            // }
 
             // Trigger loading simulator via keyboard
             if (Input.GetKeyDown(KeyCode.A))

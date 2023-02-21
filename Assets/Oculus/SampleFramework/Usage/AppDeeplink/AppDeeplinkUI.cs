@@ -16,7 +16,7 @@ public class AppDeeplinkUI : MonoBehaviour
     RectTransform uiLaunchSource;
     RectTransform uiDeepLinkMessage;
 
-    bool inMenu = true;
+    // bool inMenu = true;
 
     // Start is called before the first frame update
     void Start()
@@ -62,18 +62,18 @@ public class AppDeeplinkUI : MonoBehaviour
             uiDeepLinkMessage.GetComponentInChildren<Text>().text = "DeeplinkMessage: " + launchDetails.DeeplinkMessage;
         }
 
-        if (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Start))
-        {
-            if (inMenu)
-            {
-                DebugUIBuilder.instance.Hide();
-            }
-            else
-            {
-                DebugUIBuilder.instance.Show();
-            }
-            inMenu = !inMenu;
-        }
+        // if (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Start))
+        // {
+        //     if (inMenu)
+        //     {
+        //         DebugUIBuilder.instance.Hide();
+        //     }
+        //     else
+        //     {
+        //         DebugUIBuilder.instance.Show();
+        //     }
+        //     inMenu = !inMenu;
+        // }
     }
 
     void LaunchUnrealDeeplinkSample()

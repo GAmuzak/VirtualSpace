@@ -23,7 +23,7 @@ public class LocomotionSampleSupport : MonoBehaviour
     // [SerializeField] private Notification mainNotification;
     
     private LocomotionController lc;
-    private bool inMenu = false;
+    // private bool inMenu = false;
 
     private LocomotionTeleport TeleportController
     {
@@ -60,12 +60,12 @@ public class LocomotionSampleSupport : MonoBehaviour
 
     public void Update()
     {
-        if(OVRInput.GetDown(OVRInput.Button.Two))
-        {
-            if (inMenu) DebugUIBuilder.instance.Hide();
-            else DebugUIBuilder.instance.Show();
-            inMenu = !inMenu;
-        }
+        // if(OVRInput.GetDown(OVRInput.Button.Two))
+        // {
+        //     if (inMenu) DebugUIBuilder.instance.Hide();
+        //     else DebugUIBuilder.instance.Show();
+        //     inMenu = !inMenu;
+        // }
         // if(OVRInput.GetDown(OVRInput.Button.One))
         // {
         //     mainNotification.GameObject().SetActive(!mainNotification.GameObject().activeSelf);
