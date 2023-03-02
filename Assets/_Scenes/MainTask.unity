@@ -713,19 +713,23 @@ MonoBehaviour:
   - {fileID: 1938215154}
   - {fileID: 4972061814095657970}
   landmarkColors:
-  - {r: 0.2901961, g: 0.047058824, b: 0.8784314, a: 0}
-  - {r: 0.2901961, g: 0.047058824, b: 0.8784314, a: 0}
-  - {r: 0.2901961, g: 0.047058824, b: 0.8784314, a: 0}
-  - {r: 0.2901961, g: 0.047058824, b: 0.8784314, a: 0}
-  - {r: 0.2912769, g: 0.045523323, b: 0.8773585, a: 0}
-  - {r: 0.2901961, g: 0.047058824, b: 0.8784314, a: 0}
+  - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
+  - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
+  - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
+  - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
+  - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
+  - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
   moduleInformation:
-  - is XYZ
-  - is XYZ
-  - is XYZ
-  - is XYZ
-  - is XYZ
-  - is XYZ
+  - is Japan's addition to the ISS. In this lab, research is conducted on microgravity
+    and exposure to the environment outside of the module.
+  - is Europe's contribution to the ISS hosting research on materials, fluid physics
+    and biosciences.
+  - provides research stations such as the Human Research Facility and the Microgravity
+    Science Glovebox
+  - is where you will go to complete missions outside of the ISS called spacewalks.
+  - is where you will go to get a view of earth, making a complete orbit every 90
+    minutes.
+  - is where storage and important power and communications functions are held.
 --- !u!4 &1486342086
 Transform:
   m_ObjectHideFlags: 0
