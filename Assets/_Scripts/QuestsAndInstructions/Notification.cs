@@ -5,6 +5,7 @@ using UnityEngine;
 public class Notification : MonoBehaviour
 {
     public static event Action NotificationDismissed;
+    public static event Action Pain;
     
     [SerializeField] private AudioClip sound;
     [SerializeField] private bool playSoundOnStart;
@@ -36,8 +37,10 @@ public class Notification : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
             bool isPanelActive = panel.activeSelf;
-            if(isPanelActive) 
+            if (isPanelActive)
                 NotificationDismissed?.Invoke();
+            else 
+                Pain?.Invoke();
             panel.SetActive(!isPanelActive);
         }
         if (!panel.activeSelf) return;

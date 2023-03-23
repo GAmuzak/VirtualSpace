@@ -167,7 +167,7 @@ public class QuestManager : MonoBehaviour
         string finalTime = $"{timer.GetRawElapsedTime():0.##}";
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
         mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!" +
-                                    "\nTime Taken: "+finalTime ,1 , 2);
+                                    "\nTime Taken: "+finalTime ,1 , 3);
         StartCoroutine(ModuleInfo());
     }
 
@@ -273,11 +273,31 @@ public class QuestManager : MonoBehaviour
     {
         if(currentInfoIndex<NodeManager.Instance.ModuleInfoCount)
         {
-            yield return new WaitForSeconds(3f);
-            NextModuleInfo(currentQuest.landmark, 2, 2);
             yield return new WaitForSeconds(5f);
+            NextModuleInfo(currentQuest.landmark, 2, 3);
+            yield return new WaitForSeconds(5f);
+            mainNotification.UpdateText("Press A to dismiss this notification\nwhen you are ready to move on, press A again", 3, 3);
+            Notification.NotificationDismissed += OnObservationStarted;
         }
-        StartCoroutine(BufferToNextQuest());
+        else
+        {
+            StartCoroutine(BufferToNextQuest());
+        }
+        
+    }
+
+    private void OnObservationStarted()
+    {
+        Notification.NotificationDismissed -= OnObservationStarted;
+        Debug.Log("Balls");
+        Notification.Pain += OnObservationFinished;
+    }
+
+    private void OnObservationFinished()
+    {
+        Notification.Pain -= OnObservationFinished;
+        Debug.Log("Balls2");
+        InitialiseNextQuest();
     }
 
     private IEnumerator SceneGrabDelay()
@@ -285,7 +305,6 @@ public class QuestManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         Scene scene = SceneManager.GetActiveScene();
         sceneName = scene.name;
-        Debug.Log(sceneName);
         FirstSetup();
     }
 
