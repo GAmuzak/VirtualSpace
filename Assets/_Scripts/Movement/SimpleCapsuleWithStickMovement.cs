@@ -125,10 +125,6 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 
 	private void SnapTurn()
 	{
-		// bool leftMovement1 = OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft);
-		// bool leftMovement2 = OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft);
-		// bool rightMovement1 = OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight);
-		// bool rightMovement2 = OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight);
 		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft) || 
 		    (RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft)))
 		{

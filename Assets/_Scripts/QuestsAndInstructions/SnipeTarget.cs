@@ -14,17 +14,10 @@ public class SnipeTarget : MonoBehaviour
     private float performancePercentage;
     private bool taskActive;
 
-
-    // private void Awake()
-    // {
-    //     targetCenter = TransformUtils.ReturnAveragePosition(target);
-    // }
-
-
     private void Update()
     {
         if (!taskActive) return;
-        if (!OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger)) return;
+        if (!OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) return;
         CheckPerformance();
         Sniped?.Invoke(angleOfDifference, performancePercentage);
         taskActive = false;
@@ -44,8 +37,5 @@ public class SnipeTarget : MonoBehaviour
         performancePercentage = (180f - angleOfDifference)/180f * 100f;
         performancePercentage = (float)Math.Round(performancePercentage * 100f) / 100f;
         angleOfDifference = (float)Math.Round(angleOfDifference * 100f) / 100f;
-        // Debug.Log("--------------------------------------------------------------------------------------");
-        // Debug.Log("The angle of difference is: " + angleOfDifference + " and the performance percentage is: " + performancePercentage + "%");
-        // Debug.Log("--------------------------------------------------------------------------------------");
     }
 }
