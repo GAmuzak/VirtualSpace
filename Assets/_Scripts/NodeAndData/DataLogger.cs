@@ -13,7 +13,6 @@ public class DataLogger : MonoBehaviour
     [Range(0.1f,100)][Tooltip("Sampling rate per second")]
     [SerializeField] private float resolution;
 
-    private Coroutine routine;
     private bool loggingKilled;
     private float waitTime;
     private TextWriter tw;
@@ -24,21 +23,35 @@ public class DataLogger : MonoBehaviour
     private List<Array> positionalData;
     private List<Array> nodeData;
     private Camera mainCam;
+    
     private void Start()
     {
+        string logTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        logTime = logTime.Replace(" ", "-");
+        logTime = logTime.Replace(":", "-");
+
         waitTime = 1.0f / resolution;
         positionalData = new List<Array>();
         nodeData = new List<Array>();
-        positionalFileName = Application.dataPath + pathForPositionalLogs;
-        nodeFileName = Application.dataPath + pathForNodeLogs;
+        if (!Directory.Exists(Application.persistentDataPath + "/logs"))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/logs");
+        }
+        positionalFileName = Application.persistentDataPath + pathForPositionalLogs + logTime + ".csv";
         tw = new StreamWriter(positionalFileName, false);
         tw.WriteLine("Time, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
         tw.Close();
-        tw = new StreamWriter(nodeFileName, false);
-        tw.WriteLine("Time, Node, Task, InOrOut, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
-        tw.Close();
+        nodeFileName = Application.persistentDataPath + pathForNodeLogs + logTime + ".csv";
 
-        routine=StartCoroutine(CallLogger(waitTime));
+        if(nodeFileName.Length>0){
+            tw = new StreamWriter(nodeFileName, false);
+            tw.WriteLine("Time, Node, Task, InOrOut, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
+            tw.Close();
+        }
+
+        Debug.Log(positionalFileName);
+
+        StartCoroutine(CallLogger(waitTime));
     }
 
     private void OnEnable()
@@ -55,10 +68,8 @@ public class DataLogger : MonoBehaviour
     {
         playerLoc = playerTransform.position;
         playerRot = playerTransform.eulerAngles;
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     KillLogging();
-        // }
+        if (!OVRInput.GetDown(OVRInput.Button.Start)) return;
+        KillLogging();
     }
 
     private IEnumerator CallLogger(float timeToWait)
@@ -105,9 +116,6 @@ public class DataLogger : MonoBehaviour
             tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]+","+frame[6]+","+frame[7]+","+frame[8]);
         }
         tw.Close();
-        Debug.Log("-------------ended logging session-------------\n" +
-                  "WARNING: No further information will be recorded for this session!");
-
     }
     
     private void LogPositionalData()

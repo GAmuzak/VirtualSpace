@@ -43,9 +43,7 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		
-		
-        if (CameraUpdated != null) CameraUpdated();
+		if (CameraUpdated != null) CameraUpdated();
         if (PreCharacterMove != null) PreCharacterMove();
 
         if (HmdRotatesPlayer) RotatePlayerToHMD();

@@ -656,8 +656,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9601c77998c9048821faee56e1dcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathForPositionalLogs: /../Logs/ISSTourPositionalData.csv
-  pathForNodeLogs: /../Logs/NodeData.csv
+  pathForPositionalLogs: /Logs/MainTaskPositionalData
+  pathForNodeLogs: /Logs/NodeData
   playerTransform: {fileID: 1892471943}
   resolution: 20
 --- !u!4 &1303127745
@@ -907,7 +907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4076462010683433412, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.7
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 4076462010683433412, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_AnchoredPosition.x

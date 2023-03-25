@@ -611,10 +611,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9601c77998c9048821faee56e1dcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathForPositionalLogs: /../Logs/ISSTourPositionalData.csv
-  pathForNodeLogs: /../Logs/NodeData.csv
+  pathForPositionalLogs: /Logs/ISSTourPositionalData
+  pathForNodeLogs: /Logs/NodeData
   playerTransform: {fileID: 1892471943}
-  resolution: 20
+  resolution: 10
 --- !u!4 &1303127745
 Transform:
   m_ObjectHideFlags: 0
@@ -857,7 +857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4076462010683433412, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.7
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 4076462010683433412, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -885,23 +885,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4926590347846174690, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.0000023407335
+      value: 0.00000208627
       objectReference: {fileID: 0}
     - target: {fileID: 4926590347846174690, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0000017961072
+      value: 0.0000020862678
       objectReference: {fileID: 0}
     - target: {fileID: 4926590347846174690, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7933535
+      value: -0.7071072
       objectReference: {fileID: 0}
     - target: {fileID: 4926590347846174690, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.60876125
+      value: 0.7071065
       objectReference: {fileID: 0}
     - target: {fileID: 4926590347846174690, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 75
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 4926590347846174690, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

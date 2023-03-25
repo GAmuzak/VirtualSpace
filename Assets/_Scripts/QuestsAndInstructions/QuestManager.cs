@@ -153,9 +153,6 @@ public class QuestManager : MonoBehaviour
         {
             currentQuest.type = QuestType.FreeRoam;
         }
-
-        Debug.Log(currentQuest.type);
-        
         firstTaskTriggered = true;
     }
 
