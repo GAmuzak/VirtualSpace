@@ -657,7 +657,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathForPositionalLogs: /Logs/MainTaskPositionalData
-  pathForNodeLogs: /Logs/NodeData
+  pathForNodeLogs: /Logs/MainTaskNodeData
+  pathForActivityLogs: /Logs/MainTaskActivityData
   playerTransform: {fileID: 1892471943}
   resolution: 20
 --- !u!4 &1303127745

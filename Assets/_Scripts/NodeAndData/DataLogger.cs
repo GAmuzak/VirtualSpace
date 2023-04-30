@@ -9,6 +9,7 @@ public class DataLogger : MonoBehaviour
 {
     [SerializeField] private string pathForPositionalLogs;
     [SerializeField] private string pathForNodeLogs;
+    [SerializeField] private string pathForActivityLogs;
     [SerializeField] private Transform playerTransform;
     [Range(0.1f,100)][Tooltip("Sampling rate per second")]
     [SerializeField] private float resolution;
@@ -18,10 +19,12 @@ public class DataLogger : MonoBehaviour
     private TextWriter tw;
     private string positionalFileName;
     private string nodeFileName;
+    private string activityFileName;
     private Vector3 playerLoc;
     private Vector3 playerRot;
     private List<Array> positionalData;
     private List<Array> nodeData;
+    private List<Array> activityData;
     private Camera mainCam;
     
     private void Start()
@@ -37,20 +40,26 @@ public class DataLogger : MonoBehaviour
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/logs");
         }
+        
         positionalFileName = Application.persistentDataPath + pathForPositionalLogs + logTime + ".csv";
         tw = new StreamWriter(positionalFileName, false);
         tw.WriteLine("Time, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
         tw.Close();
+        
         nodeFileName = Application.persistentDataPath + pathForNodeLogs + logTime + ".csv";
-
         if(nodeFileName.Length>0){
             tw = new StreamWriter(nodeFileName, false);
             tw.WriteLine("Time, Node, Task, InOrOut, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
             tw.Close();
         }
 
-        Debug.Log(positionalFileName);
-
+        activityFileName = Application.persistentDataPath + pathForActivityLogs + logTime + ".csv";
+        if(activityFileName.Length>0){
+            tw = new StreamWriter(activityFileName, false);
+            tw.WriteLine("Time, Task, Data");
+            tw.Close();
+        }
+        
         StartCoroutine(CallLogger(waitTime));
     }
 
@@ -81,6 +90,16 @@ public class DataLogger : MonoBehaviour
         }
     }
 
+    public void LogActivityData(string task, string data)
+    {
+        if (loggingKilled) return;
+        string[] activityFrame = new string[3];
+        activityFrame[0] = Time.timeSinceLevelLoad.ToString(CultureInfo.CurrentCulture);
+        activityFrame[1] = task;
+        activityFrame[2] = data;
+        activityData.Add(activityFrame);
+    }
+
     public void LogNodeData(string nodeName, int inOrOut, string task)
     {
         if(loggingKilled) return;
@@ -109,11 +128,20 @@ public class DataLogger : MonoBehaviour
             tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]+","+frame[6]);
         }
         tw.Close();
+        
         tw = new StreamWriter(nodeFileName, true);
         foreach (Array array in nodeData)
         {
             string[] frame = (string[]) array;
             tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]+","+frame[6]+","+frame[7]+","+frame[8]);
+        }
+        tw.Close();
+        
+        tw = new StreamWriter(activityFileName, true);
+        foreach (Array array in activityData)
+        {
+            string[] frame = (string[]) array;
+            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]);
         }
         tw.Close();
     }

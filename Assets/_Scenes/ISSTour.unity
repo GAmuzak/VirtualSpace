@@ -612,7 +612,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathForPositionalLogs: /Logs/ISSTourPositionalData
-  pathForNodeLogs: /Logs/NodeData
+  pathForNodeLogs: /Logs/ISSTourNodeData
+  pathForActivityLogs: /Logs/ISSTourActivityData
   playerTransform: {fileID: 1892471943}
   resolution: 10
 --- !u!4 &1303127745
