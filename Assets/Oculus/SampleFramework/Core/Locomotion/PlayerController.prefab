@@ -429,6 +429,7 @@ MonoBehaviour:
   RotationAngle: 1
   Speed: 40
   CameraRig: {fileID: 0}
+  canRoll: 1
   maxSpeed: 6
   counterForceFactor: 10
   rotationSpeed: 60
@@ -1223,6 +1224,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1926015404308859355, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1926015404308859355, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1926015404308859355, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1926015404308859355, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1360,6 +1373,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2900792464466199364, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
       propertyPath: m_RenderMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2900792465967884025, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2900792465967884025, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2900792465967884025, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
+      propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3691712522354701930, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
