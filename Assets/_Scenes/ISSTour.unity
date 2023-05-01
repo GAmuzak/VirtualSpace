@@ -577,7 +577,7 @@ MonoBehaviour:
   - You will be asked to complete various tasks as you navigate this environment.
     Good luck!
   - You are now going to be getting a tour of some of the interesting modules aboard!
-  - Currently you are in the <b><color=#4A0CE0>airlock</color></b>. Dismiss this
+  - Currently you are in the <b><color=#E00E0C>airlock</color></b>. Dismiss this
     message to have a look at your surroundings
   mainTaskInstructions: []
   buffer: 5
@@ -669,7 +669,7 @@ MonoBehaviour:
   - {fileID: 1938215154}
   - {fileID: 4972061814095657970}
   landmarkColors:
-  - {r: 0.8784314, g: 0.053487416, b: 0.047058802, a: 0}
+  - {r: 0.9339623, g: 0.022027409, b: 0.022027409, a: 0}
   - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
   - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
   - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
