@@ -5,7 +5,7 @@ using System.Globalization;
 using System.IO;
 using UnityEngine;
 
-public class DataLogger : MonoBehaviour
+public class DataLogger : SingletonMonoBehavior<DataLogger>
 {
     [SerializeField] private string pathForPositionalLogs;
     [SerializeField] private string pathForNodeLogs;
@@ -42,9 +42,12 @@ public class DataLogger : MonoBehaviour
         }
         
         positionalFileName = Application.persistentDataPath + pathForPositionalLogs + logTime + ".csv";
-        tw = new StreamWriter(positionalFileName, false);
-        tw.WriteLine("Time, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
-        tw.Close();
+        if(positionalFileName.Length>0)
+        {
+            tw = new StreamWriter(positionalFileName, false);
+            tw.WriteLine("Time, Pos.x, Pos.y, Pos.z, Rot.x, Rot.y, Rot.z");
+            tw.Close();
+        }
         
         nodeFileName = Application.persistentDataPath + pathForNodeLogs + logTime + ".csv";
         if(nodeFileName.Length>0){

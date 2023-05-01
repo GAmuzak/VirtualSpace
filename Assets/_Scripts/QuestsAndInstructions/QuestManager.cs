@@ -262,7 +262,11 @@ public class QuestManager : MonoBehaviour
     private void OnSniped(float angleOfDifference, float performancePercentage)
     {
         SnipeTarget.Sniped -= OnSniped;
-        mainNotification.UpdateText("AOD:"+angleOfDifference+";\n Perf:"+performancePercentage+"%" ,1, 2);
+        string task= "PointToTarget:"+currentQuest.landmark;
+        string data = "Angle of Difference: " + angleOfDifference + ", Performance:" + performancePercentage+"%";
+        DataLogger.Instance.LogActivityData(task, data);
+        // mainNotification.UpdateText("AOD:"+angleOfDifference+";\n Perf:"+performancePercentage+"%" ,1, 2);
+        mainNotification.UpdateText("Thank you" ,1, 2);
         StartCoroutine(SwitchToNavigation());
     }
 
