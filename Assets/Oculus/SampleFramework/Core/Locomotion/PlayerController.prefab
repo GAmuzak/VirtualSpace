@@ -1207,6 +1207,14 @@ PrefabInstance:
       propertyPath: m_fontSizeMin
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 1345110557247784195, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345110557247784195, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 1926015404308859355, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
