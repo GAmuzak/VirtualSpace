@@ -36,6 +36,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         waitTime = 1.0f / resolution;
         positionalData = new List<Array>();
         nodeData = new List<Array>();
+        activityData = new List<Array>();
         if (!Directory.Exists(Application.persistentDataPath + "/logs"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/logs");
