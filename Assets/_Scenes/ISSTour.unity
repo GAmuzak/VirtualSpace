@@ -581,6 +581,7 @@ MonoBehaviour:
     message to have a look at your surroundings
   mainTaskInstructions: []
   buffer: 5
+  moduleInfoTimer: 7
   timer: {fileID: 1158111615}
 --- !u!1 &1303127743
 GameObject:

@@ -20,6 +20,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private List<string> introductions;
     [SerializeField] private List<string> mainTaskInstructions;
     [SerializeField] private float buffer = 5f;
+    [SerializeField] private float moduleInfoTimer;
     [SerializeField] private Stopwatch timer;
 
     #endregion
@@ -276,7 +277,7 @@ public class QuestManager : MonoBehaviour
         {
             yield return new WaitForSeconds(5f);
             NextModuleInfo(currentQuest.landmark, 2, 3);
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(moduleInfoTimer);
             mainNotification.UpdateText("Press A to dismiss this notification\nwhen you are ready to move on, press A again", 3, 3);
             Notification.NotificationDismissed += OnObservationStarted;
         }
