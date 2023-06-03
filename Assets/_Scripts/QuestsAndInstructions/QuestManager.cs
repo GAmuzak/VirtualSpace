@@ -28,6 +28,7 @@ public class QuestManager : MonoBehaviour
     #region FieldVars
 
     private readonly List<Landmark> mainQuestLandmarkSequence= new List<Landmark>();
+    private Landmark previousLandmark = Landmark.Airlock;
     private int currentInfoIndex;
     private bool endGameplayLoop;
     private string sceneName;
@@ -100,6 +101,7 @@ public class QuestManager : MonoBehaviour
             {
                 timer.Reset();
                 timer.Begin();
+                previousLandmark = currentQuest.landmark;
                 currentQuest.landmark=currentQuest.GetNextLandmark(tutorialLocations);
                 if (currentQuest.landmark == Landmark.NULL) {
                     EndScene("ISS Tour");
@@ -164,8 +166,9 @@ public class QuestManager : MonoBehaviour
         pointToTarget.ToggleVisibility(false, nodeManager.ReturnPosition(currentQuest.landmark));
         string finalTime = $"{timer.GetRawElapsedTime():0.##}";
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
-        mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!" +
-                                    "\nTime Taken: "+finalTime ,1 , 3);
+        mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!",1 , 3);
+        string task = "from" + previousLandmark + "to" + currentQuest.landmark;
+        DataLogger.Instance.LogActivityData(task, finalTime);
         StartCoroutine(ModuleInfo());
     }
 
