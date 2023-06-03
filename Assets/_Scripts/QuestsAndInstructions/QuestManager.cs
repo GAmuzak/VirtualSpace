@@ -115,6 +115,7 @@ public class QuestManager : MonoBehaviour
             case QuestType.PointToTarget:
             {
                 SnipeTarget.Sniped += OnSniped;
+                previousLandmark = currentQuest.landmark;
                 currentQuest.landmark=currentQuest.GetNextLandmark(mainQuestLandmarkSequence);
                 string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
                 mainNotification.UpdateText("Please point at the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>", 2, 2);
@@ -181,10 +182,14 @@ public class QuestManager : MonoBehaviour
 
     private IEnumerator SwitchToNextPointTask()
     {
+        timer.Pause();
         currentQuest.state = QuestState.Finished;
         SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
         mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!", 1,2);
+        string finalTime = $"{timer.GetRawElapsedTime():0.##}";
+        string task = "from" + previousLandmark + "to" + currentQuest.landmark;
+        DataLogger.Instance.LogActivityData(task, finalTime);
         yield return new WaitForSeconds(3f);
         currentQuest.type = QuestType.PointToTarget;
         InitialiseNextQuest();
@@ -193,6 +198,8 @@ public class QuestManager : MonoBehaviour
     private IEnumerator SwitchToNavigation()
     {
         yield return new WaitForSeconds(3f);
+        timer.Reset();
+        timer.Begin();
         currentQuest.type = QuestType.NavigateToTarget;
         SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = true;
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
