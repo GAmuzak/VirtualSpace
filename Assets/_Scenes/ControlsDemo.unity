@@ -2673,11 +2673,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!20 &1169674868 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 1799902195704800617, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
-  m_PrefabInstance: {fileID: 967031034}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1231045136
 GameObject:
   m_ObjectHideFlags: 0
@@ -3438,25 +3433,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1591761176 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4926590348759836585, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
-  m_PrefabInstance: {fileID: 967031034}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1591761178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1591761176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e43731f8c92e3645979ac6e10686c39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rcamer: {fileID: 1169674868}
-  lcamer: {fileID: 1915218979}
 --- !u!1 &1650150876
 GameObject:
   m_ObjectHideFlags: 0
@@ -7795,11 +7771,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!20 &1915218979 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 6729136447245143024, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
-  m_PrefabInstance: {fileID: 967031034}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1937416379
 GameObject:
   m_ObjectHideFlags: 0
