@@ -117,13 +117,14 @@ public class QuestManager : MonoBehaviour
                 SnipeTarget.Sniped += OnSniped;
                 previousLandmark = currentQuest.landmark;
                 currentQuest.landmark=currentQuest.GetNextLandmark(mainQuestLandmarkSequence);
-                string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
-                mainNotification.UpdateText("Please point at the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>", 2, 2);
-                snipeTarget.SetTarget(NodeManager.Instance.ReturnPosition(currentQuest.landmark));
                 if (currentQuest.landmark == Landmark.NULL) {
                     EndScene("Main Task");
                     return;
                 }
+                string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
+                mainNotification.UpdateText("Please point at the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>", 2, 2);
+                snipeTarget.SetTarget(NodeManager.Instance.ReturnPosition(currentQuest.landmark));
+                
                 break;
             }
         }
