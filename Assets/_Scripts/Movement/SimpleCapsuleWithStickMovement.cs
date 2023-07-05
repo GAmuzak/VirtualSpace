@@ -110,8 +110,11 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 
 		moveDir = Vector3.zero;
 		Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+		float primaryTriggers = (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger))-(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger));
+
 		moveDir += ort * (primaryAxis.x * Vector3.right);
 		moveDir += ort * (primaryAxis.y * Vector3.forward);
+		moveDir += ort * (primaryTriggers * Vector3.up);
 		moveDir = moveDir.normalized;
 		//_rigidbody.MovePosition(_rigidbody.transform.position + moveDir * Speed * Time.fixedDeltaTime);
 		rb.AddForce(moveDir * (Speed * Time.fixedDeltaTime));

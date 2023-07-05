@@ -17,7 +17,7 @@ public class SnipeTarget : MonoBehaviour
     private void Update()
     {
         if (!taskActive) return;
-        if (!OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) return;
+        if (!OVRInput.GetDown(OVRInput.Button.Three)) return;
         CheckPerformance();
         Sniped?.Invoke(angleOfDifference, performancePercentage);
         taskActive = false;

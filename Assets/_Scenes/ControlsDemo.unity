@@ -2374,6 +2374,7 @@ MonoBehaviour:
   - The left controller joystick moves your body around
   - You will move in the direction that you look when you hold forward
   - And left and right movement is possible as well
+  - Pressing on the left controller triggers will move your body up and down
   - When you feel comfortable, dismiss this notification and the course will begin
   start: {fileID: 1707755677}
   lighterMat: {fileID: 2100000, guid: b41b5224c44acd2408c38b92c045f991, type: 2}
