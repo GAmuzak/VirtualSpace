@@ -60,7 +60,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         activityFileName = Application.persistentDataPath + pathForActivityLogs + logTime + ".csv";
         if(activityFileName.Length>0){
             tw = new StreamWriter(activityFileName, false);
-            tw.WriteLine("Time, Task, Data, Performance");
+            tw.WriteLine("Time, Location1, Location2, PassedTime, AngleOfDifference, Performance");
             tw.Close();
         }
         
@@ -94,14 +94,17 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         }
     }
 
-    public void LogActivityData(string task, string data, string performance="")
+    public void LogActivityData(string location1, string location2="", string passedTime="", string aod="", string performance="")
     {
         if (loggingKilled) return;
-        string[] activityFrame = new string[4];
+        string[] activityFrame = new string[6];
         activityFrame[0] = Time.timeSinceLevelLoad.ToString(CultureInfo.CurrentCulture);
-        activityFrame[1] = task;
-        activityFrame[2] = data;
-        activityFrame[3] = performance;
+        activityFrame[1] = location1;
+        activityFrame[2] = location2;
+        activityFrame[3] = passedTime;
+        activityFrame[4] = aod;
+        activityFrame[5] = performance;
+        
         activityData.Add(activityFrame);
     }
 
@@ -146,7 +149,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         foreach (Array array in activityData)
         {
             string[] frame = (string[]) array;
-            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]);
+            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]);
         }
         tw.Close();
     }

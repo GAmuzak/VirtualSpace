@@ -169,8 +169,9 @@ public class QuestManager : MonoBehaviour
         string finalTime = $"{timer.GetRawElapsedTime():0.##}";
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
         mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!",1 , 3);
-        string task = "from" + previousLandmark + "to" + currentQuest.landmark;
-        DataLogger.Instance.LogActivityData(task, finalTime);
+        string fromtask = "" + previousLandmark;
+        string totask = "" + currentQuest.landmark;
+        DataLogger.Instance.LogActivityData(fromtask,totask, finalTime);
         StartCoroutine(ModuleInfo());
     }
 
@@ -189,8 +190,10 @@ public class QuestManager : MonoBehaviour
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
         mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!", 1,2);
         string finalTime = $"{timer.GetRawElapsedTime():0.##}";
-        string task = "from" + previousLandmark + "to" + currentQuest.landmark;
-        DataLogger.Instance.LogActivityData(task, finalTime);
+        string fromtask = "" + previousLandmark;
+        string totask = "" + currentQuest.landmark;
+        DataLogger.Instance.LogActivityData(fromtask,totask, finalTime);
+
         yield return new WaitForSeconds(3f);
         currentQuest.type = QuestType.PointToTarget;
         InitialiseNextQuest();
@@ -274,10 +277,10 @@ public class QuestManager : MonoBehaviour
     private void OnSniped(float angleOfDifference, float performancePercentage)
     {
         SnipeTarget.Sniped -= OnSniped;
-        string task= "PointToTarget:"+currentQuest.landmark;
-        string data = ""+angleOfDifference;
+        string task= ""+currentQuest.landmark;
+        string aod = ""+angleOfDifference;
         string perf = ""+performancePercentage;
-        DataLogger.Instance.LogActivityData(task, data, perf);
+        DataLogger.Instance.LogActivityData(task, "", "",aod, perf);
         // mainNotification.UpdateText("AOD:"+angleOfDifference+";\n Perf:"+performancePercentage+"%" ,1, 2);
         mainNotification.UpdateText("Thank you" ,1, 2);
         StartCoroutine(SwitchToNavigation());
