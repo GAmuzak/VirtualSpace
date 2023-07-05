@@ -60,7 +60,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         activityFileName = Application.persistentDataPath + pathForActivityLogs + logTime + ".csv";
         if(activityFileName.Length>0){
             tw = new StreamWriter(activityFileName, false);
-            tw.WriteLine("Time, Task, Data");
+            tw.WriteLine("Time, Task, Data, Performance");
             tw.Close();
         }
         
@@ -94,13 +94,14 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         }
     }
 
-    public void LogActivityData(string task, string data)
+    public void LogActivityData(string task, string data, string performance="")
     {
         if (loggingKilled) return;
-        string[] activityFrame = new string[3];
+        string[] activityFrame = new string[4];
         activityFrame[0] = Time.timeSinceLevelLoad.ToString(CultureInfo.CurrentCulture);
         activityFrame[1] = task;
         activityFrame[2] = data;
+        activityFrame[3] = performance;
         activityData.Add(activityFrame);
     }
 
@@ -137,7 +138,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         foreach (Array array in nodeData)
         {
             string[] frame = (string[]) array;
-            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]+","+frame[6]+","+frame[7]+","+frame[8]);
+            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]+","+frame[6]+","+frame[7]+","+frame[8]+","+frame[9]);
         }
         tw.Close();
         
@@ -145,7 +146,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         foreach (Array array in activityData)
         {
             string[] frame = (string[]) array;
-            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]);
+            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]);
         }
         tw.Close();
     }
