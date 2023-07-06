@@ -16,7 +16,7 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 	[SerializeField] private bool canRoll=true;
 	[SerializeField] private float maxSpeed;
 	[SerializeField] float counterForceFactor = 10f;
-	[SerializeField] private float rotationSpeed=5;
+	[SerializeField] private float rotationSpeed=500;
 	[SerializeField] private int isHorizontalInverted = 1;
 	[SerializeField] private int isVerticalInverted = 1;
 
@@ -48,7 +48,7 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 
         if (HmdRotatesPlayer) RotatePlayerToHMD();
 		if (EnableLinearMovement) StickMovement();
-		if (EnableRotation) SnapTurn();
+		if (EnableRotation) SmoothTurn();
 		
 		CounterMovement();
 	}
@@ -123,6 +123,24 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 			rb.velocity = rb.velocity.normalized * maxSpeed;
 		}
 	}
+
+    private void SmoothTurn()
+    {
+	    Vector3 rotateDir = Vector3.zero;
+	    Vector2 secondaryAxis = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick); 
+	    float secondaryTriggers = (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger))-(OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger));
+
+	    rotateDir += Vector3.up * (secondaryAxis.x *  isHorizontalInverted);
+	    rotateDir += -Vector3.right * (secondaryAxis.y *  isVerticalInverted);
+	    rotateDir += -Vector3.forward * (secondaryTriggers *  isVerticalInverted);
+	    rotateDir = rotateDir.normalized;
+	    
+	    rb.AddRelativeTorque(rotateDir * (rotationSpeed * Time.fixedDeltaTime));
+	    if(rb.angularVelocity.sqrMagnitude > maxSpeed*maxSpeed)
+	    {
+		    rb.angularVelocity = rb.angularVelocity.normalized * maxSpeed;
+	    }
+    }
 
 	private void SnapTurn()
 	{
