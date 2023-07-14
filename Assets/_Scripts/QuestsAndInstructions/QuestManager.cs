@@ -1,16 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class QuestManager : MonoBehaviour
 {
     public static event Action EndGame; 
+    
 
     #region SFields
 
     [SerializeField] private List<Landmark> tutorialLocations;
+    [SerializeField] private LocationPointer locationPointer;
     [SerializeField] private PointToTarget pointToTarget;
     [SerializeField] private Notification mainNotification;
     [SerializeField] private Quest currentQuest;
@@ -36,6 +39,7 @@ public class QuestManager : MonoBehaviour
     private bool playerAtTarget;
     private int introIndex;
     private bool hasTriggered;
+    private bool isPointingTutorialCompleted;
     
     #endregion
 
@@ -51,6 +55,7 @@ public class QuestManager : MonoBehaviour
             mainQuestLandmarkSequence.Add((Landmark)num);
         }
         firstTaskTriggered = false;
+        LocationPointer.locationPointedAt += PointingTutorialCompleted;
         StartCoroutine(SceneGrabDelay());
     }
 
@@ -103,10 +108,16 @@ public class QuestManager : MonoBehaviour
                 timer.Begin();
                 previousLandmark = currentQuest.landmark;
                 currentQuest.landmark=currentQuest.GetNextLandmark(tutorialLocations);
-                if (currentQuest.landmark == Landmark.NULL) {
+                if(currentQuest.landmark == Landmark.NULL && isPointingTutorialCompleted){
                     EndScene("ISS Tour");
                     return;
                 }
+                else if (currentQuest.landmark == Landmark.NULL)
+                {
+                    PointingTutorial();
+                    return;
+                }
+                
                 string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
                 mainNotification.UpdateText("Please go to the <b><color=#"+col+">" + currentQuest.landmark + "</color></b> by following the arrow below", 1, 1);
                 pointToTarget.ToggleVisibility(true, nodeManager.ReturnPosition(currentQuest.landmark));
@@ -136,6 +147,7 @@ public class QuestManager : MonoBehaviour
 
     private void FirstSetup()
     {
+        
         if (firstTaskTriggered) return;
         
         if (sceneName == sceneNames[0])
@@ -173,6 +185,23 @@ public class QuestManager : MonoBehaviour
         string totask = "" + currentQuest.landmark;
         DataLogger.Instance.LogActivityData(fromtask,totask, finalTime);
         StartCoroutine(ModuleInfo());
+    }
+
+    private void PointingTutorial()
+    {
+        mainNotification.UpdateText("point to the X and press X Button to confirm location",1,1);
+        locationPointer.ToggleVisibility(true);
+        SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
+    }
+
+    private void PointingTutorialCompleted()
+    {
+        SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = true;
+        locationPointer.ToggleVisibility(false);
+        isPointingTutorialCompleted = true;
+        InitialiseNextQuest();
+        
+
     }
 
     private void EndScene(string questType)
