@@ -8,7 +8,7 @@ public class SnipeTarget : MonoBehaviour
     public static event Action<float, float> Sniped;
     
     [SerializeField] private Transform playerEye;
-    
+
     private Vector3 targetCenter;
     private float angleOfDifference;
     private float performancePercentage;
@@ -27,6 +27,7 @@ public class SnipeTarget : MonoBehaviour
     {
         targetCenter = target;
         taskActive = true;
+        
     }
 
     private void CheckPerformance()

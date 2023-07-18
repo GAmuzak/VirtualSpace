@@ -15,14 +15,18 @@ public class Notification : MonoBehaviour
     [SerializeField] private TextMeshProUGUI counterText;
     
     private GameObject panel;
+    private GameObject crosshair;
     private Transform rigTransform;
     private Vector3 menuOffset;
     private float baseZValue;
+    private bool isCrosshairActive;
 
+  
     private void Start()
     {
         baseZValue = transform.localPosition.z;
         panel = transform.GetChild(0).gameObject;
+        crosshair = transform.GetChild(1).gameObject;
         menuOffset = transform.position; //Just about as busted as the oculus implementation
         rigTransform = FindObjectOfType<OVRCameraRig>().gameObject.GetComponent<Transform>();
         if (sound != null && playSoundOnStart)
@@ -34,6 +38,7 @@ public class Notification : MonoBehaviour
 
     private void Update()
     {
+        
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
             bool isPanelActive = panel.activeSelf;
@@ -42,11 +47,20 @@ public class Notification : MonoBehaviour
             else 
                 Pain?.Invoke();
             panel.SetActive(!isPanelActive);
+            crosshair.SetActive(false);
+        }
+        if (isCrosshairActive & !panel.activeSelf)
+        {
+            crosshair.SetActive(true);
         }
         if (!panel.activeSelf) return;
+        
         UpdatePosition();
     }
-
+    public void AddCrosshair()
+    {
+        isCrosshairActive = true;
+    }
     private void UpdatePosition()
     {
         float adjustmentVal = player.transform.rotation.x;
@@ -57,6 +71,8 @@ public class Notification : MonoBehaviour
     public void UpdateText(string newText, int index, int totalCount)
     {
         panel.SetActive(true);
+        crosshair.SetActive(false);
+        isCrosshairActive = false;
         // SetLocation();
         PlaySound();
         targetText.SetText(newText);

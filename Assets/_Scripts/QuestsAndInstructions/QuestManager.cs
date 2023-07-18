@@ -134,6 +134,7 @@ public class QuestManager : MonoBehaviour
                 }
                 string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
                 mainNotification.UpdateText("Please point at the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>", 2, 2);
+                mainNotification.AddCrosshair();
                 snipeTarget.SetTarget(NodeManager.Instance.ReturnPosition(currentQuest.landmark));
                 
                 break;
