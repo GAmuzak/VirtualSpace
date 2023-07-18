@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1478906399521943881}
   - component: {fileID: 3280928122213254163}
   - component: {fileID: 3865754835846371487}
+  - component: {fileID: 187739843}
   m_Layer: 0
   m_Name: Cevis.Mount
   m_TagString: Untagged
@@ -83,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &187739843
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4649522324430918920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5931453296644549851, guid: 1ec9d2e73c68cf648b538f0fd8a35616, type: 3}
 --- !u!1 &5914126521802374466
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +109,7 @@ GameObject:
   - component: {fileID: 4225619164403237002}
   - component: {fileID: 8501299850546095822}
   - component: {fileID: 938207736869686091}
+  - component: {fileID: 87766566}
   m_Layer: 0
   m_Name: CEVIS.Bike
   m_TagString: Untagged
@@ -166,6 +182,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &87766566
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914126521802374466}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7441411264064666644, guid: 1ec9d2e73c68cf648b538f0fd8a35616, type: 3}
 --- !u!1 &6467740260365153131
 GameObject:
   m_ObjectHideFlags: 0

@@ -1217,7 +1217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1791364888424240322, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1926015404308859355, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1279,6 +1279,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2257641498231620900, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1031166461365c1438decd061cceaff8, type: 3}
     - target: {fileID: 2900792464466199360, guid: 21eb8e18a0f1e54488aa42fdf925f62d, type: 3}
       propertyPath: m_Name
       value: BetterNotif

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7913997599076791251}
   - component: {fileID: 3444704123483656330}
   - component: {fileID: 4966489566861633573}
+  - component: {fileID: 311207924}
   m_Layer: 0
   m_Name: Airlock_Int_Wall_Starboard
   m_TagString: Untagged
@@ -83,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &311207924
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370806762712297217}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2138628246384273075, guid: 1ec9d2e73c68cf648b538f0fd8a35616, type: 3}
 --- !u!1 &2418398227083410022
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +109,7 @@ GameObject:
   - component: {fileID: 1539906741523508484}
   - component: {fileID: 6141813904519835400}
   - component: {fileID: 8832782509153860019}
+  - component: {fileID: 608438054}
   m_Layer: 0
   m_Name: Airlock_Int_Lights_Illum
   m_TagString: Untagged
@@ -166,6 +182,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &608438054
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2418398227083410022}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6768645415429654751, guid: 1ec9d2e73c68cf648b538f0fd8a35616, type: 3}
 --- !u!1 &2474232132748660951
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,6 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1757327399577270208}
   - component: {fileID: 2583300455613763967}
+  - component: {fileID: 4972061814095657977}
   m_Layer: 0
   m_Name: Airlock
   m_TagString: Untagged
@@ -202,6 +233,7 @@ Transform:
   - {fileID: 1539906741523508484}
   - {fileID: 7374649820462067873}
   - {fileID: 7913997599076791251}
+  - {fileID: 2302945078769286408}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -217,6 +249,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f0c3395f5a04f53ad7f644a0377c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &4972061814095657977
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474232132748660951}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 42.469685, y: 43.709827, z: 55.900642}
+  m_Center: {x: 0, y: 0, z: 13.447582}
+--- !u!1 &3013526365844144759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2302945078769286408}
+  - component: {fileID: 3004119527700143555}
+  - component: {fileID: 6618523626141089761}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2302945078769286408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013526365844144759}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1757327399577270208}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3004119527700143555
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013526365844144759}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 50, y: 50, z: 38.184418}
+  m_Center: {x: 0, y: 0, z: 19.965033}
+--- !u!114 &6618523626141089761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013526365844144759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6526e69abb0e7459c904cf7536c134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  node: {fileID: 2583300455613763967}
 --- !u!1 &4104937799980533117
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,6 +332,7 @@ GameObject:
   - component: {fileID: 8448859183046902493}
   - component: {fileID: 8090164281434643508}
   - component: {fileID: 1795959018506008732}
+  - component: {fileID: 1292118474}
   m_Layer: 0
   m_Name: Airlock_Int_CrewLock_Simp_Door
   m_TagString: Untagged
@@ -300,6 +405,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1292118474
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4104937799980533117}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -132665865171896229, guid: 1ec9d2e73c68cf648b538f0fd8a35616, type: 3}
 --- !u!1 &7926964083782670233
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,6 +430,7 @@ GameObject:
   - component: {fileID: 1177322966670391976}
   - component: {fileID: 3955803246699209157}
   - component: {fileID: 597470540594596158}
+  - component: {fileID: 1413564512}
   m_Layer: 0
   m_Name: Airlock_Int_Handles_Metallics
   m_TagString: Untagged
@@ -383,6 +503,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1413564512
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926964083782670233}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1382039110046626360, guid: 1ec9d2e73c68cf648b538f0fd8a35616, type: 3}
 --- !u!1 &8245147134285702687
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +528,7 @@ GameObject:
   - component: {fileID: 7374649820462067873}
   - component: {fileID: 3529247358574230531}
   - component: {fileID: 2513932214381358951}
+  - component: {fileID: 2091655605}
   m_Layer: 0
   m_Name: Airlock_Int_se_191_stowage_rack_1
   m_TagString: Untagged
@@ -469,6 +604,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2091655605
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8245147134285702687}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -9134676095589134092, guid: 1ec9d2e73c68cf648b538f0fd8a35616, type: 3}
 --- !u!1 &8460104993779890339
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +629,7 @@ GameObject:
   - component: {fileID: 2076730426829508976}
   - component: {fileID: 8312971967848515284}
   - component: {fileID: 6925824465900469825}
+  - component: {fileID: 1241336528}
   m_Layer: 0
   m_Name: Airlock_Int_Enclosure
   m_TagString: Untagged
@@ -554,6 +704,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1241336528
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8460104993779890339}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4921896389792054685, guid: 1ec9d2e73c68cf648b538f0fd8a35616, type: 3}
 --- !u!1 &9101751333712388925
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,6 +729,7 @@ GameObject:
   - component: {fileID: 5373890044262194096}
   - component: {fileID: 4483537869542825511}
   - component: {fileID: 2400352633358140925}
+  - component: {fileID: 595974399}
   m_Layer: 0
   m_Name: Airlock_Int_Hatch_Stbd
   m_TagString: Untagged
@@ -637,3 +802,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &595974399
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9101751333712388925}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1589911231590548824, guid: 1ec9d2e73c68cf648b538f0fd8a35616, type: 3}

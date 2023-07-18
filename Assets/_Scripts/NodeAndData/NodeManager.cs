@@ -51,10 +51,13 @@ public class NodeManager : MonoBehaviour
     public void Entered(Node node)
     {
         currentPlayerNode = node;
-        EnteredNode?.Invoke(currentPlayerNode.name);
         dataLogger.LogNodeData(node.name,1, currentTask);
     }
     
+    public void EnteredInnerNode(Node node)
+    {
+        EnteredNode?.Invoke(currentPlayerNode.name);
+    }
     public void Exited(Node node)
     {
         if (currentPlayerNode == node)
