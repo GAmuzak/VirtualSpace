@@ -605,6 +605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialLocations: 04000000050000000200000001000000000000000100000002000000050000000400000003000000
+  locationPointer: {fileID: 0}
   pointToTarget: {fileID: 5321399615832056407}
   mainNotification: {fileID: 1051515313}
   currentQuest: {fileID: 1736701511}
@@ -660,6 +661,7 @@ MonoBehaviour:
   pathForPositionalLogs: /Logs/MainTaskPositionalData
   pathForNodeLogs: /Logs/MainTaskNodeData
   pathForActivityLogs: /Logs/MainTaskActivityData
+  pathForKeyLogs: /Logs/MainTaskKeyData
   playerTransform: {fileID: 1892471943}
   resolution: 20
 --- !u!4 &1303127745

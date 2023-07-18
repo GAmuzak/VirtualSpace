@@ -10,6 +10,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
     [SerializeField] private string pathForPositionalLogs;
     [SerializeField] private string pathForNodeLogs;
     [SerializeField] private string pathForActivityLogs;
+    [SerializeField] private string pathForKeyLogs;
     [SerializeField] private Transform playerTransform;
     [Range(0.1f,100)][Tooltip("Sampling rate per second")]
     [SerializeField] private float resolution;
@@ -20,13 +21,16 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
     private string positionalFileName;
     private string nodeFileName;
     private string activityFileName;
+    private string keyFileName;
     private Vector3 playerLoc;
     private Vector3 playerRot;
     private List<Array> positionalData;
     private List<Array> nodeData;
     private List<Array> activityData;
+    private List<Array> keyData;
     private Camera mainCam;
     
+
     private void Start()
     {
         string logTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -37,6 +41,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         positionalData = new List<Array>();
         nodeData = new List<Array>();
         activityData = new List<Array>();
+        keyData = new List<Array>();
         if (!Directory.Exists(Application.persistentDataPath + "/logs"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/logs");
@@ -61,6 +66,12 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         if(activityFileName.Length>0){
             tw = new StreamWriter(activityFileName, false);
             tw.WriteLine("Time, Location1, Location2, PassedTime, AngleOfDifference, Performance");
+            tw.Close();
+        }
+        keyFileName = Application.persistentDataPath + pathForKeyLogs + logTime + ".csv";
+        if(keyFileName.Length>0){
+            tw = new StreamWriter(keyFileName, false);
+            tw.WriteLine("Time, PressedButton, ButtonValue");
             tw.Close();
         }
         
@@ -124,7 +135,16 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         nodeTriggerFrame[9] = playerRot.z.ToString(CultureInfo.CurrentCulture);
         nodeData.Add(nodeTriggerFrame);
     }
-    
+    public void LogKeyData(string keyName, string value)
+    {
+        if(loggingKilled) return;
+        string[] keyFrame = new string[3];
+        keyFrame[0] = Time.timeSinceLevelLoad.ToString(CultureInfo.CurrentCulture);
+        keyFrame[1] = keyName;
+        keyFrame[2] = ""+value;
+        
+        keyData.Add(keyFrame);
+    }
     private void KillLogging()
     {
         if (loggingKilled) return;
@@ -150,6 +170,14 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         {
             string[] frame = (string[]) array;
             tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]);
+        }
+        tw.Close();
+        
+        tw = new StreamWriter(keyFileName, true);
+        foreach (Array array in keyData)
+        {
+            string[] frame = (string[]) array;
+            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]);
         }
         tw.Close();
     }

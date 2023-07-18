@@ -643,6 +643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1303127745}
   - component: {fileID: 1303127744}
+  - component: {fileID: 1303127746}
   m_Layer: 0
   m_Name: DataLogger
   m_TagString: Player
@@ -665,6 +666,7 @@ MonoBehaviour:
   pathForPositionalLogs: /Logs/ISSTourPositionalData
   pathForNodeLogs: /Logs/ISSTourNodeData
   pathForActivityLogs: /Logs/ISSTourActivityData
+  pathForKeyLogs: /Logs/ISSTourKeyData
   playerTransform: {fileID: 1892471943}
   resolution: 10
 --- !u!4 &1303127745
@@ -682,6 +684,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1303127746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303127743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c783ad743a5c494b80c7488ea1cd234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1486342084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,9 +1065,6 @@ PrefabInstance:
     - target: {fileID: 4926590347846174691, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: Speed
       value: 100
-      objectReference: {fileID: 0}
-      propertyPath: maxSpeed
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4926590347846174691, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: rotationSpeed
