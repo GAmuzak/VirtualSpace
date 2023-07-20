@@ -729,7 +729,7 @@ MonoBehaviour:
   landmarkLocations:
   - {fileID: 1172863338}
   - {fileID: 4972061814095657973}
-  - {fileID: 4972061814095657972}
+  - {fileID: 0}
   - {fileID: 4972061814095657971}
   - {fileID: 1938215154}
   - {fileID: 4972061814095657970}
@@ -1492,6 +1492,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: IssInterior.fbx_Scene
       objectReference: {fileID: 0}
+    - target: {fileID: 8877841255572942303, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+      propertyPath: m_Size.z
+      value: 40.558353
+      objectReference: {fileID: 0}
+    - target: {fileID: 8877841255572942303, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+      propertyPath: m_Center.z
+      value: 18.778065
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
 --- !u!4 &4972061814095657970 stripped
@@ -1502,11 +1510,6 @@ Transform:
 --- !u!4 &4972061814095657971 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5397542899624118236, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
-  m_PrefabInstance: {fileID: 4972061814095657969}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4972061814095657972 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1607324627048003092, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
   m_PrefabInstance: {fileID: 4972061814095657969}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &4972061814095657973 stripped
