@@ -870,6 +870,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1119125826186291105, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a22e84f564f92774ebc136803b0bfe34, type: 3}
     - target: {fileID: 2587519212110632175, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1054,6 +1058,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4926590347846174691, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
+      propertyPath: maxSpeed
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4926590347846174712, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_Name
       value: PlayerController
@@ -1201,6 +1209,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1028177207194446421, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4794915908731358349, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
       propertyPath: m_RootOrder
       value: 0
