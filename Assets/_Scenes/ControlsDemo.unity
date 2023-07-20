@@ -2420,13 +2420,10 @@ MonoBehaviour:
   - You can bring this notification box up anytime
   - Simply press A once to bring it back up when dismissed
   - Use the right controller joystick to look around
-  - Moving it left and right moves your body left and right
-  - Moving the joystick up and down rotates your body up or down
   - Press the B button on the right controller for Y inversion
   - Pressing on the right controller triggers will rotate your body side to side
-  - The left controller joystick moves your body around
-  - You will move in the direction that you look when you hold forward
-  - And left and right movement is possible as well
+  - The left controller joystick moves your body around in the direction you are
+    looking
   - Pressing on the left controller triggers will move your body up and down
   - When you feel comfortable, dismiss this notification and the course will begin
   start: {fileID: 1707755677}
