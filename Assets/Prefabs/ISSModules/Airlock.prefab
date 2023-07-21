@@ -234,6 +234,7 @@ Transform:
   - {fileID: 7374649820462067873}
   - {fileID: 7913997599076791251}
   - {fileID: 2302945078769286408}
+  - {fileID: 8505788390065231821}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -306,8 +307,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 50, y: 50, z: 38.184418}
-  m_Center: {x: 0, y: 0, z: 19.965033}
+  m_Size: {x: 50, y: 50, z: 40.558353}
+  m_Center: {x: 0, y: 0, z: 18.778065}
 --- !u!114 &6618523626141089761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,6 +420,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -132665865171896229, guid: 1ec9d2e73c68cf648b538f0fd8a35616, type: 3}
+--- !u!1 &7117063841441900166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8505788390065231821}
+  m_Layer: 0
+  m_Name: Airlock_Loc
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8505788390065231821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7117063841441900166}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -28.5, z: -98.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1757327399577270208}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7926964083782670233
 GameObject:
   m_ObjectHideFlags: 0

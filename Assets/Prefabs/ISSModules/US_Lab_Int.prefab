@@ -140,6 +140,7 @@ Transform:
   - {fileID: 1491970309886534224}
   - {fileID: 1607324627048003092}
   - {fileID: 3498975061383951881}
+  - {fileID: 1681971577542657722}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -323,6 +324,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8549709177564868336, guid: 1ec9d2e73c68cf648b538f0fd8a35616, type: 3}
+--- !u!1 &1300154027700294556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1681971577542657722}
+  m_Layer: 0
+  m_Name: USLab_Loc
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1681971577542657722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300154027700294556}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -62.96, y: -0.06, z: -34.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5514090088661764070}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1746578353223699323
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,8 +596,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 66.909096, y: 32.188362, z: 33.443794}
-  m_Center: {x: -64.36872, y: 0, z: -33.26998}
+  m_Size: {x: 20.358206, y: 32.188362, z: 33.443794}
+  m_Center: {x: -64.368675, y: 0, z: -33.26998}
 --- !u!114 &4883000844999194581
 MonoBehaviour:
   m_ObjectHideFlags: 0

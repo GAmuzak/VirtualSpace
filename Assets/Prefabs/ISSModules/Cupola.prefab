@@ -588,6 +588,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1879031831127904804, guid: 1ec9d2e73c68cf648b538f0fd8a35616, type: 3}
+--- !u!1 &6016128112889101960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1560400352202016513}
+  m_Layer: 0
+  m_Name: Cupola_Loc
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1560400352202016513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016128112889101960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1, y: -28, z: -99}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9012523338104454283}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6051806621645412778
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,8 +859,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20.668554, y: 15.9798975, z: 16.519495}
-  m_Center: {x: 0, y: -25.777946, z: -98.04399}
+  m_Size: {x: 20.668554, y: 5.63966, z: 16.519495}
+  m_Center: {x: 0, y: -30.948057, z: -98.04399}
 --- !u!114 &7607352651640807963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -983,6 +1014,7 @@ Transform:
   - {fileID: 4513425295954580356}
   - {fileID: 4104831813370743945}
   - {fileID: 8635616938739964352}
+  - {fileID: 1560400352202016513}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

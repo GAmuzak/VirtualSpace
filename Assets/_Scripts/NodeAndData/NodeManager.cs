@@ -37,9 +37,10 @@ public class NodeManager : MonoBehaviour
         
         for(int i=0; i<landmarkEnums.Count; i++)
         {
-            landMarkToTransform.Add(landmarkEnums[i],TransformUtils.ReturnAveragePosition(landmarkLocations[i]));
+            landMarkToTransform.Add(landmarkEnums[i],landmarkLocations[i].position);
             colorForLandmark.Add(landmarkEnums[i],landmarkColors[i]);
         }
+        
 
         for (int i = 0; i < landmarkEnums.Count; i++)
         {
@@ -74,6 +75,7 @@ public class NodeManager : MonoBehaviour
 
     public String ReturnModuleInfo(Landmark landmark)
     {
+        print(landmark);
         return infoForLandmark[landmark];
     }
 

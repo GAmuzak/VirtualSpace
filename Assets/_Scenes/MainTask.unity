@@ -923,6 +923,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4076462010683433412, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4076462010683433412, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_LocalPosition.z
       value: 2.8
       objectReference: {fileID: 0}
