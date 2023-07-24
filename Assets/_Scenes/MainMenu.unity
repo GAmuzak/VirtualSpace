@@ -770,15 +770,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 34194315699128205, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.70710677
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 34194315699128205, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000010536712
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 34194315699128205, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000010536713
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 34194315699128205, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -796,8 +796,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 34194315858251853, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 34194315858251853, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 34194315858251853, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 34194315858251854, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
+      propertyPath: _trackingOriginType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 34194315858251854, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
       propertyPath: usePositionTracking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 34194315858251855, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
+      propertyPath: disableEyeAnchorCameras
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 34194315858251855, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
+      propertyPath: useFixedUpdateForTracking
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2023,7 +2047,7 @@ RectTransform:
   m_Children:
   - {fileID: 1012906074}
   m_Father: {fileID: 6570971041200129814}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2202,7 +2226,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6570971041200129814}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &6570971041200129814
 Transform:
@@ -2216,8 +2240,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 5908463660638157127}
   - {fileID: 2658043152884762067}
+  - {fileID: 5908463660638157127}
   m_Father: {fileID: 1408281988}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
