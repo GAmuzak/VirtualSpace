@@ -304,13 +304,14 @@ public class QuestManager : MonoBehaviour
         playerAtTarget = string.Equals(landmark, currentQuest.landmark.ToString());
     }
 
-    private void OnSniped(float angleOfDifference, float performancePercentage)
+    private void OnSniped(float angleOfDifference, float performancePercentage, float timeToComplete)
     {
         SnipeTarget.Sniped -= OnSniped;
         string task= ""+currentQuest.landmark;
         string aod = ""+angleOfDifference;
         string perf = ""+performancePercentage;
-        DataLogger.Instance.LogActivityData(task, "", "",aod, perf);
+        string time = ""+timeToComplete;
+        DataLogger.Instance.LogActivityData(task, "", "",aod, perf, time);
         // mainNotification.UpdateText("AOD:"+angleOfDifference+";\n Perf:"+performancePercentage+"%" ,1, 2);
         mainNotification.UpdateText("Thank you" ,1, 2);
         StartCoroutine(SwitchToNavigation());
