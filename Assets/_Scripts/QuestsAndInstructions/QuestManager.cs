@@ -275,10 +275,15 @@ public class QuestManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         hasTriggered = false;
+        if(introIndex==introductions.Count-1)
+        {
+            SimpleCapsuleWithStickMovement.Instance.EnableRotation = true;
+        }
         if(introIndex<introductions.Count)
         {
             mainNotification.UpdateText(introductions[introIndex], introIndex+1, introductions.Count+1);
         }
+        
         else if (introIndex == introductions.Count)
         {
             NextModuleInfo(Landmark.Airlock, introIndex+1, introductions.Count+1);
