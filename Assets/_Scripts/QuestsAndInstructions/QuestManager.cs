@@ -191,6 +191,7 @@ public class QuestManager : MonoBehaviour
     private void PointingTutorial()
     {
         mainNotification.UpdateText("point to the X and press X Button to confirm location",1,1);
+        mainNotification.AddCrosshair();
         locationPointer.ToggleVisibility(true);
         SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
     }
