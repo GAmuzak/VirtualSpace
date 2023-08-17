@@ -17,25 +17,25 @@ public class CameraFrameRate: MonoBehaviour
 
     private void Start()
     {
-        //OVRPlugin.systemDisplayFrequency = 90.0f;
+        Unity.XR.Oculus.Performance.TrySetDisplayRefreshRate(120.0f);
 
     }
 
     private void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick))
-        {
-            Unity.XR.Oculus.Performance.TrySetDisplayRefreshRate(frameRateList[count]);
-            count += 1;
-            if (count > 3)
-            {
-                count = 0;
-            }
-        }
-
-        deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
-        float fps = 1.0f / deltaTime;
-        fpsText.text = Mathf.Ceil(fps)+" - " + count;
+        // if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick))
+        // {
+        //     Unity.XR.Oculus.Performance.TrySetDisplayRefreshRate(frameRateList[count]);
+        //     count += 1;
+        //     if (count > 3)
+        //     {
+        //         count = 0;
+        //     }
+        // }
+        //
+        // deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+        // float fps = 1.0f / deltaTime;
+        // fpsText.text = Mathf.Ceil(fps)+" - " + count +" -> " + capCollider.height +" -> " + capCollider.radius;
     
 
 

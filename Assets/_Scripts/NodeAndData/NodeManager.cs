@@ -6,7 +6,7 @@ public class NodeManager : MonoBehaviour
 {
     public static NodeManager Instance;
     public static event Action<string> EnteredNode;
-
+    public static event Action ExitedNode;
 
     [SerializeField] private List<Landmark> landmarkEnums;
     [SerializeField] private List<Transform> landmarkLocations;
@@ -22,7 +22,7 @@ public class NodeManager : MonoBehaviour
 
     public int ModuleInfoCount => moduleInformation.Count;
 
-    private void Start()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -57,6 +57,7 @@ public class NodeManager : MonoBehaviour
     
     public void EnteredInnerNode(Node node)
     {
+        currentPlayerNode = node;
         EnteredNode?.Invoke(currentPlayerNode.name);
     }
     public void Exited(Node node)
@@ -66,6 +67,7 @@ public class NodeManager : MonoBehaviour
             currentPlayerNode = null;
         }
         dataLogger.LogNodeData(node.name,0, currentTask);
+        ExitedNode?.Invoke();
     }
 
     public void StartDataLogging()

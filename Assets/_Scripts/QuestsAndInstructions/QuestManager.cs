@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,7 +27,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private float buffer = 5f;
     [SerializeField] private float moduleInfoTimer;
     [SerializeField] private Stopwatch timer;
-
+    [SerializeField] private GameObject player;
     #endregion
 
     #region FieldVars
@@ -40,9 +42,14 @@ public class QuestManager : MonoBehaviour
     private int introIndex;
     private bool hasTriggered;
     private bool isPointingTutorialCompleted;
+    private int divideTasksIntoParts = 3;
     
     #endregion
 
+    public DataLogger instance;
+    void Awake(){
+        instance = DataLogger.Instance;
+    }
     private void Start()
     {
         NodeManager.EnteredNode += AtTarget;
@@ -50,6 +57,26 @@ public class QuestManager : MonoBehaviour
         {
             0, 1, 2, 0, 3, 1, 0, 2, 1, 3, 0, 4, 1, 5, 2, 3, 4, 0, 5, 1, 4, 3, 5, 4, 2, 5, 3, 2, 4, 5
         }; //Note: getting people to replay the main quest might lead them to figure out patterns, but it's unlikely
+        
+        
+        (int wereToStart, float time) = DataLogger.Instance.GetTaskDoneNTimeStamp();
+        
+        int totalTasks = validSequence.Count;
+        int tasksPerPart = totalTasks / divideTasksIntoParts;
+        int part = wereToStart / tasksPerPart;
+        
+        
+        if (wereToStart > 0)
+        {
+            previousLandmark = (Landmark)validSequence[wereToStart - 1];
+            currentQuest.landmark = (Landmark)validSequence[wereToStart-1];
+            StartCoroutine(SwitchPositionPlayer());
+        }
+
+        NodeManager.EnteredNode += AtTarget;
+        
+        
+        validSequence = validSequence.GetRange(wereToStart, (part+1)*tasksPerPart - wereToStart);
         foreach (int num in validSequence)
         {
             mainQuestLandmarkSequence.Add((Landmark)num);
@@ -58,6 +85,15 @@ public class QuestManager : MonoBehaviour
         LocationPointer.locationPointedAt += PointingTutorialCompleted;
         StartCoroutine(SceneGrabDelay());
     }
+
+    private IEnumerator SwitchPositionPlayer()
+    {
+        yield return new WaitForSeconds(1f);
+        player.transform.position = nodeManager.ReturnPosition(previousLandmark);
+    }
+    
+
+    
 
     private void OnDisable()
     {
@@ -107,6 +143,7 @@ public class QuestManager : MonoBehaviour
                 timer.Reset();
                 timer.Begin();
                 previousLandmark = currentQuest.landmark;
+                
                 currentQuest.landmark=currentQuest.GetNextLandmark(tutorialLocations);
                 if(currentQuest.landmark == Landmark.NULL && isPointingTutorialCompleted){
                     EndScene("ISS Tour");
@@ -127,6 +164,7 @@ public class QuestManager : MonoBehaviour
             {
                 SnipeTarget.Sniped += OnSniped;
                 previousLandmark = currentQuest.landmark;
+                
                 currentQuest.landmark=currentQuest.GetNextLandmark(mainQuestLandmarkSequence);
                 if (currentQuest.landmark == Landmark.NULL) {
                     EndScene("Main Task");
@@ -314,10 +352,11 @@ public class QuestManager : MonoBehaviour
     {
         SnipeTarget.Sniped -= OnSniped;
         string task= ""+currentQuest.landmark;
+        string prvTask = ""+previousLandmark;  
         string aod = ""+angleOfDifference;
         string perf = ""+performancePercentage;
         string time = ""+timeToComplete;
-        DataLogger.Instance.LogActivityData(task, "", "",aod, perf, time);
+        DataLogger.Instance.LogActivityData(prvTask, task, "",aod, perf, time);
         // mainNotification.UpdateText("AOD:"+angleOfDifference+";\n Perf:"+performancePercentage+"%" ,1, 2);
         mainNotification.UpdateText("Thank you" ,1, 2);
         StartCoroutine(SwitchToNavigation());

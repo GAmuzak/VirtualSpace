@@ -34,6 +34,7 @@ public class Notification : MonoBehaviour
             SoundManager.Instance.PlaySound(sound);
         }
         panel.SetActive(false);
+        NodeManager.ExitedNode += DismissNotification;
     }
 
     private void Update()
@@ -56,6 +57,16 @@ public class Notification : MonoBehaviour
         if (!panel.activeSelf) return;
         
         UpdatePosition();
+    }
+
+    private void OnDestroy()
+    {
+        NodeManager.ExitedNode -= DismissNotification;
+    }
+
+    public void DismissNotification()
+    {
+        panel.SetActive(false);
     }
     public void AddCrosshair()
     {

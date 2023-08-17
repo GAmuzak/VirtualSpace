@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    [SerializeField] private UserManager userManager;
     private void OnEnable()
     {
         QuestManager.EndGame += ReturnToMenu;
@@ -33,4 +34,10 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+    
+    public void ChangeUser(int user)
+    {
+        userManager.ChangeUser(user);
+    }
+    
 }

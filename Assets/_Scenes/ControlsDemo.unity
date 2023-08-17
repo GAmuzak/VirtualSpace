@@ -1473,6 +1473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96a3297bcbb525a4db3f3e652fe255dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userManager: {fileID: 0}
 --- !u!1 &600340947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,10 +1503,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9601c77998c9048821faee56e1dcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathForPositionalLogs: /Logs/ControlsTutPositionalData
+  pathForDataLogs: /Logs/
+  pathForPositionalLogs: /ControlsTutPositionalData
   pathForNodeLogs: 
   pathForActivityLogs: 
-  pathForKeyLogs: /Logs/ControlsTutKeyData
+  pathForKeyLogs: /ControlsTutKeyData
   playerTransform: {fileID: 967031036}
   resolution: 0
 --- !u!4 &600340949
@@ -2314,6 +2316,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6729136447245143024, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_AllowDynamicResolution
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769763939100430150, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769763939100430150, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769763939100430150, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769763939100430150, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769763939100430150, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769763939100430150, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6940663290941422877, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
