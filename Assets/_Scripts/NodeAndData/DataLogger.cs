@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +20,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
     [SerializeField] private float resolution;
 
     private bool loggingKilled;
+    private bool isSavingLog;
     private float waitTime;
     private float timePassed;
     private TextWriter tw;
@@ -61,6 +63,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
             Directory.CreateDirectory(userName);
         }
 
+        
         if (!File.Exists(userName + "/info.txt"))
         {
             tw = new StreamWriter(userName + "/info.txt", false); 
@@ -71,8 +74,11 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         {
             string file = File.ReadAllText(userName + "/info.txt");
             string[] lines = file.Split('\n');
-            float lastTimeStamp = float.Parse(lines[1].Split(',')[0]);
-            timePassed = lastTimeStamp;
+            if (lines.Length > 2)
+            {
+                float lastTimeStamp = float.Parse(lines[1].Split(',')[0]);
+                timePassed = lastTimeStamp;
+            }
         }
 
         positionalFileName = Application.persistentDataPath + pathForDataLogs + currentUser  + pathForPositionalLogs +  SceneManager.GetActiveScene().name + ".csv";
@@ -117,29 +123,26 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         if (Directory.Exists(worldsFolder))
         {
             DirectoryInfo d = new DirectoryInfo(worldsFolder);
-            fileName = d.GetFiles("MainTaskActivityData*.csv")[0].ToString();
-            string fileContents = File.ReadAllText(fileName);
-            string[] lines = fileContents.Split("\n");
-
-            if (lines.Length > 3)
+            if (d.GetFiles("MainTaskActivityData*.csv").Length > 0)
             {
-                string[] lastRow = lines[lines.Length - 2].Split(',');
-                string[] secondLastRow = lines[lines.Length - 3].Split(',');
+                fileName = d.GetFiles("MainTaskActivityData*.csv")[0].ToString();
+                string fileContents = File.ReadAllText(fileName);
+                string[] lines = fileContents.Split("\n");
 
-                timeStamp = float.Parse(lastRow[0]);
-                noOfTaskDone = (lines.Length - 2) / 2;
-                if (lastRow[1] == secondLastRow[2])
+                if (lines.Length > 3)
                 {
-                    timeStamp = float.Parse(secondLastRow[0]);
+                    string[] lastRow = lines[lines.Length - 2].Split(',');
+                    string[] secondLastRow = lines[lines.Length - 3].Split(',');
+
+                    timeStamp = float.Parse(lastRow[0]);
+                    noOfTaskDone = (lines.Length - 2) / 2;
+                    if (lastRow[1] == secondLastRow[2])
+                    {
+                        timeStamp = float.Parse(secondLastRow[0]);
+                    }    
                 }
             }
-            else
-            {
-                timeStamp = 0;
-                noOfTaskDone = 0;
-            }
         }
-        print("this -> " + noOfTaskDone + " " + timeStamp + " this");
         return (noOfTaskDone, timeStamp);
     }
     private void DeleteLastDataEntry(float timeStamp)
@@ -150,7 +153,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         if (Directory.Exists(worldsFolder))
         {
             DirectoryInfo d = new DirectoryInfo(worldsFolder);
-            FileInfo[] files = d.GetFiles("*.csv");
+            FileInfo[] files = d.GetFiles("MainTask*.csv");
             foreach (FileInfo file in files)
             {
 
@@ -178,12 +181,12 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
 
     private void OnEnable()
     {
-        QuestManager.EndGame += KillLogging;
+        QuestManager.EndGame += KillLoggingThread;
     }
 
     private void OnDisable()
     {
-        QuestManager.EndGame -= KillLogging;
+        QuestManager.EndGame -= KillLoggingThread;
     }
 
     private void Update()
@@ -191,10 +194,23 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         timePassed += Time.deltaTime;
         playerLoc = playerTransform.position;
         playerRot = playerTransform.eulerAngles;
+        if (!isSavingLog)
+        {
+            StartCoroutine(SaveLog());
+        }
         if (!OVRInput.GetDown(OVRInput.Button.Start)) return;
-        KillLogging();
+        KillLoggingThread();
     }
 
+    private IEnumerator SaveLog()
+    {
+        if(isSavingLog) yield break;
+        isSavingLog = true;
+
+        yield return new WaitForSeconds(1);
+        SavingLog();
+        isSavingLog = false;
+    }
     private IEnumerator CallLogger(float timeToWait)
     {
         while (!loggingKilled)
@@ -252,47 +268,73 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         tw.WriteLine(SavedTime+","+ControlDone+","+TourDone+","+MainTaskDone);
         tw.Close();
     }
-    
-    private void KillLogging()
+
+    private void SavingLog()
     {
-        if (loggingKilled) return;
+        tw = new StreamWriter(positionalFileName, true);
+
+        List<Array> arr =  new List<Array>(positionalData);
+        positionalData.Clear();
+    
+        foreach (Array array in arr)
+        {
+            float[] frame = (float[])array;
+            tw.WriteLine(frame[0] + "," + frame[1] + "," + frame[2] + "," + frame[3] + "," + frame[4] + "," + frame[5] +
+                         "," + frame[6]);
+        }
+
+        tw.Close();
+
+        tw = new StreamWriter(nodeFileName, true);
+        arr = new List<Array>(nodeData);
+        nodeData.Clear();
+        foreach (Array array in arr)
+        {
+            string[] frame = (string[])array;
+            tw.WriteLine(frame[0] + "," + frame[1] + "," + frame[2] + "," + frame[3] + "," + frame[4] + "," + frame[5] +
+                         "," + frame[6] + "," + frame[7] + "," + frame[8] + "," + frame[9])
+        }
+
+        tw.Close();
+
+        tw = new StreamWriter(activityFileName, true);
+        arr = new List<Array>(activityData);
+        activityData.Clear();
+        foreach (Array array in arr)
+        {
+            string[] frame = (string[])array;
+            tw.WriteLine(frame[0] + "," + frame[1] + "," + frame[2] + "," + frame[3] + "," + frame[4] + "," + frame[5] +
+                         "," + frame[6]);
+        }
+    
+        tw.Close();
+
+        tw = new StreamWriter(keyFileName, true);
+        arr = new List<Array>(keyData);
+        keyData.Clear();
+        foreach (Array array in arr)
+        {
+            string[] frame = (string[])array;
+            tw.WriteLine(frame[0] + "," + frame[1] + "," + frame[2]);
+        
+        }
+
+        tw.Close();
+    }
+
+    private void KillLoggingThread()
+    {
+        Thread thread = new Thread(KillLogging);
+    }
+    private void KillLogging(){
+        
+
+    if (loggingKilled) return;
         loggingKilled = true;
         
-        
-        tw = new StreamWriter(positionalFileName, true);
-        foreach (Array array in positionalData)
-        {
-            float[] frame = (float[]) array;
-            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]+","+frame[6]);
-        }
-        tw.Close();
-        
-        tw = new StreamWriter(nodeFileName, true);
-        foreach (Array array in nodeData)
-        {
-            string[] frame = (string[]) array;
-            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]+","+frame[6]+","+frame[7]+","+frame[8]+","+frame[9]);
-        }
-        tw.Close();
-        
-        tw = new StreamWriter(activityFileName, true);
-        foreach (Array array in activityData)
-        {
-            string[] frame = (string[]) array;
-            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]+","+frame[3]+","+frame[4]+","+frame[5]+","+frame[6]);
-        }
-        tw.Close();
-        
-        tw = new StreamWriter(keyFileName, true);
-        foreach (Array array in keyData)
-        {
-            string[] frame = (string[]) array;
-            tw.WriteLine(frame[0]+","+frame[1]+","+frame[2]);
-        }
-        tw.Close();
+        SavingLog();
         
         (int mainTaskDone, float lastSaveTime)= GetTaskDoneNTimeStamp();
-        print("this -> " + mainTaskDone + " " + lastSaveTime + " this");
         DeleteLastDataEntry(lastSaveTime);
         
         tw = new StreamWriter(Application.persistentDataPath + pathForDataLogs + currentUser + "/info.txt", false);
