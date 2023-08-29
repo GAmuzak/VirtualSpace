@@ -79,6 +79,7 @@ public class ControlsRunManager : MonoBehaviour
         {
             timer.Pause();
             DisplayStats();
+            DataLogger.Instance.LogActivityData( "start", "stop",  $"{timer.GetRawElapsedTime():0.##}");
         }
     }
 

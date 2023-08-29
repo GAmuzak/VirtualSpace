@@ -1505,11 +1505,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathForDataLogs: /Logs/
   pathForPositionalLogs: /ControlsTutPositionalData
-  pathForNodeLogs: 
-  pathForActivityLogs: 
+  pathForNodeLogs: /ControlsTutNodeData
+  pathForActivityLogs: /ControlsTutActivityData
   pathForKeyLogs: /ControlsTutKeyData
   playerTransform: {fileID: 967031036}
-  resolution: 0
+  resolution: 10
 --- !u!4 &600340949
 Transform:
   m_ObjectHideFlags: 0
