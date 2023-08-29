@@ -292,7 +292,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         {
             string[] frame = (string[])array;
             tw.WriteLine(frame[0] + "," + frame[1] + "," + frame[2] + "," + frame[3] + "," + frame[4] + "," + frame[5] +
-                         "," + frame[6] + "," + frame[7] + "," + frame[8] + "," + frame[9])
+                         "," + frame[6] + "," + frame[7] + "," + frame[8] + "," + frame[9]);
         }
 
         tw.Close();
