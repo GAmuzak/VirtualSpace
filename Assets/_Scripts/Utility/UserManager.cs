@@ -8,6 +8,7 @@ public class UserManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI userText;
     
+    [SerializeField] private TextMeshProUGUI DebugText;
     private int currentUser;
     
     void Start() 
@@ -42,7 +43,8 @@ public class UserManager : MonoBehaviour
         {
             while (true)
             {   
-                if (!Directory.Exists(Application.persistentDataPath +"\\logs\\user"+ user))
+                
+                if (!Directory.Exists(Application.persistentDataPath +"/Logs/user"+ user+"/"))
                 {
                     break;
                 }
