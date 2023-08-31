@@ -157,7 +157,7 @@ public class QuestManager : MonoBehaviour
                 }
                 else if (currentQuest.landmark == Landmark.NULL)
                 {
-                    PointingTutorial();
+                    StartCoroutine(PointingTutorial());
                     return;
                 }
                 
@@ -242,8 +242,6 @@ public class QuestManager : MonoBehaviour
 
     private void EndCurrentQuest()
     {
-        timer2.Stop();
-        TimerManager.timerRanOut -= GettingHints;
         timer.Pause();
         currentQuest.state = QuestState.Finished;
         pointToTarget.ToggleVisibility(false, nodeManager.ReturnPosition(currentQuest.landmark));
@@ -256,12 +254,18 @@ public class QuestManager : MonoBehaviour
         StartCoroutine(ModuleInfo());
     }
 
-    private void PointingTutorial()
+    private IEnumerator PointingTutorial()
     {
-        mainNotification.UpdateText("point to the X and press X Button to confirm location",1,1);
-        mainNotification.AddCrosshair();
-        locationPointer.ToggleVisibility(true);
         SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
+        locationPointer.ToggleVisibility(true);
+     
+        mainNotification.UpdateText("In the main task, you will be asked to look at a target and press X",1,3);
+        yield return new WaitForSeconds(3f);
+        mainNotification.UpdateText("“To practice this, a star will appear in the environment",2,3);
+        yield return new WaitForSeconds(3f);
+        mainNotification.UpdateText("please dismiss this notification and point the crosshairs at the star then press X",3,3);
+        yield return new WaitForSeconds(3f);
+        mainNotification.AddCrosshair();
     }
 
     private void PointingTutorialCompleted()
