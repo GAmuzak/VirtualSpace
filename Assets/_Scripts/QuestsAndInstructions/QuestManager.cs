@@ -26,8 +26,12 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private List<string> mainTaskInstructions;
     [SerializeField] private float buffer = 5f;
     [SerializeField] private float moduleInfoTimer;
+    [SerializeField] private int hintTime = 90;
     [SerializeField] private Stopwatch timer;
+    [SerializeField] private TimerManager timer2;
     [SerializeField] private GameObject player;
+    [SerializeField] private StarManager star;
+    
     #endregion
 
     #region FieldVars
@@ -43,6 +47,8 @@ public class QuestManager : MonoBehaviour
     private bool hasTriggered;
     private bool isPointingTutorialCompleted;
     private int divideTasksIntoParts = 3;
+    private bool hintUsed = false;
+
     
     #endregion
 
@@ -184,6 +190,28 @@ public class QuestManager : MonoBehaviour
         currentQuest.state = QuestState.Active;
     }
 
+    private void GettingHints()
+    { 
+        hintUsed = true;
+        string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
+        mainNotification.UpdateText("HINT - <b><color=#"+col+">" + currentQuest.landmark + "</color></b> is near the star, try finding the star", 1, 1);
+        
+        if(currentQuest.landmark == Landmark.Airlock || currentQuest.landmark == Landmark.USLab)
+        {
+           star.DisplayStar(NodeManager.Instance.ReturnPosition(Landmark.Node1));
+           
+        }
+        else if(currentQuest.landmark == Landmark.Storage || currentQuest.landmark == Landmark.Cupola)
+        {
+            star.DisplayStar(NodeManager.Instance.ReturnPosition(Landmark.Node3));
+        }
+        else if(currentQuest.landmark == Landmark.JLP || currentQuest.landmark == Landmark.Columbus)
+        {
+            star.DisplayStar(NodeManager.Instance.ReturnPosition(Landmark.Node2));
+        }
+    }
+
+    
     private void FirstSetup()
     {
         
@@ -214,6 +242,8 @@ public class QuestManager : MonoBehaviour
 
     private void EndCurrentQuest()
     {
+        timer2.Stop();
+        TimerManager.timerRanOut -= GettingHints;
         timer.Pause();
         currentQuest.state = QuestState.Finished;
         pointToTarget.ToggleVisibility(false, nodeManager.ReturnPosition(currentQuest.landmark));
@@ -222,7 +252,7 @@ public class QuestManager : MonoBehaviour
         mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!",1 , 3);
         string fromtask = "" + previousLandmark;
         string totask = "" + currentQuest.landmark;
-        DataLogger.Instance.LogActivityData(fromtask,totask, finalTime);
+        DataLogger.Instance.LogActivityData(fromtask,totask, finalTime, $"{hintUsed}");
         StartCoroutine(ModuleInfo());
     }
 
@@ -253,15 +283,19 @@ public class QuestManager : MonoBehaviour
 
     private IEnumerator SwitchToNextPointTask()
     {
+        timer2.Stop();
+        TimerManager.timerRanOut -= GettingHints;
         timer.Pause();
         currentQuest.state = QuestState.Finished;
         SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = false;
+        star.DisplayStar(Vector3.zero, true);
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
         mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!", 1,2);
         string finalTime = $"{timer.GetRawElapsedTime():0.##}";
         string fromtask = "" + previousLandmark;
         string totask = "" + currentQuest.landmark;
-        DataLogger.Instance.LogActivityData(fromtask,totask, finalTime);
+        DataLogger.Instance.LogActivityData(fromtask,totask, finalTime, $"{hintUsed}");
+        hintUsed = false;
 
         yield return new WaitForSeconds(3f);
         currentQuest.type = QuestType.PointToTarget;
@@ -277,6 +311,9 @@ public class QuestManager : MonoBehaviour
         SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = true;
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
         mainNotification.UpdateText("Please go to the <b><color=#"+col+">" + currentQuest.landmark + "</color></b>", 2, 2);
+        timer2.Begin(hintTime);
+        TimerManager.timerRanOut += GettingHints;
+
     }
 
     private void MainTaskLoop()
@@ -356,7 +393,7 @@ public class QuestManager : MonoBehaviour
         string aod = ""+angleOfDifference;
         string perf = ""+performancePercentage;
         string time = ""+timeToComplete;
-        DataLogger.Instance.LogActivityData(prvTask, task, "",aod, perf, time);
+        DataLogger.Instance.LogActivityData(prvTask, task,aod: aod, performance:perf, timeToComplete: time);
         // mainNotification.UpdateText("AOD:"+angleOfDifference+";\n Perf:"+performancePercentage+"%" ,1, 2);
         mainNotification.UpdateText("Thank you" ,1, 2);
         StartCoroutine(SwitchToNavigation());

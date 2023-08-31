@@ -6,5 +6,8 @@
     USLab=2,
     Airlock=3,
     Cupola=4,
-    Storage=5
+    Storage=5,
+    Node1=6,
+    Node2=7,
+    Node3=8
 }

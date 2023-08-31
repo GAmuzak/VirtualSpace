@@ -99,7 +99,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         activityFileName = Application.persistentDataPath + pathForDataLogs + currentUser  + pathForActivityLogs +  SceneManager.GetActiveScene().name + ".csv";
         if(activityFileName.Length>0 && !File.Exists(activityFileName)){
             tw = new StreamWriter(activityFileName, false);
-            tw.WriteLine("Time, Location1, Location2, PassedTime, AngleOfDifference, Performance, TimeTakenToComplete");
+            tw.WriteLine("Time, Location1, Location2, PassedTime, HintNeeded, AngleOfDifference, Performance, TimeTakenToComplete");
             tw.Close();
         }
         keyFileName = Application.persistentDataPath + pathForDataLogs + currentUser + pathForKeyLogs +  SceneManager.GetActiveScene().name + ".csv";
@@ -220,17 +220,18 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         }
     }
 
-    public void LogActivityData(string location1, string location2="", string passedTime="", string aod="", string performance="", string timeToComplete="")
+    public void LogActivityData(string location1, string location2="", string passedTime="", string hintNeeded="", string aod="", string performance="", string timeToComplete="")
     {
         if (loggingKilled) return;
-        string[] activityFrame = new string[7];
+        string[] activityFrame = new string[8];
         activityFrame[0] = (timePassed).ToString(CultureInfo.CurrentCulture);
         activityFrame[1] = location1;
         activityFrame[2] = location2;
         activityFrame[3] = passedTime;
-        activityFrame[4] = aod;
-        activityFrame[5] = performance;
-        activityFrame[6] = timeToComplete;
+        activityFrame[4] = hintNeeded;
+        activityFrame[5] = aod;
+        activityFrame[6] = performance;
+        activityFrame[7] = timeToComplete;
         
         activityData.Add(activityFrame);
     }
@@ -304,7 +305,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         {
             string[] frame = (string[])array;
             tw.WriteLine(frame[0] + "," + frame[1] + "," + frame[2] + "," + frame[3] + "," + frame[4] + "," + frame[5] +
-                         "," + frame[6]);
+                         "," + frame[6],"," + frame[7]);
         }
     
         tw.Close();
