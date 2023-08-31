@@ -9,6 +9,7 @@ public class SnipeTarget : MonoBehaviour
     public static event Action<float, float, float> Sniped;
     
     [SerializeField] private Transform playerEye;
+    [SerializeField] private GameObject crosshair;
 
     private Vector3 targetCenter;
     private float angleOfDifference;
@@ -20,7 +21,7 @@ public class SnipeTarget : MonoBehaviour
     private void Update()
     {
         if (!taskActive) return;
-        if (!OVRInput.GetDown(OVRInput.Button.Three)) return;
+        if (!OVRInput.GetDown(OVRInput.Button.Three) || !crosshair.activeSelf) return;
         CheckPerformance();
         Sniped?.Invoke(angleOfDifference, performancePercentage, timeToComplete);
         taskActive = false;
