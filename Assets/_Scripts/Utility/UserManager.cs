@@ -8,7 +8,6 @@ public class UserManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI userText;
     
-    [SerializeField] private TextMeshProUGUI DebugText;
     private int currentUser;
     
     void Start() 
@@ -18,7 +17,7 @@ public class UserManager : MonoBehaviour
         currentUser = FindLatestUser();
         PlayerPrefs.SetInt("currentUser", currentUser);
         SetUserText(currentUser);
-    }
+    } 
 
     public void ChangeUser(int value)
     {

@@ -365,6 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerEye: {fileID: 1892471944}
+  crosshair: {fileID: 0}
 --- !u!1001 &876824841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -543,6 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 322162a5b8ab32747a08210bbb64a314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elapsedRunningTime: 0
 --- !u!1 &1275483557
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,9 +658,11 @@ MonoBehaviour:
   mainTaskInstructions: []
   buffer: 5
   moduleInfoTimer: 7
+  hintTime: 90
   timer: {fileID: 1158111615}
   timer2: {fileID: 0}
   player: {fileID: 0}
+  star: {fileID: 0}
   instance: {fileID: 0}
 --- !u!1 &1303127743
 GameObject:
@@ -697,6 +701,7 @@ MonoBehaviour:
   pathForKeyLogs: /ISSTourKeyData
   playerTransform: {fileID: 1892471943}
   resolution: 10
+  menuManager: {fileID: 0}
 --- !u!4 &1303127745
 Transform:
   m_ObjectHideFlags: 0
@@ -758,7 +763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a06455b9be4d9099355475628ccc90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  landmarkEnums: 000000000100000002000000030000000400000005000000
+  landmarkEnums: 000000000100000002000000030000000400000005000000060000000700000008000000
   landmarkLocations:
   - {fileID: 1859032421}
   - {fileID: 126274570}
@@ -766,8 +771,14 @@ MonoBehaviour:
   - {fileID: 1392190723}
   - {fileID: 1537626342}
   - {fileID: 4972061814095657970}
+  - {fileID: 4972061814095657973}
+  - {fileID: 4972061814095657972}
+  - {fileID: 4972061814095657971}
   landmarkColors:
   - {r: 0.9339623, g: 0.022027409, b: 0.022027409, a: 0}
+  - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
+  - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
+  - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
   - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
   - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
   - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
@@ -783,6 +794,9 @@ MonoBehaviour:
   - is where you will go to complete missions outside of the ISS called spacewalks.
   - is where you will go to get a view of earth, making a complete orbit every 90
     minutes.
+  - is where storage and important power and communications functions are held.
+  - is where storage and important power and communications functions are held.
+  - is where storage and important power and communications functions are held.
   - is where storage and important power and communications functions are held.
 --- !u!4 &1486342086
 Transform:
@@ -1518,6 +1532,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4628700110054018645, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628700110054018645, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -99.06
+      objectReference: {fileID: 0}
     - target: {fileID: 4794915908731358349, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1571,6 +1593,21 @@ PrefabInstance:
 --- !u!4 &4972061814095657970 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6572464249189808758, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+  m_PrefabInstance: {fileID: 4972061814095657969}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4972061814095657971 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4628700110054018645, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+  m_PrefabInstance: {fileID: 4972061814095657969}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4972061814095657972 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4099791964168876390, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+  m_PrefabInstance: {fileID: 4972061814095657969}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4972061814095657973 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8139607710285344408, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
   m_PrefabInstance: {fileID: 4972061814095657969}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5321399615832056406

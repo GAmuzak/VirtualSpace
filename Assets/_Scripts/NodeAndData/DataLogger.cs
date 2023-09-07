@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +20,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
     [SerializeField] private Transform playerTransform;
     [Range(0.1f,100)][Tooltip("Sampling rate per second")]
     [SerializeField] private float resolution;
+    [SerializeField] private MenuManager menuManager;
 
     private bool loggingKilled;
     private bool isSavingLog;
@@ -117,8 +120,8 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
         float timeStamp = 0f;
         int noOfTaskDone = 0;
         string fileName = "";
-        currentUser =  currentUser = "user"+ PlayerPrefs.GetInt("currentUser").ToString();
-        string worldsFolder = Application.persistentDataPath + pathForDataLogs + currentUser + "\\";
+        currentUser = "user" + PlayerPrefs.GetInt("currentUser").ToString();
+        string worldsFolder = Application.persistentDataPath + pathForDataLogs + currentUser;
         // find timestamp of last file
         if (Directory.Exists(worldsFolder))
         {
@@ -148,35 +151,36 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
     private void DeleteLastDataEntry(float timeStamp)
     {
         string worldsFolder = Application.persistentDataPath + pathForDataLogs + currentUser + "\\";
-        
-        // delete all the values from the files after the timestamp
-        if (Directory.Exists(worldsFolder))
+        Thread fileThread = new Thread(() =>
         {
-            DirectoryInfo d = new DirectoryInfo(worldsFolder);
-            FileInfo[] files = d.GetFiles("MainTask*.csv");
-            foreach (FileInfo file in files)
+            // delete all the values from the files after the timestamp
+            if (Directory.Exists(worldsFolder))
             {
-
-                string fileContents = File.ReadAllText(file.FullName);
-                string[] lines = fileContents.Split("\n");
-                string newFileContents = "";
-                foreach (string line in lines)
+                DirectoryInfo d = new DirectoryInfo(worldsFolder);
+                FileInfo[] files = d.GetFiles("MainTask*.csv");
+                foreach (FileInfo file in files)
                 {
-                    string[] row = line.Split(',');
-                    if (row.Length > 1)
+                    // Read the file
+                    string[] lines = File.ReadAllLines(file.FullName);
+
+                    // Process the data (in this case, we'll capitalize each line)
+                    StringBuilder processedData = new StringBuilder();
+                    foreach (string line in lines)
                     {
-                        if (!float.TryParse(row[0], out float f) || float.Parse(row[0]) <= timeStamp)
+                        string[] row = line.Split(',');
+                        if (row.Length > 1)
                         {
-                            
-                            newFileContents += line + "\n";
+                            if (!float.TryParse(row[0], out float f) || float.Parse(row[0]) <= timeStamp)
+                            {
+                                processedData.AppendLine(line);
+                            }
+
                         }
-                        
                     }
                 }
-                File.WriteAllText(file.FullName, newFileContents);
             }
+        });
 
-        }
     }
 
     private void OnEnable()
@@ -272,6 +276,7 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
 
     private void SavingLog()
     {
+        print("saving");
         tw = new StreamWriter(positionalFileName, true);
 
         List<Array> arr =  new List<Array>(positionalData);
@@ -325,23 +330,27 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
 
     private void KillLoggingThread()
     {
-        Thread thread = new Thread(KillLogging);
+        KillLogging();
     }
     private void KillLogging(){
         
-
-    if (loggingKilled) return;
-        loggingKilled = true;
+        print("Killing Logging");
+        if (loggingKilled) return;
+            loggingKilled = true;
         
+        print("Saving Logs");
         SavingLog();
-        
+       
+        Console.WriteLine("Excel is busy");
+        print("Deleting Last Data Entry");
         (int mainTaskDone, float lastSaveTime)= GetTaskDoneNTimeStamp();
         DeleteLastDataEntry(lastSaveTime);
-        
+
         tw = new StreamWriter(Application.persistentDataPath + pathForDataLogs + currentUser + "/info.txt", false);
         tw.WriteLine("LastSaveTime, IsControlDone, IsTourDone, MainTaskDone");
         tw.WriteLine(lastSaveTime+","+ false +","+false+","+mainTaskDone);
         tw.Close();
+
     }
     
   

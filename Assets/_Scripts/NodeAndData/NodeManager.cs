@@ -6,6 +6,7 @@ public class NodeManager : MonoBehaviour
 {
     public static NodeManager Instance;
     public static event Action<string> EnteredNode;
+    public static event Action<string> CurrentNode;
     public static event Action ExitedNode;
 
     [SerializeField] private List<Landmark> landmarkEnums;
@@ -53,6 +54,7 @@ public class NodeManager : MonoBehaviour
     {
         currentPlayerNode = node;
         dataLogger.LogNodeData(node.name,1, currentTask);
+        CurrentNode?.Invoke(currentPlayerNode.name);
     }
     
     public void EnteredInnerNode(Node node)
@@ -70,9 +72,9 @@ public class NodeManager : MonoBehaviour
         ExitedNode?.Invoke();
     }
 
-    public void StartDataLogging()
+    public string ReturnCurrentPlayerNode()
     {
-        
+        return currentPlayerNode.name;
     }
 
     public String ReturnModuleInfo(Landmark landmark)

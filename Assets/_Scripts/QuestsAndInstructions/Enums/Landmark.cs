@@ -7,7 +7,7 @@
     Airlock=3,
     Cupola=4,
     Storage=5,
-    Node1=6,
-    Node2=7,
-    Node3=8
+    Node1_Int=6,
+    Node2_Int=7,
+    Node3_Int=8
 }

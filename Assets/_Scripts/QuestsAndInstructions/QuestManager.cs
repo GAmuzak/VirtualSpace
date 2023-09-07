@@ -163,7 +163,7 @@ public class QuestManager : MonoBehaviour
                 
                 string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
                 mainNotification.UpdateText("Please go to the <b><color=#"+col+">" + currentQuest.landmark + "</color></b> by following the arrow below", 1, 1);
-                pointToTarget.ToggleVisibility(true, nodeManager.ReturnPosition(currentQuest.landmark));
+                pointToTarget.ToggleVisibility(true, (currentQuest.landmark),previousLandmark:previousLandmark);
                 break;
             }
             case QuestType.PointToTarget:
@@ -198,16 +198,16 @@ public class QuestManager : MonoBehaviour
         
         if(currentQuest.landmark == Landmark.Airlock || currentQuest.landmark == Landmark.USLab)
         {
-           star.DisplayStar(NodeManager.Instance.ReturnPosition(Landmark.Node1));
+           star.DisplayStar(NodeManager.Instance.ReturnPosition(Landmark.Node1_Int));
            
         }
         else if(currentQuest.landmark == Landmark.Storage || currentQuest.landmark == Landmark.Cupola)
         {
-            star.DisplayStar(NodeManager.Instance.ReturnPosition(Landmark.Node3));
+            star.DisplayStar(NodeManager.Instance.ReturnPosition(Landmark.Node3_Int));
         }
         else if(currentQuest.landmark == Landmark.JLP || currentQuest.landmark == Landmark.Columbus)
         {
-            star.DisplayStar(NodeManager.Instance.ReturnPosition(Landmark.Node2));
+            star.DisplayStar(NodeManager.Instance.ReturnPosition(Landmark.Node2_Int));
         }
     }
 
@@ -244,7 +244,7 @@ public class QuestManager : MonoBehaviour
     {
         timer.Pause();
         currentQuest.state = QuestState.Finished;
-        pointToTarget.ToggleVisibility(false, nodeManager.ReturnPosition(currentQuest.landmark));
+        pointToTarget.ToggleVisibility(false, (currentQuest.landmark), previousLandmark:previousLandmark);
         string finalTime = $"{timer.GetRawElapsedTime():0.##}";
         string col = ColorUtility.ToHtmlStringRGB(NodeManager.Instance.ReturnColor(currentQuest.landmark));
         mainNotification.UpdateText("Congratulations, you made it to the <color=#"+col+">"+ currentQuest.landmark+"</color>!",1 , 3);
