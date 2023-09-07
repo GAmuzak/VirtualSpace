@@ -276,7 +276,6 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
 
     private void SavingLog()
     {
-        print("saving");
         tw = new StreamWriter(positionalFileName, true);
 
         List<Array> arr =  new List<Array>(positionalData);
@@ -334,15 +333,11 @@ public class DataLogger : SingletonMonoBehavior<DataLogger>
     }
     private void KillLogging(){
         
-        print("Killing Logging");
         if (loggingKilled) return;
             loggingKilled = true;
         
-        print("Saving Logs");
         SavingLog();
        
-        Console.WriteLine("Excel is busy");
-        print("Deleting Last Data Entry");
         (int mainTaskDone, float lastSaveTime)= GetTaskDoneNTimeStamp();
         DeleteLastDataEntry(lastSaveTime);
 

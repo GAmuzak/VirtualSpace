@@ -54,14 +54,9 @@ using UnityEngine;
          if (startInt != end)
          {
              int[] endInt = FindValuePath(connections, startInt, end);
-             foreach (int var in endInt)
-             {
-                 print("here" + var + $"{startInt} {end}");
-             }
-
+             
              Landmark landmark = (Landmark)Enum.Parse(typeof(Landmark), Enum.GetName(typeof(Landmark), endInt[1]));
              targetPosition = NodeManager.Instance.ReturnPosition(landmark);
-             print("here" + $"{targetPosition}");
          }
      }
 
