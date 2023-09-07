@@ -9,5 +9,6 @@
     Storage=5,
     Node1_Int=6,
     Node2_Int=7,
-    Node3_Int=8
+    Node3_Int=8,
+    JPM=9
 }

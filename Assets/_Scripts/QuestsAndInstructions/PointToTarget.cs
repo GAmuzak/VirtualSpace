@@ -15,7 +15,6 @@ using UnityEngine;
      private Quaternion rotGoal;
      private Vector3 dirn;
      private Vector3 targetPosition;
-     private int[] arr = new int[9];
      private bool active;
 
      private void Start()
@@ -39,17 +38,18 @@ using UnityEngine;
          Landmark startEnum = (Landmark)Enum.Parse(typeof(Landmark), start);
          int startInt = (int)startEnum;
          int end = (int)nextLandmark;
-         int[,] connections = new int[9, 9]
+         int[,] connections = new int[10, 10]
          {
-             { 0, 0, 0, 0, 0, 0, 0, 1, 0 },
-             { 0, 0, 0, 0, 0, 0, 0, 1, 0 }, 
-             { 0, 0, 0, 0, 0, 0, 1, 1, 0 }, 
-             { 0, 0, 0, 0, 0, 0, 1, 0, 0 }, 
-             { 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-             { 0, 0, 0, 0, 0, 0, 0, 0, 1 }, 
-             { 0, 0, 1, 1, 0, 0, 0, 0, 1 }, 
-             { 1, 1, 1, 0, 0, 0, 0, 0, 0 }, 
-             { 0, 0, 0, 0, 1, 1, 1, 0, 0 } 
+             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+             { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, 
+             { 0, 0, 0, 0, 0, 0, 1, 1, 0, 0}, 
+             { 0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, 
+             { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+             { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, 
+             { 0, 0, 1, 1, 0, 0, 0, 0, 1, 0}, 
+             { 0, 1, 1, 0, 0, 0, 0, 0, 0, 1}, 
+             { 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+             { 1, 0, 0, 0, 0, 0, 0, 1, 0, 0} 
          };
          if (startInt != end)
          {

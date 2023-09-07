@@ -763,7 +763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a06455b9be4d9099355475628ccc90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  landmarkEnums: 000000000100000002000000030000000400000005000000060000000700000008000000
+  landmarkEnums: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
   landmarkLocations:
   - {fileID: 1859032421}
   - {fileID: 126274570}
@@ -774,8 +774,10 @@ MonoBehaviour:
   - {fileID: 4972061814095657973}
   - {fileID: 4972061814095657972}
   - {fileID: 4972061814095657971}
+  - {fileID: 1680276891}
   landmarkColors:
   - {r: 0.9339623, g: 0.022027409, b: 0.022027409, a: 0}
+  - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
   - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
   - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
   - {r: 0.8784314, g: 0.05490196, b: 0.047058824, a: 0}
@@ -798,6 +800,7 @@ MonoBehaviour:
   - is where storage and important power and communications functions are held.
   - is where storage and important power and communications functions are held.
   - is where storage and important power and communications functions are held.
+  - is where storage and important power and communications functions are held.
 --- !u!4 &1486342086
 Transform:
   m_ObjectHideFlags: 0
@@ -816,6 +819,11 @@ Transform:
 --- !u!4 &1537626342 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8743269962527695052, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
+  m_PrefabInstance: {fileID: 4972061814095657969}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1680276891 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7187631519768760566, guid: 1000185e40e0c3a46b79fe55d3703289, type: 3}
   m_PrefabInstance: {fileID: 4972061814095657969}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1736701510
