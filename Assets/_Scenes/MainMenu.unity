@@ -1026,6 +1026,22 @@ PrefabInstance:
       propertyPath: useFixedUpdateForTracking
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 34194317552043977, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
+      propertyPath: EnableMovementDuringReady
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 34194317552043977, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
+      propertyPath: EnableRotationDuringReady
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 34194317552043977, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
+      propertyPath: EnableMovementDuringPostTeleport
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 34194317552043977, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
+      propertyPath: EnableRotationDuringPostTeleport
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
 --- !u!1 &731964009 stripped
@@ -2500,6 +2516,14 @@ PrefabInstance:
       propertyPath: _ovrCameraRig
       value: 
       objectReference: {fileID: 306190089}
+    - target: {fileID: 4287964715283376881, guid: 6dda9e26a3ee80547adf8103db1c38bb, type: 3}
+      propertyPath: _controllerButtonUsage
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 4287964715426471226, guid: 6dda9e26a3ee80547adf8103db1c38bb, type: 3}
+      propertyPath: _controllerButtonUsage
+      value: 33
+      objectReference: {fileID: 0}
     - target: {fileID: 5278334913604462053, guid: 6dda9e26a3ee80547adf8103db1c38bb, type: 3}
       propertyPath: m_Name
       value: InputOVR
