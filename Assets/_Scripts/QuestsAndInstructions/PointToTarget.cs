@@ -51,7 +51,11 @@ using UnityEngine;
              { 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
              { 1, 0, 0, 0, 0, 0, 0, 1, 0, 0} 
          };
-         if (startInt != end)
+         if (startInt == end)
+         {
+             targetPosition = NodeManager.Instance.ReturnPosition(nextLandmark);
+         }
+         else
          {
              int[] endInt = FindValuePath(connections, startInt, end);
              
@@ -101,7 +105,6 @@ using UnityEngine;
          this.nextLandmark = nextLandmark;
          if (active)
          {
-             print("here running");
              FindNode(NodeManager.Instance.ReturnCurrentPlayerNode());
              NodeManager.CurrentNode += FindNode;
          }

@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class QuestManager : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class QuestManager : MonoBehaviour
 
     private readonly List<Landmark> mainQuestLandmarkSequence= new List<Landmark>();
     private Landmark previousLandmark = Landmark.Airlock;
+    public int[] visted = new int[ Enum.GetValues( typeof( Landmark ) ).Length - 1];
     private int currentInfoIndex;
     private bool endGameplayLoop;
     private string sceneName;
@@ -251,7 +253,12 @@ public class QuestManager : MonoBehaviour
         string fromtask = "" + previousLandmark;
         string totask = "" + currentQuest.landmark;
         DataLogger.Instance.LogActivityData(fromtask,totask, finalTime, $"{hintUsed}");
-        StartCoroutine(ModuleInfo());
+        
+        StartCoroutine(ModuleInfo(visted[(int)currentQuest.landmark]));
+        if(visted[(int)currentQuest.landmark]==0){
+            visted[(int)currentQuest.landmark]=1;
+        }
+        
     }
 
     private IEnumerator PointingTutorial()
@@ -265,6 +272,7 @@ public class QuestManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         mainNotification.UpdateText("please dismiss this notification and point the crosshairs at the star then press X",3,3);
         yield return new WaitForSeconds(3f);
+        locationPointer.ToggleActive(true);
         mainNotification.AddCrosshair();
     }
 
@@ -272,6 +280,7 @@ public class QuestManager : MonoBehaviour
     {
         SimpleCapsuleWithStickMovement.Instance.EnableLinearMovement = true;
         locationPointer.ToggleVisibility(false);
+        locationPointer.ToggleActive(false);
         isPointingTutorialCompleted = true;
         InitialiseNextQuest();
         
@@ -403,13 +412,17 @@ public class QuestManager : MonoBehaviour
         StartCoroutine(SwitchToNavigation());
     }
 
-    private IEnumerator ModuleInfo()
+    private IEnumerator ModuleInfo(int visted)
     {
         if(currentInfoIndex<NodeManager.Instance.ModuleInfoCount)
         {
             yield return new WaitForSeconds(5f);
-            NextModuleInfo(currentQuest.landmark, 2, 3);
-            yield return new WaitForSeconds(moduleInfoTimer);
+            if(visted==0)
+            {
+                NextModuleInfo(currentQuest.landmark, 2, 3);
+                yield return new WaitForSeconds(moduleInfoTimer);
+            }
+
             mainNotification.UpdateText("Press A to dismiss this notification\nwhen you are ready to move on, press A again", 3, 3);
             Notification.NotificationDismissed += OnObservationStarted;
         }

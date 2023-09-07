@@ -32,9 +32,11 @@ public class LocationPointer : MonoBehaviour
 
     public void ToggleVisibility(bool setActive)
     {
-        active = setActive;
         gameObject.SetActive(setActive);
-        
+    }
+    public void ToggleActive(bool setActive)
+    {
+        active = setActive;
     }
 
 }
