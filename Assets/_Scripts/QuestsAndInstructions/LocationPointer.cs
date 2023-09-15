@@ -16,8 +16,8 @@ public class LocationPointer : MonoBehaviour
 
     private void Update()
     {
-        if (!active) return;
         LookAt();
+        if (!active) return;
         if (!OVRInput.GetDown(OVRInput.Button.Three)) return;
         print("in pointing should be invoking");
         locationPointedAt?.Invoke();

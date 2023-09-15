@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 34194315699128204}
   - component: {fileID: 34194315699128211}
   - component: {fileID: 34194315699128206}
+  - component: {fileID: 6614284141102631596}
   m_Layer: 0
   m_Name: MenuPlayer
   m_TagString: Player
@@ -263,6 +264,7 @@ MonoBehaviour:
   RotationAngle: 1
   Speed: 40
   CameraRig: {fileID: 0}
+  canRoll: 1
   maxSpeed: 6
   counterForceFactor: 10
   rotationSpeed: 60
@@ -298,6 +300,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
+--- !u!114 &6614284141102631596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34194315699128215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c049793857b25cf4d8bc404ece183895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 34194315699128215}
+  pointTo: {fileID: 0}
 --- !u!1 &34194315858251852
 GameObject:
   m_ObjectHideFlags: 0
@@ -5097,7 +5113,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &83578202362093159
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5114,7 +5130,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &35361398455817835
 GameObject:
   m_ObjectHideFlags: 0
@@ -5539,7 +5556,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &83566319804453380
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5556,7 +5573,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &35815456383528894
 GameObject:
   m_ObjectHideFlags: 0
@@ -6686,6 +6704,8 @@ MonoBehaviour:
   playSoundOnStart: 0
   player: {fileID: 34194315699128215}
   scaleFactor: 100
+  targetText: {fileID: 0}
+  counterText: {fileID: 0}
 --- !u!223 &8986151050155254190
 Canvas:
   m_ObjectHideFlags: 0

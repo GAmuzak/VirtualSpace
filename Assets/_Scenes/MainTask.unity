@@ -735,6 +735,7 @@ MonoBehaviour:
   timer2: {fileID: 1158111617}
   player: {fileID: 1892471944}
   star: {fileID: 1515522246}
+  visted: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   instance: {fileID: 1303127744}
 --- !u!1 &1303127743
 GameObject:
@@ -1203,6 +1204,10 @@ PrefabInstance:
     - target: {fileID: 2668640704911549884, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248063357226544493, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
+      propertyPath: pointTo
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4076462010683433412, guid: 522b89d0f09cc834db5f015f40e578f3, type: 3}
       propertyPath: m_SizeDelta.x

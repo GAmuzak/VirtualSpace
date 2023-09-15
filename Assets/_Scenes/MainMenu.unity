@@ -391,7 +391,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 381613949}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9133729, y: 1.44, z: -25.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -994,6 +994,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 34194315699128206, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 34194315699128215, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
       propertyPath: m_Name
       value: MenuPlayer
@@ -1042,26 +1046,12 @@ PrefabInstance:
       propertyPath: EnableRotationDuringPostTeleport
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6614284141102631596, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
+      propertyPath: pointTo
+      value: 
+      objectReference: {fileID: 381613949}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
---- !u!1 &731964009 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 34194315699128215, guid: e4f35cd02caed574d9009e410d1ada5f, type: 3}
-  m_PrefabInstance: {fileID: 731964007}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &731964017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 731964009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c049793857b25cf4d8bc404ece183895, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 731964009}
 --- !u!1 &736493947
 GameObject:
   m_ObjectHideFlags: 0

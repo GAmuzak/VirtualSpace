@@ -332,11 +332,11 @@ MonoBehaviour:
   virtualGreenScreenDepthTolerance: 0.2
   mrcActivationMode: 0
   isInsightPassthroughEnabled: 0
-  _trackingOriginType: 0
+  _trackingOriginType: 1
   usePositionTracking: 0
   useRotationTracking: 1
-  useIPDInPositionTracking: 1
-  resetTrackerOnLoad: 0
+  useIPDInPositionTracking: 0
+  resetTrackerOnLoad: 1
   AllowRecenter: 1
   LateControllerUpdate: 1
   LateLatching: 0
@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 4926590347846174691}
   - component: {fileID: 4926590347846174716}
   - component: {fileID: 4926590347846174689}
+  - component: {fileID: 3248063357226544493}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Player
@@ -408,7 +409,7 @@ MonoBehaviour:
   CollideLayers:
     serializedVersion: 2
     m_Bits: 1
-  HeightOffset: 0
+  HeightOffset: 0.75
   MinimumHeight: 1
   MaximumHeight: 2.5
 --- !u!114 &4926590347846174691
@@ -466,6 +467,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &3248063357226544493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4926590347846174712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c049793857b25cf4d8bc404ece183895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 4926590347846174712}
+  pointTo: {fileID: 0}
 --- !u!1 &4926590347959035564
 GameObject:
   m_ObjectHideFlags: 0

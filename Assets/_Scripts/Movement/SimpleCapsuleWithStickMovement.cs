@@ -55,10 +55,10 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 
 	private void Update()
 	{
-		if (OVRInput.GetDown(OVRInput.Button.Four))
-		{
-			isHorizontalInverted = -1*isHorizontalInverted;
-		}
+		// if (OVRInput.GetDown(OVRInput.Button.Four))
+		// {
+		// 	isHorizontalInverted = -1*isHorizontalInverted;
+		// }
 
 		if (OVRInput.GetDown(OVRInput.Button.Two))
 		{
